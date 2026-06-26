@@ -38,8 +38,12 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-medium">Duration (days)</label>
-                        <input type="number" name="duration_days" value="{{ old('duration_days', $package->duration_days) }}" class="form-control" min="1">
+                        <label class="form-label fw-medium">Duration Min (days)</label>
+                        <input type="number" name="duration_days_min" value="{{ old('duration_days_min', $package->duration_days_min) }}" class="form-control" min="1">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Duration Max (days)</label>
+                        <input type="number" name="duration_days_max" value="{{ old('duration_days_max', $package->duration_days_max) }}" class="form-control" min="1">
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-medium">Price From (USD)</label>
@@ -51,8 +55,8 @@
                         <label class="form-check-label">Published</label>
                     </div>
                     <div class="form-check form-switch mb-2">
-                        <input type="checkbox" name="is_popular" value="1" class="form-check-input" role="switch" {{ old('is_popular', $package->is_popular) ? 'checked' : '' }}>
-                        <label class="form-check-label">Popular</label>
+                        <input type="checkbox" name="featured" value="1" class="form-check-input" role="switch" {{ old('featured', $package->featured) ? 'checked' : '' }}>
+                        <label class="form-check-label">Featured</label>
                     </div>
                 </div>
             </div>

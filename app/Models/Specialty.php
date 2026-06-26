@@ -24,7 +24,24 @@ class Specialty extends Model
 
     public function getSlugOptions(): SlugOptions
     {
-        return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug');
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
+    }
+
+    /**
+     * Skip auto-generation entirely when a slug has already been set on the model
+     * (i.e. the user supplied one via the form). On create with no slug provided,
+     * the trait runs normally and derives a slug from the name.
+     */
+    public function needsSlugging(): bool
+    {
+        if (!empty($this->slug)) {
+            return false;
+        }
+
+        return parent::needsSlugging();
     }
 
     public function treatments()    { return $this->hasMany(Treatment::class); }

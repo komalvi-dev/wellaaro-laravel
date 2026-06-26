@@ -23,7 +23,7 @@ class StaffController extends Controller
         $data = $request->validate([
             'email'      => 'required|email|unique:users,email',
             'password'   => 'required|string|min:8|confirmed',
-            'role'       => 'required|in:case_manager,admin,hospital_admin',
+            'role'       => 'required|in:case_manager,admin,hospital_admin,doctor',
             'first_name' => 'required|string|max:100',
             'last_name'  => 'required|string|max:100',
             'department' => 'nullable|string|max:100',
@@ -34,7 +34,9 @@ class StaffController extends Controller
             'password' => Hash::make($data['password']),
             'role'     => $data['role'],
         ]);
-        $user->staffProfile()->create([
+        // The User booted() hook auto-creates a StaffProfile on the 'created' event.
+        // Update it here with the real data supplied by the form.
+        $user->staffProfile()->update([
             'first_name' => $data['first_name'],
             'last_name'  => $data['last_name'],
             'department' => $data['department'] ?? null,
@@ -51,7 +53,7 @@ class StaffController extends Controller
     {
         $request->validate([
             'email'      => 'required|email|unique:users,email,' . $staff->id,
-            'role'       => 'required|in:case_manager,admin,hospital_admin',
+            'role'       => 'required|in:case_manager,admin,hospital_admin,doctor',
             'first_name' => 'required|string|max:100',
             'last_name'  => 'required|string|max:100',
         ]);

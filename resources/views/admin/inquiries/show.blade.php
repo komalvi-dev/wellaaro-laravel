@@ -101,7 +101,7 @@
                     @csrf @method('PATCH')
                     <div class="mb-3">
                         <select name="status" class="form-select">
-                            @foreach(['new','reviewing','quoted','accepted','scheduled','in_progress','completed','cancelled'] as $s)
+                            @foreach(\App\Models\Inquiry::STATUSES as $s)
                             <option value="{{ $s }}" {{ $inquiry->status === $s ? 'selected' : '' }}>{{ ucfirst(str_replace('_',' ',$s)) }}</option>
                             @endforeach
                         </select>
@@ -118,7 +118,7 @@
                 <form method="POST" action="{{ route('admin.inquiries.assign', $inquiry) }}">
                     @csrf @method('PATCH')
                     <div class="mb-3">
-                        <select name="assigned_to" class="form-select">
+                        <select name="user_id" class="form-select">
                             <option value="">Unassigned</option>
                             @foreach($caseManagers ?? [] as $cm)
                             <option value="{{ $cm->id }}" {{ $inquiry->assigned_to == $cm->id ? 'selected' : '' }}>{{ $cm->name }}</option>

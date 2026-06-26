@@ -14,19 +14,12 @@ class BlogTagsController extends Controller
         return view('admin.blog_tags.index', compact('tags'));
     }
 
-    public function create()
-    {
-        return view('admin.blog_tags.create');
-    }
-
     public function store(Request $request)
     {
         $data = $request->validate(['name' => 'required|string|max:100']);
         BlogTag::create($data);
         return redirect()->route('admin.blog-tags.index')->with('success', 'Tag created.');
     }
-
-    public function show(BlogTag $blogTag) { return redirect()->route('admin.blog-tags.index'); }
 
     public function edit(BlogTag $blogTag)
     {

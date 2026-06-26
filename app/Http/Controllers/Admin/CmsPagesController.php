@@ -32,6 +32,8 @@ class CmsPagesController extends Controller
             'meta_description' => 'nullable|string|max:500',
             'meta_keywords'    => 'nullable|string|max:500',
         ]);
+        $data['published']       = $request->boolean('published');
+        $data['show_in_sitemap'] = $request->boolean('show_in_sitemap');
         $page = CmsPage::create($data);
         return redirect()->route('admin.cms-pages.edit', $page)->with('success', 'Page created.');
     }
@@ -48,7 +50,7 @@ class CmsPagesController extends Controller
 
     public function update(Request $request, CmsPage $cmsPage)
     {
-        $cmsPage->update($request->validate([
+        $data = $request->validate([
             'title'            => 'required|string|max:255',
             'template'         => 'nullable|string|max:50',
             'body'             => 'nullable|string',
@@ -57,7 +59,10 @@ class CmsPagesController extends Controller
             'meta_title'       => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'meta_keywords'    => 'nullable|string|max:500',
-        ]));
+        ]);
+        $data['published']       = $request->boolean('published');
+        $data['show_in_sitemap'] = $request->boolean('show_in_sitemap');
+        $cmsPage->update($data);
         return redirect()->route('admin.cms-pages.edit', $cmsPage)->with('success', 'Page updated.');
     }
 

@@ -24,6 +24,7 @@ class BlogCategoriesController extends Controller
     {
         $data = $request->validate([
             'name'        => 'required|string|max:255',
+            'slug'        => 'nullable|string|max:255|unique:blog_categories,slug',
             'description' => 'nullable|string|max:500',
             'parent_id'   => 'nullable|exists:blog_categories,id',
             'position'    => 'nullable|integer',
@@ -48,6 +49,7 @@ class BlogCategoriesController extends Controller
     {
         $blogCategory->update($request->validate([
             'name'        => 'required|string|max:255',
+            'slug'        => 'nullable|string|max:255|unique:blog_categories,slug,' . $blogCategory->id,
             'description' => 'nullable|string|max:500',
             'parent_id'   => 'nullable|exists:blog_categories,id',
             'position'    => 'nullable|integer',

@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Appointment Date & Time</label>
-                    <input type="datetime-local" name="appointment_date" class="form-control" required>
+                    <input type="datetime-local" name="appointment_date" class="form-control" value="{{ old('appointment_date') }}" required>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Type</label>

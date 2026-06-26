@@ -22,7 +22,12 @@ class SettingsController extends Controller
             'settings.*' => 'nullable|string',
         ]);
 
+        $allowedKeys = SiteSetting::pluck('key')->all();
+
         foreach ($settingsData['settings'] as $key => $value) {
+            if (!in_array($key, $allowedKeys, true)) {
+                continue;
+            }
             SiteSetting::set($key, $value, auth()->id());
         }
 

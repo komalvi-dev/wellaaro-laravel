@@ -24,6 +24,7 @@
                     </label>
                     @if($setting->value_type === 'boolean')
                         <div class="form-check form-switch">
+                            <input type="hidden" name="settings[{{ $setting->key }}]" value="false">
                             <input class="form-check-input" type="checkbox"
                                    name="settings[{{ $setting->key }}]"
                                    value="true"

@@ -62,6 +62,7 @@ class SpecialtiesController extends Controller
     {
         return $request->validate([
             'name'               => 'required|string|max:255',
+            'slug'               => 'nullable|string|max:255',
             'short_description'  => 'nullable|string|max:500',
             'description'        => 'nullable|string',
             'icon_class'         => 'nullable|string|max:100',

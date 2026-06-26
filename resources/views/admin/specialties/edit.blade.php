@@ -9,7 +9,7 @@
 </div>
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.specialties.update', $specialty) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.specialties.update', $specialty) }}">
             @csrf @method('PUT')
             <div class="row g-3">
                 <div class="col-md-6"><label class="form-label">Name</label><input type="text" name="name" class="form-control" value="{{ old('name', $specialty->name) }}" required></div>
@@ -21,7 +21,7 @@
                     <label class="form-check-label">Featured</label></div>
                 </div>
                 <div class="col-12"><label class="form-label">Description</label><textarea name="description" class="form-control" rows="3">{{ old('description', $specialty->description) }}</textarea></div>
-                <div class="col-12"><label class="form-label">Replace Image</label><input type="file" name="image" class="form-control" accept="image/*"></div>
+                <div class="col-12"><label class="form-label">Featured Image URL</label><input type="url" name="featured_image_url" class="form-control" value="{{ old('featured_image_url', $specialty->featured_image_url) }}" placeholder="https://example.com/image.jpg"></div>
             </div>
             <div class="mt-4 d-flex gap-2">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

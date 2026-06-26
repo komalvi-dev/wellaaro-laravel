@@ -25,10 +25,10 @@
             </div>
             <div class="card-footer bg-white">
                 <dl class="row mb-0 small">
-                    <dt class="col-6 text-muted">Specialty</dt><dd class="col-6">{{ $doctor->specialty->name ?? '—' }}</dd>
+                    <dt class="col-6 text-muted">Specialty</dt><dd class="col-6">{{ $doctor->specialties->pluck('name')->join(', ') ?: '—' }}</dd>
                     <dt class="col-6 text-muted">Experience</dt><dd class="col-6">{{ $doctor->experience_years ? $doctor->experience_years . ' yrs' : '—' }}</dd>
                     <dt class="col-6 text-muted">Qualification</dt><dd class="col-6">{{ $doctor->qualification ?? '—' }}</dd>
-                    <dt class="col-6 text-muted">Languages</dt><dd class="col-6">{{ is_array($doctor->languages) ? implode(', ', $doctor->languages) : ($doctor->languages ?? '—') }}</dd>
+                    <dt class="col-6 text-muted">Languages</dt><dd class="col-6">{{ is_array($doctor->languages_spoken) ? implode(', ', $doctor->languages_spoken) : ($doctor->languages_spoken ?? '—') }}</dd>
                 </dl>
             </div>
         </div>

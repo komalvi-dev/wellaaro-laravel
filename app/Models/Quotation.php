@@ -18,7 +18,7 @@ class Quotation extends Model
         'validity_days', 'valid_until', 'notes', 'terms', 'hospital_details',
         'doctor_details', 'treatment_duration', 'hospital_stay_days', 'status',
         'sent_at', 'viewed_at', 'responded_at', 'patient_response', 'patient_response_note',
-        'version', 'parent_quotation_id',
+        'version', 'parent_quotation_id', 'line_items',
     ];
 
     protected $casts = [
@@ -26,6 +26,7 @@ class Quotation extends Model
         'sent_at'      => 'datetime',
         'viewed_at'    => 'datetime',
         'responded_at' => 'datetime',
+        'line_items'   => 'array',
     ];
 
     public function inquiry()          { return $this->belongsTo(Inquiry::class); }

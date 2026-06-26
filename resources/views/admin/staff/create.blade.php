@@ -26,6 +26,22 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label fw-medium">First Name</label>
+                    <input type="text" name="first_name" value="{{ old('first_name') }}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Last Name</label>
+                    <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Department</label>
+                    <input type="text" name="department" value="{{ old('department') }}" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Phone</label>
+                    <input type="text" name="phone" value="{{ old('phone') }}" class="form-control">
+                </div>
+                <div class="mb-3">
                     <label class="form-label fw-medium">Password</label>
                     <input type="password" name="password" class="form-control" required>
                 </div>

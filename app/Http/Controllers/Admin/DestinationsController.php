@@ -24,6 +24,7 @@ class DestinationsController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge(['published' => $request->boolean('published')]);
         $data = $request->validate([
             'country_id'        => 'required|exists:countries,id',
             'name'              => 'required|string|max:255',
@@ -59,6 +60,7 @@ class DestinationsController extends Controller
 
     public function update(Request $request, Destination $destination)
     {
+        $request->merge(['published' => $request->boolean('published')]);
         $destination->update($request->validate([
             'country_id'        => 'required|exists:countries,id',
             'name'              => 'required|string|max:255',

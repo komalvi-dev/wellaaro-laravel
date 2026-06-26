@@ -25,7 +25,7 @@
                         <td><a href="{{ route('admin.inquiries.show', $q->inquiry) }}">{{ $q->inquiry->reference_number ?? '—' }}</a></td>
                         <td>{{ $q->inquiry?->patient_name ?? '—' }}</td>
                         <td>{{ $q->hospital->name ?? '—' }}</td>
-                        <td>{{ $q->currency }} {{ number_format($q->total_amount, 2) }}</td>
+                        <td>{{ $q->currency }} {{ number_format($q->total_cost, 2) }}</td>
                         <td>{{ $q->valid_until ? $q->valid_until->format('d M Y') : '—' }}</td>
                         <td><span class="badge bg-secondary">{{ ucfirst($q->status) }}</span></td>
                         <td>

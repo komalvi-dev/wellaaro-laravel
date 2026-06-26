@@ -50,9 +50,9 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-medium">Tags</label>
-                    <select name="blog_tag_ids[]" class="form-select form-select-sm" multiple>
+                    <select name="tag_ids[]" class="form-select form-select-sm" multiple>
                         @foreach($tags as $tag)
-                            <option value="{{ $tag->id }}" {{ in_array($tag->id, old('blog_tag_ids', $post->tags->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                            <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tag_ids', $post->tags->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $tag->name }}</option>
                         @endforeach
                     </select>
                 </div>

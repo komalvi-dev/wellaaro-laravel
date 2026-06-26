@@ -12,7 +12,7 @@
                 <div class="icon bg-primary bg-opacity-10 text-primary"><i class="fas fa-clipboard-list"></i></div>
                 <div>
                     <div class="text-muted small">Total Inquiries</div>
-                    <div class="fs-4 fw-bold">{{ $totalInquiries ?? 0 }}</div>
+                    <div class="fs-4 fw-bold">{{ $stats['total_inquiries'] ?? 0 }}</div>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 <div class="icon bg-success bg-opacity-10 text-success"><i class="fas fa-users"></i></div>
                 <div>
                     <div class="text-muted small">Active Patients</div>
-                    <div class="fs-4 fw-bold">{{ $activePatients ?? 0 }}</div>
+                    <div class="fs-4 fw-bold">{{ $stats['total_patients'] ?? 0 }}</div>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 <div class="icon bg-info bg-opacity-10 text-info"><i class="fas fa-hospital"></i></div>
                 <div>
                     <div class="text-muted small">Hospitals</div>
-                    <div class="fs-4 fw-bold">{{ $totalHospitals ?? 0 }}</div>
+                    <div class="fs-4 fw-bold">{{ $stats['total_hospitals'] ?? 0 }}</div>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="icon bg-warning bg-opacity-10 text-warning"><i class="fas fa-user-md"></i></div>
                 <div>
                     <div class="text-muted small">Doctors</div>
-                    <div class="fs-4 fw-bold">{{ $totalDoctors ?? 0 }}</div>
+                    <div class="fs-4 fw-bold">{{ $stats['total_doctors'] ?? 0 }}</div>
                 </div>
             </div>
         </div>

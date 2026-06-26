@@ -165,7 +165,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     // Appointments
     Route::resource('inquiries.appointments', AdminAppointments::class)->except(['index', 'show']);
-    Route::resource('appointments', AdminAppointments::class)->only(['index', 'show', 'edit', 'update', 'destroy']);
+    Route::resource('appointments', AdminAppointments::class)->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
 
     // Patients (read-only)
     Route::resource('patients', AdminPatients::class)->only(['index', 'show']);
@@ -196,7 +196,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     });
 
     Route::resource('blog-categories',        BlogCategoriesController::class);
-    Route::resource('blog-tags',              BlogTagsController::class);
+    Route::resource('blog-tags',              BlogTagsController::class)->except(['create', 'show']);
     Route::resource('cms-pages',              CmsPagesController::class);
     Route::resource('faqs',                   FaqsController::class);
     Route::resource('seo-redirects',          SeoRedirectsController::class);

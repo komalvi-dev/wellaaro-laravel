@@ -44,7 +44,7 @@
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr class="fw-bold"><td>Total</td><td class="text-end">{{ $quotation->currency }} {{ number_format($quotation->total_amount, 2) }}</td></tr>
+                        <tr class="fw-bold"><td>Total</td><td class="text-end">{{ $quotation->currency }} {{ number_format($quotation->total_cost, 2) }}</td></tr>
                     </tfoot>
                 </table>
 

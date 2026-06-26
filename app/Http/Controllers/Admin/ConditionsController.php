@@ -31,10 +31,11 @@ class ConditionsController extends Controller
             'causes'           => 'nullable|string',
             'diagnosis'        => 'nullable|string',
             'treatment_overview'=> 'nullable|string',
-            'published'        => 'boolean',
+            'published'        => 'nullable|boolean',
             'meta_title'       => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
         ]);
+        $data['published'] = $request->boolean('published');
         $condition = Condition::create($data);
         return redirect()->route('admin.conditions.show', $condition)->with('success', 'Condition created.');
     }
@@ -52,7 +53,7 @@ class ConditionsController extends Controller
 
     public function update(Request $request, Condition $condition)
     {
-        $condition->update($request->validate([
+        $data = $request->validate([
             'name'             => 'required|string|max:255',
             'icd10_code'       => 'nullable|string|max:20',
             'short_description'=> 'nullable|string|max:500',
@@ -61,10 +62,12 @@ class ConditionsController extends Controller
             'causes'           => 'nullable|string',
             'diagnosis'        => 'nullable|string',
             'treatment_overview'=> 'nullable|string',
-            'published'        => 'boolean',
+            'published'        => 'nullable|boolean',
             'meta_title'       => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
-        ]));
+        ]);
+        $data['published'] = $request->boolean('published');
+        $condition->update($data);
         return redirect()->route('admin.conditions.show', $condition)->with('success', 'Condition updated.');
     }
 

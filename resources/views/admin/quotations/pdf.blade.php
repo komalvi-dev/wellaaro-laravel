@@ -76,7 +76,7 @@
             <tfoot>
                 <tr class="total-row">
                     <td>Total Estimated Cost</td>
-                    <td class="text-right">{{ $quotation->currency }} {{ number_format($quotation->total_amount, 2) }}</td>
+                    <td class="text-right">{{ $quotation->currency }} {{ number_format($quotation->total_cost, 2) }}</td>
                 </tr>
             </tfoot>
         </table>

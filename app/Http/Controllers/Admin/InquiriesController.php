@@ -85,17 +85,30 @@ class InquiriesController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'first_name'           => 'required|string|max:100',
-            'last_name'            => 'required|string|max:100',
-            'email'                => 'required|email|max:255',
-            'phone'                => 'nullable|string|max:30',
+            'patient_profile_id'   => 'required|exists:patient_profiles,id',
             'specialty_id'         => 'nullable|exists:specialties,id',
             'treatment_id'         => 'nullable|exists:treatments,id',
-            'condition_description'=> 'nullable|string',
-            'priority'             => 'required|in:' . implode(',', Inquiry::PRIORITIES),
+            'destination_id'       => 'nullable|exists:destinations,id',
+            'budget_range'         => 'nullable|string|max:100',
+            'preferred_travel_date'=> 'nullable|date',
+            'medical_description'  => 'nullable|string',
+            'additional_notes'     => 'nullable|string',
         ]);
 
-        $inquiry = Inquiry::create($data);
+        // Map form field names to model/DB column names
+        $inquiry = Inquiry::create([
+            'patient_profile_id'    => $data['patient_profile_id'],
+            'specialty_id'          => $data['specialty_id'] ?? null,
+            'treatment_id'          => $data['treatment_id'] ?? null,
+            'preferred_destination' => isset($data['destination_id'])
+                ? \App\Models\Destination::find($data['destination_id'])?->name
+                : null,
+            'budget_range'          => $data['budget_range'] ?? null,
+            'condition_description' => $data['medical_description'] ?? null,
+            'additional_notes'      => $data['additional_notes'] ?? null,
+            'status'                => 'new',
+            'priority'              => 'normal',
+        ]);
 
         return redirect()->route('admin.inquiries.show', $inquiry)
             ->with('success', 'Inquiry created successfully.');
@@ -112,17 +125,25 @@ class InquiriesController extends Controller
 
     public function update(Request $request, Inquiry $inquiry)
     {
-        $data = $request->validate([
-            'first_name'   => 'required|string|max:100',
-            'last_name'    => 'required|string|max:100',
-            'email'        => 'required|email|max:255',
-            'phone'        => 'nullable|string|max:30',
-            'specialty_id' => 'nullable|exists:specialties,id',
-            'treatment_id' => 'nullable|exists:treatments,id',
-            'priority'     => 'required|in:' . implode(',', Inquiry::PRIORITIES),
+        $validated = $request->validate([
+            'specialty_id'         => 'nullable|exists:specialties,id',
+            'treatment_id'         => 'nullable|exists:treatments,id',
+            'budget_range'         => 'nullable|string|max:100',
+            'preferred_travel_date'=> 'nullable|date',
+            'status'               => 'nullable|in:' . implode(',', Inquiry::STATUSES),
+            'medical_description'  => 'nullable|string',
+            'additional_notes'     => 'nullable|string',
         ]);
 
-        $inquiry->update($data);
+        // Map form field names to DB column names
+        $inquiry->update([
+            'specialty_id'          => $validated['specialty_id'] ?? null,
+            'treatment_id'          => $validated['treatment_id'] ?? null,
+            'budget_range'          => $validated['budget_range'] ?? null,
+            'status'                => $validated['status'] ?? $inquiry->status,
+            'condition_description' => $validated['medical_description'] ?? null,
+            'additional_notes'      => $validated['additional_notes'] ?? null,
+        ]);
 
         return redirect()->route('admin.inquiries.show', $inquiry)
             ->with('success', 'Inquiry updated successfully.');

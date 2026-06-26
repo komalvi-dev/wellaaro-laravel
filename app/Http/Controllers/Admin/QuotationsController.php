@@ -128,7 +128,10 @@ class QuotationsController extends Controller
             'doctor_details'    => 'nullable|string',
             'treatment_duration'=> 'nullable|string|max:100',
             'hospital_stay_days'=> 'nullable|integer|min:0',
-            'valid_until'       => 'nullable|date',
+            'valid_until'                    => 'nullable|date',
+            'line_items'                     => 'nullable|array',
+            'line_items.*.description'       => 'required_with:line_items.*|string|max:500',
+            'line_items.*.amount'            => 'required_with:line_items.*|numeric|min:0',
         ]);
     }
 

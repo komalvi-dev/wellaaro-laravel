@@ -15,7 +15,7 @@
             <div class="col-md-2">
                 <select name="status" class="form-select">
                     <option value="">All Statuses</option>
-                    @foreach(['new','reviewing','quoted','accepted','scheduled','in_progress','completed','cancelled'] as $s)
+                    @foreach(\App\Models\Inquiry::STATUSES as $s)
                     <option value="{{ $s }}" {{ request('status') === $s ? 'selected' : '' }}>{{ ucfirst(str_replace('_',' ',$s)) }}</option>
                     @endforeach
                 </select>

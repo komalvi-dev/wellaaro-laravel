@@ -51,6 +51,7 @@ class AppointmentsController extends Controller
     public function store(Request $request, ?Inquiry $inquiry = null)
     {
         $data = $this->validateAppointment($request);
+        $data = $this->splitDatetime($data);
         $data['created_by_user_id'] = auth()->id();
 
         if ($inquiry) {
@@ -79,7 +80,7 @@ class AppointmentsController extends Controller
 
     public function update(Request $request, Appointment $appointment)
     {
-        $appointment->update($this->validateAppointment($request));
+        $appointment->update($this->splitDatetime($this->validateAppointment($request)));
 
         return redirect()->route('admin.appointments.show', $appointment)
             ->with('success', 'Appointment updated.');
@@ -99,18 +100,36 @@ class AppointmentsController extends Controller
     private function validateAppointment(Request $request): array
     {
         return $request->validate([
-            'appointment_type'  => 'required|string|in:consultation,follow_up,procedure,online',
-            'appointment_date'  => 'required|date',
-            'appointment_time'  => 'required|date_format:H:i',
-            'timezone'          => 'nullable|string|max:50',
-            'duration_minutes'  => 'nullable|integer|min:15',
-            'doctor_id'         => 'nullable|exists:doctors,id',
-            'hospital_id'       => 'nullable|exists:hospitals,id',
-            'treatment_id'      => 'nullable|exists:treatments,id',
-            'meeting_link'      => 'nullable|url|max:500',
-            'meeting_notes'     => 'nullable|string',
-            'notes'             => 'nullable|string',
-            'status'            => 'nullable|in:scheduled,confirmed,completed,cancelled,no_show',
+            'patient_profile_id' => 'required|exists:patient_profiles,id',
+            'appointment_type'   => 'required|string|in:consultation,follow_up,procedure,online',
+            // The view submits a single datetime-local field (Y-m-d\TH:i).
+            // splitDatetime() will separate it into appointment_date and appointment_time.
+            'appointment_date'   => 'required|date_format:Y-m-d\TH:i',
+            'timezone'           => 'nullable|string|max:50',
+            'duration_minutes'   => 'nullable|integer|min:15',
+            'doctor_id'          => 'nullable|exists:doctors,id',
+            'hospital_id'        => 'nullable|exists:hospitals,id',
+            'treatment_id'       => 'nullable|exists:treatments,id',
+            'meeting_link'       => 'nullable|url|max:500',
+            'meeting_notes'      => 'nullable|string',
+            'notes'              => 'nullable|string',
+            'status'             => 'nullable|in:scheduled,confirmed,completed,cancelled,no_show',
         ]);
+    }
+
+    /**
+     * Split the datetime-local value (Y-m-d\TH:i) submitted by the form into
+     * the separate appointment_date (Y-m-d) and appointment_time (H:i) columns
+     * that the database expects, then discard the original combined key.
+     */
+    private function splitDatetime(array $data): array
+    {
+        if (!empty($data['appointment_date'])) {
+            $dt = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $data['appointment_date']);
+            $data['appointment_date'] = $dt->toDateString();  // Y-m-d
+            $data['appointment_time'] = $dt->format('H:i');   // H:i
+        }
+
+        return $data;
     }
 }
