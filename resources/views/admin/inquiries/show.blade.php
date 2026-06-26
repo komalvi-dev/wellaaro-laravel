@@ -22,11 +22,10 @@
                 <div class="row g-3">
                     <div class="col-sm-6"><dt class="text-muted small">Specialty</dt><dd>{{ $inquiry->specialty->name ?? '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Treatment</dt><dd>{{ $inquiry->treatment->name ?? '—' }}</dd></div>
-                    <div class="col-sm-6"><dt class="text-muted small">Destination</dt><dd>{{ $inquiry->destination->name ?? '—' }}</dd></div>
-                    <div class="col-sm-6"><dt class="text-muted small">Hospital Preference</dt><dd>{{ $inquiry->hospital->name ?? 'Any' }}</dd></div>
+                    <div class="col-sm-6"><dt class="text-muted small">Destination</dt><dd>{{ $inquiry->preferred_destination ?? '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Budget</dt><dd>{{ $inquiry->budget_range ?? '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Travel Date</dt><dd>{{ $inquiry->preferred_travel_date ? $inquiry->preferred_travel_date->format('d M Y') : '—' }}</dd></div>
-                    <div class="col-12"><dt class="text-muted small">Medical Description</dt><dd>{{ $inquiry->medical_description ?? '—' }}</dd></div>
+                    <div class="col-12"><dt class="text-muted small">Medical Description</dt><dd>{{ $inquiry->condition_description ?? '—' }}</dd></div>
                     <div class="col-12"><dt class="text-muted small">Additional Notes</dt><dd>{{ $inquiry->additional_notes ?? '—' }}</dd></div>
                 </div>
             </div>
@@ -84,6 +83,23 @@
                     <div class="mb-2">
                         <textarea name="content" class="form-control" rows="2" placeholder="Add a note..." required></textarea>
                     </div>
+                    <div class="row g-2 mb-2">
+                        <div class="col-sm-6">
+                            <select name="note_type" class="form-select form-select-sm">
+                                <option value="general">General</option>
+                                <option value="call">Call</option>
+                                <option value="email">Email</option>
+                                <option value="follow_up">Follow Up</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 d-flex align-items-center">
+                            <input type="hidden" name="is_internal" value="0">
+                            <div class="form-check">
+                                <input type="checkbox" name="is_internal" value="1" id="is_internal" class="form-check-input" checked>
+                                <label for="is_internal" class="form-check-label small">Internal note</label>
+                            </div>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-sm btn-primary">Add Note</button>
                 </form>
             </div>
@@ -105,6 +121,15 @@
                             <option value="{{ $s }}" {{ $inquiry->status === $s ? 'selected' : '' }}>{{ ucfirst(str_replace('_',' ',$s)) }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status_reason" class="form-label small text-muted">Reason <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" id="status_reason" name="reason" class="form-control" placeholder="e.g. Patient requested reschedule">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="hidden" name="notify_patient" value="0">
+                        <input type="checkbox" id="notify_patient" name="notify_patient" value="1" class="form-check-input">
+                        <label for="notify_patient" class="form-check-label small">Notify patient by email</label>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Update</button>
                 </form>

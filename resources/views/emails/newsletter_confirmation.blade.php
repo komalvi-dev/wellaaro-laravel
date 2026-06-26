@@ -5,9 +5,9 @@
 <div class="container">
     <div class="header"><h2>Confirm Your Subscription</h2></div>
     <div class="content">
-        <p>Hi {{ $subscriber->first_name ?? 'there' }},</p>
+        <p>Hi {{ $subscriber->first_name ?? $subscriber->email }},</p>
         <p>Please confirm your email address to complete your newsletter subscription.</p>
-        <a href="{{ url('/newsletter/confirm/' . $subscriber->confirmation_token) }}" class="btn">Confirm Subscription</a>
+        <a href="{{ route('newsletter.confirm', ['token' => $subscriber->confirmation_token]) }}" class="btn">Confirm Subscription</a>
         <p>If you did not subscribe, you can safely ignore this email.</p>
         <p>Best regards,<br><strong>The Wellaaro Team</strong></p>
     </div>

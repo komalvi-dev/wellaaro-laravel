@@ -30,7 +30,7 @@ class TreatmentsController extends Controller
     {
         $treatment   = new Treatment();
         $specialties = Specialty::published()->ordered()->get();
-        $parents     = Treatment::whereNull('parent_id')->orderBy('name')->get();
+        $parents     = Treatment::published()->whereNull('parent_id')->orderBy('name')->get();
 
         return view('admin.treatments.create', compact('treatment', 'specialties', 'parents'));
     }

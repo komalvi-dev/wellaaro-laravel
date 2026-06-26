@@ -18,7 +18,7 @@ class AppointmentConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Appointment Confirmed - ' . $this->appointment->reference_number,
+            subject: 'Appointment Confirmed - ' . ($this->appointment->reference_number ?: 'Ref #' . $this->appointment->id),
         );
     }
 
@@ -26,7 +26,12 @@ class AppointmentConfirmationMail extends Mailable
     {
         return new Content(
             view: 'emails.appointment_confirmation',
-            with: ['appointment' => $this->appointment],
+            with: [
+                'appointment'   => $this->appointment,
+                'site_name'     => config('app.name'),
+                'support_email' => config('mail.from.address'),
+                'dashboard_url' => route('patient.appointments.index'),
+            ],
         );
     }
 }

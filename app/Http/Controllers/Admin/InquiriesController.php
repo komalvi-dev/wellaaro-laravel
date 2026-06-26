@@ -9,6 +9,7 @@ use App\Models\InquiryStatusHistory;
 use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InquiriesController extends Controller
 {
@@ -36,6 +37,12 @@ class InquiriesController extends Controller
                     ->orWhere('last_name', 'like', $q)
                     ->orWhere('reference_number', 'like', $q);
             });
+        }
+        if ($request->filled('from')) {
+            $query->whereDate('created_at', '>=', $request->from);
+        }
+        if ($request->filled('to')) {
+            $query->whereDate('created_at', '<=', $request->to);
         }
 
         $inquiries    = $query->orderBy('created_at', 'desc')->paginate(25);
@@ -128,6 +135,7 @@ class InquiriesController extends Controller
         $validated = $request->validate([
             'specialty_id'         => 'nullable|exists:specialties,id',
             'treatment_id'         => 'nullable|exists:treatments,id',
+            'destination_id'       => 'nullable|exists:destinations,id',
             'budget_range'         => 'nullable|string|max:100',
             'preferred_travel_date'=> 'nullable|date',
             'status'               => 'nullable|in:' . implode(',', Inquiry::STATUSES),
@@ -139,6 +147,9 @@ class InquiriesController extends Controller
         $inquiry->update([
             'specialty_id'          => $validated['specialty_id'] ?? null,
             'treatment_id'          => $validated['treatment_id'] ?? null,
+            'preferred_destination' => isset($validated['destination_id'])
+                ? \App\Models\Destination::find($validated['destination_id'])?->name
+                : null,
             'budget_range'          => $validated['budget_range'] ?? null,
             'status'                => $validated['status'] ?? $inquiry->status,
             'condition_description' => $validated['medical_description'] ?? null,
@@ -173,6 +184,10 @@ class InquiriesController extends Controller
                 'changed_by_user_id' => auth()->id(),
                 'reason'             => $request->reason,
             ]);
+
+            if ($request->notify_patient === '1') {
+                Mail::to($inquiry->patient_email)->send(new \App\Mail\InquiryStatusUpdated($inquiry));
+            }
 
             return redirect()->route('admin.inquiries.show', $inquiry)
                 ->with('success', 'Status updated to ' . ucfirst(str_replace('_', ' ', $request->status)) . '.');

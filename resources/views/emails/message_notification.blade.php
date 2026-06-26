@@ -8,8 +8,8 @@
         <p>Hi {{ $recipient->full_name }},</p>
         <p>You have a new message from <strong>{{ $message->sender->full_name }}</strong>:</p>
         <div class="msg-body">{{ $message->body }}</div>
-        <a href="{{ url('/dashboard/inquiries/' . $message->conversation->inquiry_id) }}" class="btn">View Conversation</a>
-        <p style="margin-top:20px;">Best regards,<br><strong>The Wellaaro Team</strong></p>
+        <a href="{{ route('inquiries.show', $message->conversation->inquiry) }}" class="btn">View Conversation</a>
+        <p style="margin-top:20px;">Best regards,<br><strong>The {{ config('app.name') }} Team</strong></p>
     </div>
 </div>
 </body>

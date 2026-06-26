@@ -12,29 +12,27 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
-        // Expire stale quotations daily at midnight
-        $schedule->job(new CheckQuotationExpiry)->daily();
+        // Expire stale quotations daily at midnight (Asia/Dubai business timezone)
+        $schedule->job(new CheckQuotationExpiry)->daily()->timezone(env('APP_TIMEZONE', 'Asia/Dubai'));
 
         // Check for upcoming appointments and send reminders hourly
         $schedule->call(function () {
             // 24h reminders: appointments tomorrow that haven't been reminded
-            Appointment::where('status', 'scheduled')
+            Appointment::whereIn('status', ['scheduled', 'confirmed'])
                 ->where('reminder_sent_24h', false)
                 ->whereDate('appointment_date', now()->addDay()->toDateString())
                 ->each(fn ($appt) => SendAppointmentReminder::dispatch($appt, '24h'));
 
-            // 1h reminders: appointments within the next 2 hours
-            Appointment::where('status', 'scheduled')
+            // 1h reminders: online consultations within the next 1-2 hours
+            Appointment::whereIn('status', ['scheduled', 'confirmed'])
                 ->where('reminder_sent_1h', false)
+                ->where('appointment_type', 'online_consultation')
                 ->whereDate('appointment_date', now()->toDateString())
-                ->each(function (Appointment $appt) {
-                    $apptTime = \Carbon\Carbon::parse(
-                        $appt->appointment_date->format('Y-m-d') . ' ' . $appt->appointment_time
-                    );
-                    if ($apptTime->diffInMinutes(now(), false) <= 0 && $apptTime->diffInMinutes(now(), false) >= -120) {
-                        SendAppointmentReminder::dispatch($appt, '1h');
-                    }
-                });
+                ->whereBetween('appointment_time', [
+                    now()->addHour()->format('H:i:s'),
+                    now()->addHours(2)->format('H:i:s'),
+                ])
+                ->each(fn ($appt) => SendAppointmentReminder::dispatch($appt, '1h'));
         })->hourly()->name('appointment-reminders')->withoutOverlapping();
     }
 

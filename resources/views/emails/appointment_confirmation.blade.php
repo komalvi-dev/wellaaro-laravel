@@ -10,12 +10,16 @@
         <table>
             <tr><td>Reference</td><td>{{ $appointment->reference_number }}</td></tr>
             <tr><td>Date</td><td>{{ $appointment->appointment_date->format('l, d F Y') }}</td></tr>
-            <tr><td>Time</td><td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</td></tr>
+            <tr><td>Time</td><td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }} ({{ $appointment->timezone }})</td></tr>
+            <tr><td>Type</td><td>{{ ucfirst(str_replace('_', ' ', $appointment->appointment_type)) }}</td></tr>
             @if($appointment->doctor)<tr><td>Doctor</td><td>{{ $appointment->doctor->full_name }}</td></tr>@endif
             @if($appointment->hospital)<tr><td>Hospital</td><td>{{ $appointment->hospital->name }}</td></tr>@endif
             @if($appointment->meeting_link)<tr><td>Meeting Link</td><td><a href="{{ $appointment->meeting_link }}">Click to Join</a></td></tr>@endif
         </table>
-        <p>Best regards,<br><strong>The Wellaaro Team</strong></p>
+        <p>You can view or manage your appointments at any time:<br>
+        <a href="{{ $dashboard_url }}">{{ $dashboard_url }}</a></p>
+        <p>If you have any questions, contact us at <a href="mailto:{{ $support_email }}">{{ $support_email }}</a>.</p>
+        <p>Best regards,<br><strong>The {{ $site_name }} Team</strong></p>
     </div>
 </div>
 </body>

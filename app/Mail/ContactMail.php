@@ -17,8 +17,9 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: config('mail.admin_address', config('mail.from.address')),
-            subject: 'Contact Form: ' . ($this->data['subject'] ?? 'New Message'),
+            to: config('mail.support_address', config('mail.admin_address', config('mail.from.address'))),
+            replyTo: $this->data['email'],
+            subject: '[Contact Form] ' . ($this->data['subject'] ?: 'New message from ' . $this->data['name']),
         );
     }
 

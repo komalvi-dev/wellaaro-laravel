@@ -38,15 +38,18 @@ class PackagesController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'published' => $request->boolean('published'),
+            'featured'  => $request->boolean('featured'),
+        ]);
+
         $data = $this->validatePackage($request);
 
         $package = Package::create($data);
 
-        if ($request->filled('treatment_ids')) {
-            $package->treatments()->sync($request->treatment_ids);
-        }
+        $package->treatments()->sync($request->input('treatment_ids', []));
 
-        return redirect()->route('admin.packages.show', $package)
+        return redirect()->route('admin.packages.index')
             ->with('success', 'Package created.');
     }
 
@@ -69,13 +72,16 @@ class PackagesController extends Controller
 
     public function update(Request $request, Package $package)
     {
+        $request->merge([
+            'published' => $request->boolean('published'),
+            'featured'  => $request->boolean('featured'),
+        ]);
+
         $package->update($this->validatePackage($request));
 
-        if ($request->has('treatment_ids')) {
-            $package->treatments()->sync($request->treatment_ids ?? []);
-        }
+        $package->treatments()->sync($request->input('treatment_ids', []));
 
-        return redirect()->route('admin.packages.show', $package)
+        return redirect()->route('admin.packages.index')
             ->with('success', 'Package updated.');
     }
 

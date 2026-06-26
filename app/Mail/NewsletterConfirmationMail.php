@@ -19,7 +19,7 @@ class NewsletterConfirmationMail extends Mailable
     {
         return new Envelope(
             to: $this->subscriber->email,
-            subject: 'Confirm your newsletter subscription',
+            subject: 'Please confirm your subscription',
         );
     }
 

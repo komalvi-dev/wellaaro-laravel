@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\NotifyStaffOfNewInquiry;
 use App\Mail\InquiryConfirmationMail;
-use App\Mail\InquiryNotificationMail;
 use App\Models\Inquiry;
 use App\Models\Specialty;
 use App\Models\Treatment;
@@ -59,7 +59,7 @@ class InquiriesController extends Controller
         $inquiry = Inquiry::create($validated);
 
         Mail::queue(new InquiryConfirmationMail($inquiry));
-        Mail::queue(new InquiryNotificationMail($inquiry));
+        NotifyStaffOfNewInquiry::dispatch($inquiry);
 
         session(['inquiry_reference' => $inquiry->reference_number]);
 

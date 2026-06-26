@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Patient;
 
+use App\Mail\QuotationAcceptedMail;
+use App\Mail\QuotationRejectedMail;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class QuotationsController extends BaseController
 {
@@ -47,9 +50,17 @@ class QuotationsController extends BaseController
             'responded_at'         => now(),
         ]);
 
-        $message = $request->patient_response === 'accepted'
-            ? 'Quotation accepted successfully.'
-            : 'Quotation has been declined.';
+        if ($request->patient_response === 'accepted') {
+            $message = 'Quotation accepted successfully.';
+            if ($quotation->createdBy) {
+                Mail::send(new QuotationAcceptedMail($quotation));
+            }
+        } else {
+            $message = 'Quotation has been declined.';
+            if ($quotation->createdBy) {
+                Mail::send(new QuotationRejectedMail($quotation));
+            }
+        }
 
         return redirect()->route('patient.quotations.show', $id)->with('success', $message);
     }

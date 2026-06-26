@@ -20,9 +20,13 @@ class AppointmentReminderMail extends Mailable
 
     public function envelope(): Envelope
     {
-        $hours = $this->type === '24h' ? '24 hours' : '1 hour';
+        $subject = match ($this->type) {
+            '24h'  => 'Reminder: Your appointment is tomorrow',
+            '72h'  => 'Reminder: Your appointment is in 3 days',
+            default => 'Reminder: Your appointment is tomorrow',
+        };
         return new Envelope(
-            subject: "Reminder: Your appointment is in {$hours}",
+            subject: $subject,
         );
     }
 
@@ -31,8 +35,11 @@ class AppointmentReminderMail extends Mailable
         return new Content(
             view: 'emails.appointment_reminder',
             with: [
-                'appointment' => $this->appointment,
-                'type'        => $this->type,
+                'appointment'   => $this->appointment,
+                'type'          => $this->type,
+                'site_name'     => config('app.name'),
+                'support_email' => config('mail.from.address'),
+                'dashboard_url' => route('patient.appointments.index'),
             ],
         );
     }

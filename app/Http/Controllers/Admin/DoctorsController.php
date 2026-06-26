@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DoctorWelcomeMail;
 use App\Models\Doctor;
 use App\Models\Hospital;
 use App\Models\Specialty;
 use App\Models\Treatment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DoctorsController extends Controller
 {
@@ -36,7 +41,7 @@ class DoctorsController extends Controller
 
     public function create()
     {
-        $hospitals   = Hospital::orderBy('name')->get();
+        $hospitals   = Hospital::published()->orderBy('name')->get();
         $specialties = Specialty::published()->ordered()->get();
         $treatments  = Treatment::published()->ordered()->get();
 
@@ -46,13 +51,35 @@ class DoctorsController extends Controller
     public function store(Request $request)
     {
         $data = $this->validateDoctor($request);
+        $doctorData = collect($data)->except(['hospital_ids', 'user_email'])->all();
 
-        $doctor = Doctor::create($data);
+        if ($request->hasFile('photo')) {
+            $doctorData['photo_url'] = Storage::disk('public')->url(
+                $request->file('photo')->store('doctors', 'public')
+            );
+        }
+
+        // Provision a user account if an email was supplied.
+        $userCreated = false;
+        if (!empty($data['user_email'])) {
+            $user = User::firstOrCreate(
+                ['email' => $data['user_email']],
+                ['role' => 'doctor', 'status' => 'active', 'password' => bcrypt(Str::random(32))],
+            );
+            $doctorData['user_id'] = $user->id;
+            $userCreated = $user->wasRecentlyCreated;
+        }
+
+        $doctor = Doctor::create($doctorData);
 
         $this->syncDoctorRelations($doctor, $request);
 
+        if ($userCreated) {
+            Mail::queue(new DoctorWelcomeMail($user, $doctor->full_name));
+        }
+
         return redirect()->route('admin.doctors.show', $doctor)
-            ->with('success', 'Doctor created successfully.');
+            ->with('success', 'Doctor created successfully.' . ($userCreated ? ' A password-setup email has been sent.' : ''));
     }
 
     public function show(Doctor $doctor)
@@ -64,7 +91,7 @@ class DoctorsController extends Controller
 
     public function edit(Doctor $doctor)
     {
-        $hospitals   = Hospital::orderBy('name')->get();
+        $hospitals   = Hospital::published()->orderBy('name')->get();
         $specialties = Specialty::published()->ordered()->get();
         $treatments  = Treatment::published()->ordered()->get();
 
@@ -74,13 +101,35 @@ class DoctorsController extends Controller
     public function update(Request $request, Doctor $doctor)
     {
         $data = $this->validateDoctor($request);
+        $doctorData = collect($data)->except(['hospital_ids', 'user_email'])->all();
 
-        $doctor->update($data);
+        if ($request->hasFile('photo')) {
+            $doctorData['photo_url'] = Storage::disk('public')->url(
+                $request->file('photo')->store('doctors', 'public')
+            );
+        }
+
+        // Provision or link a user account if an email was supplied and not already set.
+        $userCreated = false;
+        if (!empty($data['user_email']) && $doctor->user_id === null) {
+            $user = User::firstOrCreate(
+                ['email' => $data['user_email']],
+                ['role' => 'doctor', 'status' => 'active', 'password' => bcrypt(Str::random(32))],
+            );
+            $doctorData['user_id'] = $user->id;
+            $userCreated = $user->wasRecentlyCreated;
+        }
+
+        $doctor->update($doctorData);
 
         $this->syncDoctorRelations($doctor, $request);
 
+        if ($userCreated) {
+            Mail::queue(new DoctorWelcomeMail($user, $doctor->full_name));
+        }
+
         return redirect()->route('admin.doctors.show', $doctor)
-            ->with('success', 'Doctor updated successfully.');
+            ->with('success', 'Doctor updated successfully.' . ($userCreated ? ' A password-setup email has been sent.' : ''));
     }
 
     public function destroy(Doctor $doctor)
@@ -93,7 +142,16 @@ class DoctorsController extends Controller
 
     private function validateDoctor(Request $request): array
     {
+        /** @var Doctor|null $doctor */
+        $doctor       = $request->route('doctor');
+        $linkedUserId = $doctor?->user_id;
+
+        $emailRule = $linkedUserId
+            ? 'nullable|email|max:255|unique:users,email,' . $linkedUserId
+            : 'nullable|email|max:255|unique:users,email';
+
         return $request->validate([
+            'user_email'             => $emailRule,
             'first_name'             => 'required|string|max:100',
             'last_name'              => 'required|string|max:100',
             'title'                  => 'nullable|string|max:20',
@@ -107,8 +165,11 @@ class DoctorsController extends Controller
             'online_consultation'    => 'boolean',
             'in_person_consultation' => 'boolean',
             'response_time_hours'    => 'nullable|integer|min:1',
+            'photo'                  => 'nullable|file|image|max:2048',
             'photo_url'              => 'nullable|url|max:500',
             'hospital_id'            => 'nullable|exists:hospitals,id',
+            'hospital_ids'           => 'nullable|array',
+            'hospital_ids.*'         => 'exists:hospitals,id',
             'published'              => 'boolean',
             'featured'               => 'boolean',
             'position'               => 'nullable|integer',
@@ -124,6 +185,9 @@ class DoctorsController extends Controller
         }
         if ($request->has('treatment_ids')) {
             $doctor->treatments()->sync($request->treatment_ids ?? []);
+        }
+        if ($request->has('hospital_ids')) {
+            $doctor->hospitals()->sync($request->hospital_ids ?? []);
         }
     }
 }

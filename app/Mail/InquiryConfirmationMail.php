@@ -17,9 +17,17 @@ class InquiryConfirmationMail extends Mailable
 
     public function envelope(): Envelope
     {
+        $patientEmail = $this->inquiry->patient_email;
+
+        if (empty($patientEmail)) {
+            return new Envelope(
+                subject: 'We received your inquiry – ' . $this->inquiry->reference_number,
+            );
+        }
+
         return new Envelope(
-            to: $this->inquiry->email,
-            subject: 'We received your inquiry - ' . $this->inquiry->reference_number,
+            to: $patientEmail,
+            subject: 'We received your inquiry – ' . $this->inquiry->reference_number,
         );
     }
 

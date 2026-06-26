@@ -8,7 +8,7 @@
     <h4 class="fw-bold mb-0">Add Hospital</h4>
     <a href="{{ route('admin.hospitals.index') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-1"></i>Back</a>
 </div>
-<form action="{{ route('admin.hospitals.store') }}" method="POST">
+<form action="{{ route('admin.hospitals.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4">

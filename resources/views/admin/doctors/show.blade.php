@@ -27,7 +27,7 @@
                 <dl class="row mb-0 small">
                     <dt class="col-6 text-muted">Specialty</dt><dd class="col-6">{{ $doctor->specialties->pluck('name')->join(', ') ?: '—' }}</dd>
                     <dt class="col-6 text-muted">Experience</dt><dd class="col-6">{{ $doctor->experience_years ? $doctor->experience_years . ' yrs' : '—' }}</dd>
-                    <dt class="col-6 text-muted">Qualification</dt><dd class="col-6">{{ $doctor->qualification ?? '—' }}</dd>
+                    <dt class="col-6 text-muted">Qualification</dt><dd class="col-6">{{ $doctor->qualifications ?? '—' }}</dd>
                     <dt class="col-6 text-muted">Languages</dt><dd class="col-6">{{ is_array($doctor->languages_spoken) ? implode(', ', $doctor->languages_spoken) : ($doctor->languages_spoken ?? '—') }}</dd>
                 </dl>
             </div>
@@ -36,7 +36,7 @@
     <div class="col-lg-8">
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-white fw-semibold">Biography</div>
-            <div class="card-body"><p>{{ $doctor->bio ?? 'No biography added.' }}</p></div>
+            <div class="card-body"><p>{{ $doctor->about ?? 'No biography added.' }}</p></div>
         </div>
         @if($doctor->achievements)
         <div class="card shadow-sm">

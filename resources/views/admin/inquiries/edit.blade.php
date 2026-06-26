@@ -35,7 +35,7 @@
                     <select name="destination_id" class="form-select">
                         <option value="">Any destination</option>
                         @foreach($destinations ?? [] as $d)
-                        <option value="{{ $d->id }}" {{ $inquiry->destination_id == $d->id ? 'selected' : '' }}>{{ $d->name }}</option>
+                        <option value="{{ $d->id }}" {{ $inquiry->preferred_destination === $d->name ? 'selected' : '' }}>{{ $d->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -50,14 +50,14 @@
                 <div class="col-md-6">
                     <label class="form-label">Status</label>
                     <select name="status" class="form-select">
-                        @foreach(['new','reviewing','quoted','accepted','scheduled','in_progress','completed','cancelled'] as $s)
+                        @foreach(\App\Models\Inquiry::STATUSES as $s)
                         <option value="{{ $s }}" {{ $inquiry->status === $s ? 'selected' : '' }}>{{ ucfirst(str_replace('_',' ',$s)) }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Medical Description</label>
-                    <textarea name="medical_description" class="form-control" rows="4">{{ old('medical_description', $inquiry->medical_description) }}</textarea>
+                    <textarea name="medical_description" class="form-control" rows="4">{{ old('medical_description', $inquiry->condition_description) }}</textarea>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Additional Notes</label>

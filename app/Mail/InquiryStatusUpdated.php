@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InquiryNotificationMail extends Mailable
+class InquiryStatusUpdated extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,14 +18,15 @@ class InquiryNotificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[NEW INQUIRY] ' . $this->inquiry->reference_number . ' – ' . ($this->inquiry->specialty?->name ?? ''),
+            to: $this->inquiry->patient_email,
+            subject: 'Your inquiry status has been updated – ' . $this->inquiry->reference_number,
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.inquiry_notification',
+            view: 'emails.inquiry_status_updated',
             with: ['inquiry' => $this->inquiry],
         );
     }

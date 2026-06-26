@@ -21,6 +21,28 @@
                         <label class="form-label fw-medium">Description</label>
                         <textarea name="description" class="form-control" rows="6">{{ old('description', $package->description) }}</textarea>
                     </div>
+                    {{-- featured_image_url: plain URL string — canonical Laravel strategy; no file upload / ActiveStorage --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Featured Image URL</label>
+                        <input type="url" name="featured_image_url" value="{{ old('featured_image_url', $package->featured_image_url) }}" class="form-control" placeholder="https://…" maxlength="500">
+                        @if($package->featured_image_url)
+                            <div class="mt-2">
+                                <img src="{{ $package->featured_image_url }}" alt="Featured image preview" class="img-fluid rounded" style="max-height:160px;">
+                            </div>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Treatments</label>
+                        @php
+                            $selectedTreatments = old('treatment_ids', $package->exists ? $package->treatments->pluck('id')->toArray() : []);
+                        @endphp
+                        <select name="treatment_ids[]" class="form-select" multiple size="6">
+                            @foreach($treatments as $t)
+                                <option value="{{ $t->id }}" {{ in_array($t->id, $selectedTreatments) ? 'selected' : '' }}>{{ $t->name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="form-text">Hold Ctrl / Cmd to select multiple treatments.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,11 +51,38 @@
                 <div class="card-header bg-white fw-medium">Details</div>
                 <div class="card-body">
                     <div class="mb-3">
+                        <label class="form-label fw-medium">Specialty</label>
+                        <select name="specialty_id" class="form-select">
+                            <option value="">Select specialty</option>
+                            @foreach($specialties as $s)
+                                <option value="{{ $s->id }}" {{ old('specialty_id', $package->specialty_id) == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Destination</label>
+                        <select name="destination_id" class="form-select">
+                            <option value="">Select destination</option>
+                            @foreach($destinations as $d)
+                                <option value="{{ $d->id }}" {{ old('destination_id', $package->destination_id) == $d->id ? 'selected' : '' }}>{{ $d->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label fw-medium">Hospital</label>
                         <select name="hospital_id" class="form-select">
                             <option value="">Select hospital</option>
                             @foreach($hospitals as $h)
                                 <option value="{{ $h->id }}" {{ old('hospital_id', $package->hospital_id) == $h->id ? 'selected' : '' }}>{{ $h->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Package Type</label>
+                        <select name="package_type" class="form-select">
+                            <option value="">Select type</option>
+                            @foreach(['standard', 'premium', 'vip', 'budget'] as $type)
+                                <option value="{{ $type }}" {{ old('package_type', $package->package_type) === $type ? 'selected' : '' }}>{{ ucfirst($type) }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -49,12 +98,22 @@
                         <label class="form-label fw-medium">Price From (USD)</label>
                         <input type="number" name="price_usd_from" value="{{ old('price_usd_from', $package->price_usd_from) }}" class="form-control" min="0" step="100">
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Price Note</label>
+                        <input type="text" name="price_note" value="{{ old('price_note', $package->price_note) }}" class="form-control" placeholder="e.g. Starting from, includes accommodation">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Position</label>
+                        <input type="number" name="position" value="{{ old('position', $package->position ?? 0) }}" class="form-control" min="0">
+                    </div>
                     <hr>
                     <div class="form-check form-switch mb-2">
+                        <input type="hidden" name="published" value="0">
                         <input type="checkbox" name="published" value="1" class="form-check-input" role="switch" {{ old('published', $package->published) ? 'checked' : '' }}>
                         <label class="form-check-label">Published</label>
                     </div>
                     <div class="form-check form-switch mb-2">
+                        <input type="hidden" name="featured" value="0">
                         <input type="checkbox" name="featured" value="1" class="form-check-input" role="switch" {{ old('featured', $package->featured) ? 'checked' : '' }}>
                         <label class="form-check-label">Featured</label>
                     </div>
@@ -70,6 +129,10 @@
                     <div class="mb-3">
                         <label class="form-label fw-medium">Meta Description</label>
                         <textarea name="meta_description" class="form-control" rows="3">{{ old('meta_description', $package->meta_description) }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Meta Keywords</label>
+                        <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $package->meta_keywords) }}" class="form-control" placeholder="keyword1, keyword2, keyword3">
                     </div>
                 </div>
             </div>

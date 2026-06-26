@@ -18,6 +18,22 @@
         @error('last_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
+        <label class="form-label fw-semibold">Login Email</label>
+        @php $linkedEmail = isset($doctor) ? optional($doctor->user)->email : null; @endphp
+        <input type="email" name="user_email" value="{{ old('user_email', $linkedEmail) }}"
+               class="form-control @error('user_email') is-invalid @enderror"
+               placeholder="doctor@example.com"
+               {{ isset($doctor) && $doctor->user_id ? 'readonly' : '' }}>
+        @error('user_email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <div class="form-text">
+            @if(isset($doctor) && $doctor->user_id)
+                Account linked — email cannot be changed here.
+            @else
+                Optional. If provided, a portal account is created and a password-setup email is sent.
+            @endif
+        </div>
+    </div>
+    <div class="col-md-6">
         <label class="form-label fw-semibold">Designation</label>
         <input type="text" name="designation" value="{{ old('designation', $doctor->designation ?? '') }}" class="form-control" placeholder="e.g. Senior Cardiologist">
     </div>
@@ -46,9 +62,42 @@
             @endforeach
         </select>
     </div>
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Specialties</label>
+        @php
+            $selectedSpecialties = old('specialty_ids', isset($doctor) ? $doctor->specialties->pluck('id')->toArray() : []);
+        @endphp
+        <select name="specialty_ids[]" class="form-select" multiple size="5">
+            @foreach($specialties ?? [] as $s)
+            <option value="{{ $s->id }}" {{ in_array($s->id, $selectedSpecialties) ? 'selected' : '' }}>{{ $s->name }}</option>
+            @endforeach
+        </select>
+        <div class="form-text">Hold Ctrl / Cmd to select multiple.</div>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Treatments</label>
+        @php
+            $selectedTreatments = old('treatment_ids', isset($doctor) ? $doctor->treatments->pluck('id')->toArray() : []);
+        @endphp
+        <select name="treatment_ids[]" class="form-select" multiple size="5">
+            @foreach($treatments ?? [] as $t)
+            <option value="{{ $t->id }}" {{ in_array($t->id, $selectedTreatments) ? 'selected' : '' }}>{{ $t->name }}</option>
+            @endforeach
+        </select>
+        <div class="form-text">Hold Ctrl / Cmd to select multiple.</div>
+    </div>
     <div class="col-md-3">
-        <label class="form-label fw-semibold">Photo URL</label>
-        <input type="url" name="photo_url" value="{{ old('photo_url', $doctor->photo_url ?? '') }}" class="form-control">
+        <label class="form-label fw-semibold">Photo</label>
+        @if(!empty($doctor->photo_url ?? null))
+        <div class="mb-2">
+            <img src="{{ $doctor->photo_url }}" alt="Current photo" class="rounded" style="max-height:80px;max-width:120px;object-fit:cover;">
+        </div>
+        @endif
+        <input type="file" name="photo" accept="image/*" class="form-control @error('photo') is-invalid @enderror">
+        @error('photo')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <div class="form-text">Upload a photo (JPEG/PNG/WebP, max 2 MB). Or enter a URL below.</div>
+        <input type="url" name="photo_url" value="{{ old('photo_url', $doctor->photo_url ?? '') }}" class="form-control mt-1" placeholder="https://…">
+        @error('photo_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-3">
         <label class="form-label fw-semibold">Position</label>
@@ -57,10 +106,12 @@
     <div class="col-12">
         <div class="d-flex gap-4">
             <div class="form-check form-switch">
+                <input type="hidden" name="published" value="0">
                 <input class="form-check-input" type="checkbox" name="published" id="published_doc" value="1" {{ old('published', $doctor->published ?? true) ? 'checked' : '' }}>
                 <label class="form-check-label fw-semibold" for="published_doc">Published</label>
             </div>
             <div class="form-check form-switch">
+                <input type="hidden" name="featured" value="0">
                 <input class="form-check-input" type="checkbox" name="featured" id="featured_doc" value="1" {{ old('featured', $doctor->featured ?? false) ? 'checked' : '' }}>
                 <label class="form-check-label fw-semibold" for="featured_doc">Featured Doctor</label>
             </div>

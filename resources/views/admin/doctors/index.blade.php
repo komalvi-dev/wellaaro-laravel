@@ -12,11 +12,19 @@
     <div class="card-body py-2">
         <form class="row g-2 align-items-end" method="GET">
             <div class="col-md-4"><input type="text" name="q" value="{{ request('q') }}" class="form-control form-control-sm" placeholder="Search doctors..."></div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <select name="published" class="form-select form-select-sm">
                     <option value="">All Status</option>
                     <option value="1" {{ request('published')=='1'?'selected':'' }}>Published</option>
                     <option value="0" {{ request('published')=='0'?'selected':'' }}>Draft</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="hospital_id" class="form-select form-select-sm">
+                    <option value="">All Hospitals</option>
+                    @foreach($hospitals as $hospital)
+                    <option value="{{ $hospital->id }}" {{ request('hospital_id')==$hospital->id?'selected':'' }}>{{ $hospital->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-2"><button class="btn btn-sm btn-outline-secondary w-100" type="submit">Filter</button></div>

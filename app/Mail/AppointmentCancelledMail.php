@@ -2,31 +2,31 @@
 
 namespace App\Mail;
 
-use App\Models\Inquiry;
+use App\Models\Appointment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InquiryNotificationMail extends Mailable
+class AppointmentCancelledMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public readonly Inquiry $inquiry) {}
+    public function __construct(public readonly Appointment $appointment) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[NEW INQUIRY] ' . $this->inquiry->reference_number . ' – ' . ($this->inquiry->specialty?->name ?? ''),
+            subject: 'Appointment Cancelled - ' . $this->appointment->reference_number,
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.inquiry_notification',
-            with: ['inquiry' => $this->inquiry],
+            view: 'emails.appointment_cancelled',
+            with: ['appointment' => $this->appointment],
         );
     }
 }

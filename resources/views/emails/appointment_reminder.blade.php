@@ -17,7 +17,15 @@
 <div class="container">
     <div class="header">
         <h2>Appointment Reminder</h2>
-        <p>{{ $type === '24h' ? 'Your appointment is tomorrow' : 'Your appointment is in 1 hour' }}</p>
+        <p>
+            @if($type === '24h')
+                Your appointment is tomorrow
+            @elseif($type === '72h')
+                Your appointment is in 3 days
+            @else
+                Your appointment is tomorrow
+            @endif
+        </p>
     </div>
     <div class="content">
         <p>Dear {{ $appointment->patientProfile?->first_name ?? 'Patient' }},</p>
@@ -45,7 +53,10 @@
         <p><strong>Notes:</strong> {{ $appointment->meeting_notes }}</p>
         @endif
 
-        <p>Best regards,<br><strong>The Wellaaro Team</strong></p>
+        <p>You can view or manage your appointments at any time:<br>
+        <a href="{{ $dashboard_url }}">{{ $dashboard_url }}</a></p>
+        <p>If you have any questions, contact us at <a href="mailto:{{ $support_email }}">{{ $support_email }}</a>.</p>
+        <p>Best regards,<br><strong>The {{ $site_name }} Team</strong></p>
     </div>
 </div>
 </body>

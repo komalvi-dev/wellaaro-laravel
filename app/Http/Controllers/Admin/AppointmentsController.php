@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AppointmentCancelledMail;
+use App\Mail\AppointmentConfirmationMail;
 use App\Models\Appointment;
 use App\Models\Inquiry;
 use App\Models\Doctor;
 use App\Models\Hospital;
 use App\Models\Treatment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentsController extends Controller
 {
@@ -60,6 +63,13 @@ class AppointmentsController extends Controller
 
         $appointment = Appointment::create($data);
 
+        $toEmail = $appointment->inquiry?->email
+            ?? $appointment->patientProfile?->user?->email;
+
+        if ($toEmail) {
+            Mail::to($toEmail)->send(new AppointmentConfirmationMail($appointment));
+        }
+
         if ($inquiry) {
             return redirect()->route('admin.inquiries.show', $inquiry)
                 ->with('success', 'Appointment created.');
@@ -93,6 +103,11 @@ class AppointmentsController extends Controller
             'cancelled_at'        => now(),
             'cancelled_by_user_id'=> auth()->id(),
         ]);
+
+        $patient = $appointment->patientProfile?->user;
+        if ($patient?->email) {
+            Mail::to($patient->email)->send(new AppointmentCancelledMail($appointment));
+        }
 
         return redirect()->back()->with('success', 'Appointment cancelled.');
     }

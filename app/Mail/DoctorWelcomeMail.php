@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Inquiry;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -12,20 +11,20 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\URL;
 
-class PatientWelcomeMail extends Mailable
+class DoctorWelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public function __construct(
         public readonly User $user,
-        public readonly ?Inquiry $inquiry = null,
+        public readonly string $doctorName,
     ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
             to: $this->user->email,
-            subject: 'Welcome — Your ' . config('app.name') . ' account has been created',
+            subject: 'Welcome — Your ' . config('app.name') . ' doctor account has been created',
         );
     }
 
@@ -38,10 +37,10 @@ class PatientWelcomeMail extends Mailable
         );
 
         return new Content(
-            view: 'emails.patient_welcome',
+            view: 'emails.doctor_welcome',
             with: [
                 'user'         => $this->user,
-                'inquiry'      => $this->inquiry,
+                'doctorName'   => $this->doctorName,
                 'siteName'     => config('app.name'),
                 'supportEmail' => config('mail.from.address'),
                 'resetUrl'     => $resetUrl,

@@ -8,12 +8,13 @@ use App\Models\Country;
 use App\Models\City;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HospitalsController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Hospital::with('country', 'city');
+        $query = Hospital::with(['country', 'city', 'specialties']);
 
         if ($request->filled('q')) {
             $query->where('name', 'like', '%' . $request->q . '%');
@@ -43,13 +44,26 @@ class HospitalsController extends Controller
     {
         $data = $this->validateHospital($request);
 
-        $hospital = Hospital::create($data);
-
-        if ($request->filled('specialty_ids')) {
-            $hospital->specialties()->sync($request->specialty_ids);
+        if ($request->hasFile('logo')) {
+            $data['logo_url'] = Storage::disk('public')->url(
+                $request->file('logo')->store('hospitals/logos', 'public')
+            );
         }
 
-        return redirect()->route('admin.hospitals.show', $hospital)
+        if ($request->hasFile('featured_image')) {
+            $data['featured_image_url'] = Storage::disk('public')->url(
+                $request->file('featured_image')->store('hospitals/featured', 'public')
+            );
+        }
+
+        $hospital = Hospital::create($data);
+
+        $hospital->specialties()->sync($request->input('specialty_ids', []));
+
+        // Post-create redirects to index (not show) so the admin lands on the
+        // full list and can see the new record in context. This matches the
+        // Rails side and the destroy() convention in this controller.
+        return redirect()->route('admin.hospitals.index')
             ->with('success', 'Hospital created successfully.');
     }
 
@@ -63,21 +77,44 @@ class HospitalsController extends Controller
     public function edit(Hospital $hospital)
     {
         $countries   = Country::orderBy('name')->get();
-        $cities      = City::orderBy('name')->get();
+        $cities      = $hospital->country_id
+            ? City::where('country_id', $hospital->country_id)->orderBy('name')->get()
+            : collect();
         $specialties = Specialty::published()->ordered()->get();
 
         return view('admin.hospitals.edit', compact('hospital', 'countries', 'cities', 'specialties'));
+    }
+
+    public function citiesByCountry(Request $request)
+    {
+        $request->validate(['country_id' => 'required|exists:countries,id']);
+
+        $cities = City::where('country_id', $request->country_id)
+            ->orderBy('name')
+            ->get(['id', 'name']);
+
+        return response()->json($cities);
     }
 
     public function update(Request $request, Hospital $hospital)
     {
         $data = $this->validateHospital($request, $hospital);
 
+        if ($request->hasFile('logo')) {
+            $data['logo_url'] = Storage::disk('public')->url(
+                $request->file('logo')->store('hospitals/logos', 'public')
+            );
+        }
+
+        if ($request->hasFile('featured_image')) {
+            $data['featured_image_url'] = Storage::disk('public')->url(
+                $request->file('featured_image')->store('hospitals/featured', 'public')
+            );
+        }
+
         $hospital->update($data);
 
-        if ($request->has('specialty_ids')) {
-            $hospital->specialties()->sync($request->specialty_ids ?? []);
-        }
+        $hospital->specialties()->sync($request->input('specialty_ids', []));
 
         return redirect()->route('admin.hospitals.show', $hospital)
             ->with('success', 'Hospital updated successfully.');
@@ -108,13 +145,17 @@ class HospitalsController extends Controller
             'phone'                    => 'nullable|string|max:30',
             'email'                    => 'nullable|email|max:255',
             'website'                  => 'nullable|url|max:255',
+            'logo'                     => 'nullable|file|image|max:2048',
             'logo_url'                 => 'nullable|url|max:500',
+            'featured_image'           => 'nullable|file|image|max:2048',
             'featured_image_url'       => 'nullable|url|max:500',
             'tier'                     => 'nullable|in:standard,premium,elite',
             'is_partner'               => 'boolean',
             'is_jci_accredited'        => 'boolean',
             'is_nabh_accredited'       => 'boolean',
             'international_patient_desk'=> 'boolean',
+            'latitude'                 => 'nullable|numeric|between:-90,90',
+            'longitude'                => 'nullable|numeric|between:-180,180',
             'published'                => 'boolean',
             'featured'                 => 'boolean',
             'position'                 => 'nullable|integer',

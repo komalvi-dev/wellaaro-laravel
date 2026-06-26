@@ -8,7 +8,7 @@
     <h4 class="fw-bold mb-0">Edit: {{ $doctor->full_name }}</h4>
     <a href="{{ route('admin.doctors.index') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-1"></i>Back</a>
 </div>
-<form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST">
+<form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
     @csrf @method('PUT')
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4">

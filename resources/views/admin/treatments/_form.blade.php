@@ -80,10 +80,12 @@
                 <div class="card-header bg-white fw-medium">Publishing</div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-2">
+                        <input type="hidden" name="published" value="0">
                         <input type="checkbox" name="published" value="1" class="form-check-input" role="switch" {{ old('published', $treatment->published) ? 'checked' : '' }}>
                         <label class="form-check-label">Published</label>
                     </div>
                     <div class="form-check form-switch mb-2">
+                        <input type="hidden" name="featured" value="0">
                         <input type="checkbox" name="featured" value="1" class="form-check-input" role="switch" {{ old('featured', $treatment->featured) ? 'checked' : '' }}>
                         <label class="form-check-label">Featured</label>
                     </div>

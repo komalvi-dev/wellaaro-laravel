@@ -18,12 +18,12 @@ class ContactController extends Controller
         $validated = $request->validate([
             'name'    => 'required|string|max:150',
             'email'   => 'required|email|max:255',
-            'phone'   => 'required|string|max:30',
+            'phone'   => 'nullable|string|max:30',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
 
-        Mail::queue(new ContactMail($validated));
+        Mail::send(new ContactMail($validated));
 
         return redirect()->route('contact')
             ->with('success', 'Your message has been sent. We will be in touch shortly.');

@@ -8,7 +8,7 @@
     <h4 class="fw-bold mb-0">Edit: {{ $hospital->name }}</h4>
     <a href="{{ route('admin.hospitals.index') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-1"></i>Back</a>
 </div>
-<form action="{{ route('admin.hospitals.update', $hospital->id) }}" method="POST">
+<form action="{{ route('admin.hospitals.update', $hospital->id) }}" method="POST" enctype="multipart/form-data">
     @csrf @method('PUT')
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4">

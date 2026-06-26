@@ -28,6 +28,7 @@ class DestinationsController extends Controller
         $data = $request->validate([
             'country_id'        => 'required|exists:countries,id',
             'name'              => 'required|string|max:255',
+            'slug'              => 'nullable|string|max:255|unique:destinations,slug',
             'tagline'           => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'why_choose'        => 'nullable|string',
@@ -43,7 +44,7 @@ class DestinationsController extends Controller
             'meta_keywords'     => 'nullable|string|max:500',
         ]);
         $destination = Destination::create($data);
-        return redirect()->route('admin.destinations.show', $destination)->with('success', 'Destination created.');
+        return redirect()->route('admin.destinations.index')->with('success', 'Destination created.');
     }
 
     public function show(Destination $destination)
@@ -64,6 +65,7 @@ class DestinationsController extends Controller
         $destination->update($request->validate([
             'country_id'        => 'required|exists:countries,id',
             'name'              => 'required|string|max:255',
+            'slug'              => 'nullable|string|max:255|unique:destinations,slug,' . $destination->id,
             'tagline'           => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'why_choose'        => 'nullable|string',
@@ -78,7 +80,7 @@ class DestinationsController extends Controller
             'meta_description'  => 'nullable|string|max:500',
             'meta_keywords'     => 'nullable|string|max:500',
         ]));
-        return redirect()->route('admin.destinations.show', $destination)->with('success', 'Destination updated.');
+        return redirect()->route('admin.destinations.index')->with('success', 'Destination updated.');
     }
 
     public function destroy(Destination $destination)

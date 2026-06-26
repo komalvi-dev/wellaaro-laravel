@@ -22,12 +22,16 @@ class SendAppointmentReminder implements ShouldQueue
 
     public function handle(): void
     {
-        $patient = $this->appointment->patientProfile?->user;
-        if (!$patient) {
+        // Prefer the inquiry's submitted email (matches the carer/agent who booked on the
+        // patient's behalf), falling back to the linked patient profile user email.
+        $recipientEmail = $this->appointment->inquiry?->email
+            ?? $this->appointment->patientProfile?->user?->email;
+
+        if (!$recipientEmail) {
             return;
         }
 
-        Mail::to($patient->email)->send(new AppointmentReminderMail($this->appointment, $this->type));
+        Mail::to($recipientEmail)->queue(new AppointmentReminderMail($this->appointment, $this->type));
 
         if ($this->type === '24h') {
             $this->appointment->update(['reminder_sent_24h' => true]);

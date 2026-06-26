@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Patient;
 
+use App\Jobs\SendMessageNotification;
 use App\Models\Inquiry;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -23,12 +24,14 @@ class MessagesController extends BaseController
 
         $request->validate(['body' => 'required|string|max:5000']);
 
-        Message::create([
+        $message = Message::create([
             'conversation_id' => $conversation->id,
             'sender_user_id'  => auth()->id(),
             'body'            => $request->body,
             'message_type'    => 'text',
         ]);
+
+        SendMessageNotification::dispatch($message);
 
         return redirect()->route('patient.inquiries.messages.index', $inquiryId)
             ->with('success', 'Message sent.');

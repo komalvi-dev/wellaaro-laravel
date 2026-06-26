@@ -171,6 +171,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('patients', AdminPatients::class)->only(['index', 'show']);
 
     // Hospitals with gallery and facilities
+    // Explicit route must be declared before the resource to avoid {hospital} wildcard match
+    Route::get('hospitals/cities-by-country', [AdminHospitals::class, 'citiesByCountry'])->name('hospitals.cities_by_country');
     Route::resource('hospitals', AdminHospitals::class);
     Route::resource('hospitals.gallery',    HospitalGalleriesController::class)->only(['index', 'store', 'destroy']);
     Route::resource('hospitals.facilities', HospitalFacilitiesController::class)->only(['index', 'store', 'destroy']);
