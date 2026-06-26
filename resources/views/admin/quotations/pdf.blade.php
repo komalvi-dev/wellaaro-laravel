@@ -32,7 +32,7 @@
 <div class="page">
     <div class="header">
         <div>
-            <div class="brand">MedTourism<small>Your Medical Journey, Simplified</small></div>
+            <div class="brand">Wellaaro<small>Your Medical Journey, Simplified</small></div>
         </div>
         <div class="doc-title">
             <h1>Medical Treatment Quotation</h1>
@@ -106,7 +106,7 @@
     <div class="footer">
         This quotation is valid until {{ $quotation->valid_until ? $quotation->valid_until->format('d M Y') : 'date stated above' }}.
         Prices are estimates and may vary. Contact us at omap-support@getaltadx.com for any queries.
-        &copy; {{ date('Y') }} MedTourism. All rights reserved.
+        &copy; {{ date('Y') }} Wellaaro. All rights reserved.
     </div>
 </div>
 </body>

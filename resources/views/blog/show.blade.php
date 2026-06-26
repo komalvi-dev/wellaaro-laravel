@@ -8,7 +8,7 @@
             @if($post->category)<span class="badge bg-primary mb-2">{{ $post->category->name }}</span>@endif
             <h1 class="h2 fw-bold mb-3">{{ $post->title }}</h1>
             <div class="d-flex align-items-center gap-3 mb-4 text-muted small">
-                <span><i class="fas fa-user me-1"></i>{{ $post->author_name ?? $post->author?->full_name ?? 'MedTourism' }}</span>
+                <span><i class="fas fa-user me-1"></i>{{ $post->author_name ?? $post->author?->full_name ?? 'Wellaaro' }}</span>
                 <span><i class="fas fa-calendar me-1"></i>{{ $post->published_at?->format('M d, Y') }}</span>
                 @if($post->read_time_minutes)<span><i class="fas fa-clock me-1"></i>{{ $post->read_time_minutes }} min read</span>@endif
             </div>

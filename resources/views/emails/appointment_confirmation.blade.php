@@ -15,7 +15,7 @@
             @if($appointment->hospital)<tr><td>Hospital</td><td>{{ $appointment->hospital->name }}</td></tr>@endif
             @if($appointment->meeting_link)<tr><td>Meeting Link</td><td><a href="{{ $appointment->meeting_link }}">Click to Join</a></td></tr>@endif
         </table>
-        <p>Best regards,<br><strong>The MedTourism Team</strong></p>
+        <p>Best regards,<br><strong>The Wellaaro Team</strong></p>
     </div>
 </div>
 </body>

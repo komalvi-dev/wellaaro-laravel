@@ -9,7 +9,7 @@ class TreatmentsController extends Controller
 {
     public function index()
     {
-        $treatments = Treatment::published()->ordered()->with('specialty')->get();
+        $treatments = Treatment::published()->ordered()->with('specialty')->paginate(18)->withQueryString();
         $specialties = Specialty::published()->ordered()->get();
         return view('treatments.index', compact('treatments', 'specialties'));
     }

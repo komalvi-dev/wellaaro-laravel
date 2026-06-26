@@ -1,59 +1,101 @@
 @extends('layouts.app')
-@section('title', 'Our Doctors')
+@section('title', 'Find Top Doctors')
 @section('content')
-<div class="bg-light py-4 mb-4">
+<section class="py-4 bg-light">
     <div class="container">
-        <h1 class="h3 fw-bold mb-1">Our Doctors</h1>
-        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li><li class="breadcrumb-item active">Doctors</li></ol></nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Doctors</li>
+            </ol>
+        </nav>
+        <h1 class="h2 fw-bold">Find a Specialist</h1>
+        <p class="text-muted">Connect with leading specialists across top accredited hospitals</p>
     </div>
-</div>
-<div class="container py-4">
-    <div class="row g-4">
-        <div class="col-lg-3">
-            <form method="GET" class="card border-0 shadow-sm p-3">
-                <h6 class="fw-bold mb-3">Filters</h6>
-                <div class="mb-3">
-                    <input type="text" name="q" class="form-control form-control-sm" value="{{ request('q') }}" placeholder="Search doctor...">
-                </div>
-                <div class="mb-3">
-                    <select name="specialty_id" class="form-select form-select-sm">
-                        <option value="">All Specialties</option>
-                        @foreach($specialties ?? [] as $s)
-                            <option value="{{ $s->id }}" {{ request('specialty_id')==$s->id?'selected':'' }}>{{ $s->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-            </form>
-        </div>
-        <div class="col-lg-9">
-            <div class="row g-4">
-                @forelse($doctors as $doctor)
-                <div class="col-md-6 col-lg-4">
-                    <a href="{{ route('doctors.show', $doctor->slug) }}" class="text-decoration-none">
-                        <div class="card card-hover h-100 border-0 shadow-sm text-center">
-                            <div class="pt-4">
-                                @if($doctor->photo_url)
-                                    <img src="{{ $doctor->photo_url }}" class="rounded-circle mx-auto" width="80" height="80" style="object-fit:cover;" alt="{{ $doctor->full_name }}">
-                                @else
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto" style="width:80px;height:80px;font-size:2rem;">{{ substr($doctor->first_name,0,1) }}</div>
-                                @endif
-                            </div>
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-1">{{ $doctor->full_name }}</h6>
-                                <p class="text-muted small mb-1">{{ $doctor->designation }}</p>
-                                <p class="text-muted small mb-2">{{ $doctor->qualifications }}</p>
-                                @if($doctor->experience_years)<span class="badge bg-light text-muted">{{ $doctor->experience_years }} yrs experience</span>@endif
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <div class="card border-0 shadow-sm p-3 sticky-top" style="top:80px;">
+                    <h6 class="fw-bold mb-3">Filter Doctors</h6>
+                    <form method="GET" action="{{ route('doctors.index') }}">
+                        <div class="mb-3">
+                            <label for="specialty_id" class="form-label small fw-medium">Specialty</label>
+                            <select name="specialty_id" id="specialty_id" class="form-select form-select-sm">
+                                <option value="">All Specialties</option>
+                                @foreach($specialties ?? [] as $s)
+                                    <option value="{{ $s->id }}" {{ request('specialty_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hospital_id" class="form-label small fw-medium">Hospital</label>
+                            <select name="hospital_id" id="hospital_id" class="form-select form-select-sm">
+                                <option value="">All Hospitals</option>
+                                @foreach($hospitals ?? [] as $h)
+                                    <option value="{{ $h->id }}" {{ request('hospital_id') == $h->id ? 'selected' : '' }}>{{ $h->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" name="online_consultation" id="online_consultation" value="1" class="form-check-input" {{ request('online_consultation') == '1' ? 'checked' : '' }}>
+                                <label for="online_consultation" class="form-check-label small">Online Consultation</label>
                             </div>
                         </div>
-                    </a>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Apply</button>
+                    </form>
                 </div>
-                @empty
-                <div class="col-12 text-center py-5 text-muted">No doctors found.</div>
-                @endforelse
             </div>
-            <div class="mt-4">{{ $doctors->appends(request()->query())->links() }}</div>
+
+            <div class="col-lg-9">
+                <div class="mb-4">
+                    <p class="text-muted"><strong>{{ $doctors->total() }}</strong> specialists found</p>
+                </div>
+                <div class="row g-4">
+                    @forelse($doctors as $doctor)
+                    <div class="col-md-6">
+                        <a href="{{ route('doctors.show', $doctor->slug) }}" class="text-decoration-none">
+                            <div class="card border-0 shadow-sm hover-lift">
+                                <div class="card-body d-flex gap-3">
+                                    @if($doctor->photo_url)
+                                        <img src="{{ $doctor->photo_url }}" class="rounded-circle flex-shrink-0" width="80" height="80" style="object-fit:cover;" alt="{{ $doctor->full_name }}">
+                                    @else
+                                        <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center flex-shrink-0" style="width:80px;height:80px;">
+                                            <i class="bi bi-person-fill text-primary fs-2"></i>
+                                        </div>
+                                    @endif
+                                    <div>
+                                        <h5 class="card-title fw-bold text-dark mb-1">Dr. {{ $doctor->first_name }} {{ $doctor->last_name }}</h5>
+                                        <p class="text-primary small mb-1">{{ $doctor->designation }}</p>
+                                        @if($doctor->experience_years)
+                                            <p class="text-muted small mb-1">{{ $doctor->experience_years }} years experience</p>
+                                        @endif
+                                        @if($doctor->primary_hospital ?? null)
+                                            <p class="text-muted small mb-0">
+                                                <i class="bi bi-building me-1"></i>{{ $doctor->primary_hospital->name }}
+                                            </p>
+                                        @endif
+                                        @if($doctor->online_consultation ?? false)
+                                            <span class="badge bg-success-subtle text-success mt-1 small">
+                                                <i class="bi bi-camera-video me-1"></i>Online Consultation
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @empty
+                    <div class="col-12 text-center py-5 text-muted">No doctors found.</div>
+                    @endforelse
+                </div>
+
+                <div class="mt-4">{{ $doctors->appends(request()->query())->links() }}</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection

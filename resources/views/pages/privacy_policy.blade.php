@@ -62,7 +62,7 @@
                     <p class="text-muted">We use cookies to improve your browsing experience, remember your preferences, and analyze site traffic. You can control cookie settings through your browser. Disabling cookies may affect some functionality.</p>
 
                     <h5 class="fw-bold mt-4">8. Contact Us</h5>
-                    <p class="text-muted mb-0">For privacy-related requests or questions, contact our Data Protection Officer at <a href="mailto:privacy@medtourism.com">privacy@medtourism.com</a>.</p>
+                    <p class="text-muted mb-0">For privacy-related requests or questions, contact our Data Protection Officer at <a href="mailto:privacy@wellaaro.com">privacy@wellaaro.com</a>.</p>
                 </div>
             </div>
         </div>

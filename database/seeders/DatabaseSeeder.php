@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
         // Case manager
         $caseManager = User::firstOrCreate(
-            ['email' => 'manager@medtourism.com'],
+            ['email' => 'manager@wellaaro.com'],
             ['password' => Hash::make('password'), 'role' => 'case_manager', 'status' => 'active']
         );
         $caseManager->assignRole('case_manager');
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
 
         // Test patient
         $patient = User::firstOrCreate(
-            ['email' => 'patient@medtourism.com'],
+            ['email' => 'patient@wellaaro.com'],
             ['password' => Hash::make('password'), 'role' => 'patient', 'status' => 'active']
         );
         $patient->assignRole('patient');

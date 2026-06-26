@@ -45,7 +45,7 @@
         <p><strong>Notes:</strong> {{ $appointment->meeting_notes }}</p>
         @endif
 
-        <p>Best regards,<br><strong>The MedTourism Team</strong></p>
+        <p>Best regards,<br><strong>The Wellaaro Team</strong></p>
     </div>
 </div>
 </body>

@@ -46,7 +46,7 @@
                     <p class="text-muted">These terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts of New Delhi, India.</p>
 
                     <h5 class="fw-bold mt-4">10. Contact</h5>
-                    <p class="text-muted mb-0">For questions about these terms, contact us at <a href="mailto:legal@medtourism.com">legal@medtourism.com</a> or visit our <a href="{{ route('contact') }}">contact page</a>.</p>
+                    <p class="text-muted mb-0">For questions about these terms, contact us at <a href="mailto:legal@wellaaro.com">legal@wellaaro.com</a> or visit our <a href="{{ route('contact') }}">contact page</a>.</p>
                 </div>
             </div>
         </div>

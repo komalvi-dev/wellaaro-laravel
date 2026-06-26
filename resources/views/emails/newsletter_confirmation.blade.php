@@ -9,7 +9,7 @@
         <p>Please confirm your email address to complete your newsletter subscription.</p>
         <a href="{{ url('/newsletter/confirm/' . $subscriber->confirmation_token) }}" class="btn">Confirm Subscription</a>
         <p>If you did not subscribe, you can safely ignore this email.</p>
-        <p>Best regards,<br><strong>The MedTourism Team</strong></p>
+        <p>Best regards,<br><strong>The Wellaaro Team</strong></p>
     </div>
 </div>
 </body>

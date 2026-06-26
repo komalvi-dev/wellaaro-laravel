@@ -86,7 +86,7 @@
         <p>To accept or reject this quotation, please log in to your patient dashboard.</p>
         <a href="{{ url('/dashboard/quotations') }}" class="btn">View Quotation in Dashboard</a>
 
-        <p style="margin-top:20px;">Best regards,<br><strong>The MedTourism Team</strong></p>
+        <p style="margin-top:20px;">Best regards,<br><strong>The Wellaaro Team</strong></p>
     </div>
     <div class="footer">
         <p>All costs are estimates and subject to final medical assessment.</p>

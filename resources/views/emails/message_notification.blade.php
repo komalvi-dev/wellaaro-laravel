@@ -9,7 +9,7 @@
         <p>You have a new message from <strong>{{ $message->sender->full_name }}</strong>:</p>
         <div class="msg-body">{{ $message->body }}</div>
         <a href="{{ url('/dashboard/inquiries/' . $message->conversation->inquiry_id) }}" class="btn">View Conversation</a>
-        <p style="margin-top:20px;">Best regards,<br><strong>The MedTourism Team</strong></p>
+        <p style="margin-top:20px;">Best regards,<br><strong>The Wellaaro Team</strong></p>
     </div>
 </div>
 </body>

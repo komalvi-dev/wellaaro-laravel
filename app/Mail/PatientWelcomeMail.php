@@ -19,7 +19,7 @@ class PatientWelcomeMail extends Mailable
     {
         return new Envelope(
             to: $this->user->email,
-            subject: 'Welcome to MedTourism - Your account is ready',
+            subject: 'Welcome to Wellaaro - Your account is ready',
         );
     }
 

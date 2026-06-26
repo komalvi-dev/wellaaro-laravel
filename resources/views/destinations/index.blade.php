@@ -1,30 +1,69 @@
 @extends('layouts.app')
-@section('title', 'Medical Destinations')
+@section('title', 'Medical Tourism Destinations')
+@section('description', 'Explore world-class medical destinations with JCI-accredited hospitals and affordable healthcare.')
 @section('content')
-<div class="bg-light py-4 mb-4">
+
+<section class="bg-primary text-white py-5">
     <div class="container">
-        <h1 class="h3 fw-bold mb-1">Medical Destinations</h1>
-        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li><li class="breadcrumb-item active">Destinations</li></ol></nav>
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-white-50 small mb-2">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white-50">Home</a></li>
+                        <li class="breadcrumb-item active text-white">Destinations</li>
+                    </ol>
+                </nav>
+                <h1 class="display-5 fw-bold mb-3">Medical Tourism Destinations</h1>
+                <p class="lead mb-0">World-class healthcare in affordable destinations trusted by patients from 60+ countries.</p>
+            </div>
+        </div>
     </div>
-</div>
-<div class="container py-4">
-    <div class="row g-4">
-        @forelse($destinations as $destination)
-        <div class="col-md-6 col-lg-4">
-            <a href="{{ route('destinations.show', $destination->slug) }}" class="text-decoration-none">
-                <div class="card card-hover h-100 border-0 shadow-sm">
-                    @if($destination->featured_image_url)<img src="{{ $destination->featured_image_url }}" class="card-img-top" style="height:180px;object-fit:cover;" alt="{{ $destination->name }}">@endif
-                    <div class="card-body">
-                        <h6 class="fw-bold mb-1">{{ $destination->name }}</h6>
-                        <p class="text-muted small mb-1">{{ $destination->country->name }}</p>
-                        @if($destination->tagline)<p class="small text-muted">{{ $destination->tagline }}</p>@endif
+</section>
+
+<section class="py-5">
+    <div class="container">
+        @if($destinations->isNotEmpty())
+            <div class="row g-4">
+                @foreach($destinations as $destination)
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center"
+                                     style="width:48px;height:48px;flex-shrink:0;">
+                                    <i class="bi bi-geo-alt-fill text-primary fs-5"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold mb-0">{{ $destination->name }}</h5>
+                                    <p class="mb-0 text-muted small">{{ $destination->country->name ?? '' }}</p>
+                                </div>
+                            </div>
+                            @if($destination->description)
+                                <p class="text-muted small mb-3">{{ \Illuminate\Support\Str::limit($destination->description, 120) }}</p>
+                            @endif
+                            <a href="{{ route('destinations.show', $destination->slug) }}" class="btn btn-sm btn-outline-primary">
+                                Explore <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </a>
-        </div>
-        @empty
-        <div class="col-12 text-center py-5 text-muted">No destinations found.</div>
-        @endforelse
+                @endforeach
+            </div>
+        @else
+            <div class="text-center py-5">
+                <i class="bi bi-geo display-4 text-muted d-block mb-3"></i>
+                <h5 class="text-muted">No destinations listed yet</h5>
+            </div>
+        @endif
     </div>
-</div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Ready to Explore Your Options?</h2>
+        <p class="text-muted mb-4">Tell us about your medical needs and we'll match you with the best hospitals.</p>
+        <a href="{{ route('get_quote') }}" class="btn btn-primary btn-lg px-5">Get Free Consultation</a>
+    </div>
+</section>
+
 @endsection

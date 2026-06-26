@@ -16,7 +16,7 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">Send us a Message</h5>
-                    <form action="{{ route('contact.create') }}" method="POST">
+                    <form action="{{ route('contact.store') }}" method="POST">
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -53,7 +53,7 @@
         </div>
         <div class="col-lg-5">
             <h5 class="fw-bold mb-4">Get in Touch</h5>
-            <div class="d-flex gap-3 mb-3"><div class="text-primary mt-1"><i class="fas fa-envelope fa-lg"></i></div><div><strong>Email</strong><br><a href="mailto:info@medtourism.com" class="text-muted">info@medtourism.com</a></div></div>
+            <div class="d-flex gap-3 mb-3"><div class="text-primary mt-1"><i class="fas fa-envelope fa-lg"></i></div><div><strong>Email</strong><br><a href="mailto:info@wellaaro.com" class="text-muted">info@wellaaro.com</a></div></div>
             <div class="d-flex gap-3 mb-3"><div class="text-primary mt-1"><i class="fas fa-phone fa-lg"></i></div><div><strong>Phone</strong><br><a href="tel:+919876543210" class="text-muted">+91 98765 43210</a></div></div>
             <div class="d-flex gap-3 mb-3"><div class="text-primary mt-1"><i class="fab fa-whatsapp fa-lg"></i></div><div><strong>WhatsApp</strong><br><span class="text-muted">+91 98765 43210</span></div></div>
             <div class="d-flex gap-3"><div class="text-primary mt-1"><i class="fas fa-map-marker-alt fa-lg"></i></div><div><strong>Office</strong><br><span class="text-muted">123 Medical Hub, Mumbai 400001, India</span></div></div>

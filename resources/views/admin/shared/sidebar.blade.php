@@ -1,6 +1,6 @@
 <nav class="sidebar d-flex flex-column">
     <div class="brand">
-        <a href="{{ route('admin.dashboard') }}"><i class="fas fa-heartbeat me-2"></i>{{ config('app.name', 'MedTourism') }}</a>
+        <a href="{{ route('admin.dashboard') }}"><i class="fas fa-heartbeat me-2"></i>{{ config('app.name', 'Wellaaro') }}</a>
         <div class="text-white-50 small mt-1">Admin Panel</div>
     </div>
     <div class="flex-grow-1 py-2">

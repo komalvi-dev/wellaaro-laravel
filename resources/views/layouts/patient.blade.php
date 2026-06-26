@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Patient Portal - @yield('title', 'Dashboard') | {{ config('app.name', 'MedTourism') }}</title>
+    <title>Patient Portal - @yield('title', 'Dashboard') | {{ config('app.name', 'Wellaaro') }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -25,7 +25,7 @@
         <nav class="patient-sidebar">
             <div class="brand">
                 <a href="{{ route('home') }}" class="text-decoration-none text-primary fw-bold">
-                    <i class="fas fa-heartbeat me-2"></i>{{ config('app.name', 'MedTourism') }}
+                    <i class="fas fa-heartbeat me-2"></i>{{ config('app.name', 'Wellaaro') }}
                 </a>
             </div>
             <div class="py-3">
@@ -41,7 +41,7 @@
                 <a href="{{ route('patient.appointments.index') }}" class="nav-link {{ request()->routeIs('patient.appointments.*') ? 'active' : '' }}">
                     <i class="fas fa-calendar-check me-2"></i>Appointments
                 </a>
-                <a href="{{ route('patient.medical_records.index') }}" class="nav-link {{ request()->routeIs('patient.medical_records.*') ? 'active' : '' }}">
+                <a href="{{ route('patient.medical-records.index') }}" class="nav-link {{ request()->routeIs('patient.medical-records.*') ? 'active' : '' }}">
                     <i class="fas fa-folder-open me-2"></i>Medical Records
                 </a>
                 <a href="{{ route('patient.payments.index') }}" class="nav-link {{ request()->routeIs('patient.payments.*') ? 'active' : '' }}">

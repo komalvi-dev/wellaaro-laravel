@@ -40,10 +40,10 @@
         <p>If you have any urgent questions, please reply to this email or contact us directly.</p>
 
         <p>Best regards,<br>
-        <strong>The MedTourism Team</strong></p>
+        <strong>The Wellaaro Team</strong></p>
     </div>
     <div class="footer">
-        <p>You are receiving this email because you submitted an inquiry on MedTourism. Please do not reply to this automated message.</p>
+        <p>You are receiving this email because you submitted an inquiry on Wellaaro. Please do not reply to this automated message.</p>
     </div>
 </div>
 </body>
