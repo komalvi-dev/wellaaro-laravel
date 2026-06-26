@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', config('app.name', 'Wellaaro')) - Medical Tourism India</title>
     <meta name="description" content="@yield('meta_description', 'World-class medical treatments in India at affordable prices.')">
-    <link rel="icon" type="image/jpeg" href="{{ asset('only_logo.jpeg') }}">
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/only_logo.jpeg') }}">
     <meta name="theme-color" content="#1a6bcc">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
