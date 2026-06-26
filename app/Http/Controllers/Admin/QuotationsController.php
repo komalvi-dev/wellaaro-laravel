@@ -8,7 +8,7 @@ use App\Models\Quotation;
 use App\Models\Hospital;
 use App\Models\Doctor;
 use App\Models\Treatment;
-use App\Mail\QuotationSentToPatient;
+use App\Mail\QuotationSentMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -87,7 +87,7 @@ class QuotationsController extends Controller
         $patientEmail = $inquiry->patient_email;
 
         if ($patientEmail) {
-            Mail::to($patientEmail)->send(new QuotationSentToPatient($quotation, $inquiry));
+            Mail::to($patientEmail)->send(new QuotationSentMail($quotation));
         }
 
         return redirect()->route('admin.inquiries.show', $inquiry)

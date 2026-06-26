@@ -21,7 +21,7 @@ class Country extends Model
 
     public function cities()       { return $this->hasMany(City::class); }
     public function hospitals()    { return $this->hasMany(Hospital::class); }
-    public function destinations() { return $this->hasMany(Destination::class); }
+    public function destinationPlaces() { return $this->hasMany(Destination::class); }
 
     public function scopeDestinations($query) { return $query->where('is_destination', true); }
     public function scopeSources($query)      { return $query->where('is_source', true); }

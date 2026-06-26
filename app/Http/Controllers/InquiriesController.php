@@ -63,7 +63,7 @@ class InquiriesController extends Controller
 
         session(['inquiry_reference' => $inquiry->reference_number]);
 
-        return redirect()->route('inquiry_confirmation');
+        return redirect()->route('inquiry.confirmation');
     }
 
     public function confirmation()
