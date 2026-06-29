@@ -59,7 +59,7 @@ class InquiriesController extends Controller
         $inquiry = Inquiry::create($validated);
 
         try {
-            Mail::queue(new InquiryConfirmationMail($inquiry));
+            Mail::send(new InquiryConfirmationMail($inquiry));
             NotifyStaffOfNewInquiry::dispatch($inquiry);
         } catch (\Throwable $e) {
             \Log::error('Inquiry mail failed: ' . $e->getMessage(), ['inquiry_id' => $inquiry->id]);

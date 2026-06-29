@@ -34,7 +34,7 @@ class InquiryService
 
         // Send confirmation to patient
         if (!empty($inquiry->email)) {
-            Mail::queue(new InquiryConfirmationMail($inquiry));
+            Mail::send(new InquiryConfirmationMail($inquiry));
         }
 
         return $inquiry;

@@ -31,7 +31,7 @@ class SendAppointmentReminder implements ShouldQueue
             return;
         }
 
-        Mail::to($recipientEmail)->queue(new AppointmentReminderMail($this->appointment, $this->type));
+        Mail::to($recipientEmail)->send(new AppointmentReminderMail($this->appointment, $this->type));
 
         if ($this->type === '24h') {
             $this->appointment->update(['reminder_sent_24h' => true]);

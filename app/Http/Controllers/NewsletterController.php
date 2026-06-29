@@ -24,7 +24,7 @@ class NewsletterController extends Controller
         );
 
         if (!$subscriber->is_confirmed) {
-            Mail::queue(new NewsletterConfirmationMail($subscriber));
+            Mail::send(new NewsletterConfirmationMail($subscriber));
         }
 
         return response()->json(['success' => true, 'message' => 'Please check your email to confirm your subscription.']);

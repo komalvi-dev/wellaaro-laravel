@@ -75,7 +75,7 @@ class DoctorsController extends Controller
         $this->syncDoctorRelations($doctor, $request);
 
         if ($userCreated) {
-            Mail::queue(new DoctorWelcomeMail($user, $doctor->full_name));
+            Mail::send(new DoctorWelcomeMail($user, $doctor->full_name));
         }
 
         return redirect()->route('admin.doctors.show', $doctor)
@@ -125,7 +125,7 @@ class DoctorsController extends Controller
         $this->syncDoctorRelations($doctor, $request);
 
         if ($userCreated) {
-            Mail::queue(new DoctorWelcomeMail($user, $doctor->full_name));
+            Mail::send(new DoctorWelcomeMail($user, $doctor->full_name));
         }
 
         return redirect()->route('admin.doctors.show', $doctor)

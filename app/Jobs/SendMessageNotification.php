@@ -37,7 +37,7 @@ class SendMessageNotification implements ShouldQueue
                 ? new MessageNotificationPatientMail($this->message, $user, $inquiry)
                 : new MessageNotificationStaffMail($this->message, $user, $inquiry);
 
-            Mail::to($user->email)->queue($mailable);
+            Mail::to($user->email)->send($mailable);
 
             $actionUrl = $user->isPatient()
                 ? "/messages/{$conversation->id}"

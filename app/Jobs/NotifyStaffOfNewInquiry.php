@@ -41,7 +41,7 @@ class NotifyStaffOfNewInquiry implements ShouldQueue
         }
 
         // Send email to the assigned staff member.
-        Mail::to($assignedUser->email)->queue(new InquiryNotificationMail($this->inquiry));
+        Mail::to($assignedUser->email)->send(new InquiryNotificationMail($this->inquiry));
 
         // 3) Create an in-app CustomNotification record for the assigned staff user.
         CustomNotification::create([
