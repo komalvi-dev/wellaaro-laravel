@@ -18,9 +18,10 @@ class NotifyStaffOfNewInquiry implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $queue = 'critical';
-
-    public function __construct(public readonly Inquiry $inquiry) {}
+    public function __construct(public readonly Inquiry $inquiry)
+    {
+        $this->onQueue('critical');
+    }
 
     public function handle(WhatsAppService $whatsapp): void
     {

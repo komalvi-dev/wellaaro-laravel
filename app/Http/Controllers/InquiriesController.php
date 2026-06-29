@@ -23,12 +23,12 @@ class InquiriesController extends Controller
     {
         $validated = $request->validate([
             'first_name'            => 'required|string|max:100',
-            'last_name'             => 'required|string|max:100',
+            'last_name'             => 'nullable|string|max:100',
             'email'                 => 'required|email|max:255',
             'phone'                 => 'required|string|max:30',
-            'specialty_id'          => 'required|exists:specialties,id',
+            'specialty_id'          => 'nullable|exists:specialties,id',
             'treatment_id'          => 'nullable|exists:treatments,id',
-            'condition_description' => 'required|string',
+            'condition_description' => 'nullable|string',
             'preferred_destination' => 'nullable|string',
             'preferred_timeline'    => 'nullable|string',
             'budget_range'          => 'nullable|string',
@@ -58,8 +58,12 @@ class InquiriesController extends Controller
 
         $inquiry = Inquiry::create($validated);
 
-        Mail::queue(new InquiryConfirmationMail($inquiry));
-        NotifyStaffOfNewInquiry::dispatch($inquiry);
+        try {
+            Mail::queue(new InquiryConfirmationMail($inquiry));
+            NotifyStaffOfNewInquiry::dispatch($inquiry);
+        } catch (\Throwable $e) {
+            \Log::error('Inquiry mail failed: ' . $e->getMessage(), ['inquiry_id' => $inquiry->id]);
+        }
 
         session(['inquiry_reference' => $inquiry->reference_number]);
 

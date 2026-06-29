@@ -146,11 +146,11 @@ class Inquiry extends Model
             $inquiry->conversation()->create();
             $inquiry->travelAssistance()->create([
                 'patient_profile_id'     => $inquiry->patient_profile_id,
-                'visa_required'          => $inquiry->needs_visa_assistance,
+                'visa_required'          => $inquiry->needs_visa_assistance ?? false,
                 'accommodation_required' => !empty($inquiry->accommodation_pref),
                 'accommodation_pref'     => $inquiry->accommodation_pref,
-                'transfer_required'      => $inquiry->needs_airport_transfer,
-                'interpreter_required'   => $inquiry->needs_interpreter,
+                'transfer_required'      => $inquiry->needs_airport_transfer ?? false,
+                'interpreter_required'   => $inquiry->needs_interpreter ?? false,
             ]);
         });
     }
