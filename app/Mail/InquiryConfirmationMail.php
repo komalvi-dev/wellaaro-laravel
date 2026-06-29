@@ -20,9 +20,11 @@ class InquiryConfirmationMail extends Mailable
         $patientEmail = $this->inquiry->patient_email;
 
         if (empty($patientEmail)) {
-            return new Envelope(
-                subject: 'We received your inquiry – ' . $this->inquiry->reference_number,
-            );
+            \Log::warning('InquiryConfirmationMail skipped — no email on inquiry', [
+                'inquiry_id' => $this->inquiry->id,
+            ]);
+            // Return envelope to admin so it isn't silently dropped
+            $patientEmail = config('mail.admin_address', config('mail.from.address'));
         }
 
         return new Envelope(

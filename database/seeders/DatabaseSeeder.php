@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call(CountrySeeder::class);
         // Create all roles
         foreach (User::ROLES as $role) {
             Role::firstOrCreate(['name' => $role]);

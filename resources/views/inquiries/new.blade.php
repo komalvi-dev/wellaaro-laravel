@@ -62,30 +62,7 @@
                                     <label class="form-label fw-semibold">Country of Residence</label>
                                     <select name="country_of_residence" id="quote-country-select" class="form-select" onchange="updateQuotePhoneCode(this.value)">
                                         <option value="">Select your country</option>
-                                        @php
-                                        $countriesList = [
-                                            'Afghanistan'=>'AF','Albania'=>'AL','Algeria'=>'DZ','Argentina'=>'AR','Australia'=>'AU',
-                                            'Austria'=>'AT','Azerbaijan'=>'AZ','Bahrain'=>'BH','Bangladesh'=>'BD','Belarus'=>'BY',
-                                            'Belgium'=>'BE','Bolivia'=>'BO','Brazil'=>'BR','Bulgaria'=>'BG','Cambodia'=>'KH',
-                                            'Canada'=>'CA','Chile'=>'CL','China'=>'CN','Colombia'=>'CO','Croatia'=>'HR',
-                                            'Czech Republic'=>'CZ','Denmark'=>'DK','Ecuador'=>'EC','Egypt'=>'EG','Ethiopia'=>'ET',
-                                            'Finland'=>'FI','France'=>'FR','Georgia'=>'GE','Germany'=>'DE','Ghana'=>'GH',
-                                            'Greece'=>'GR','Hungary'=>'HU','India'=>'IN','Indonesia'=>'ID','Iran'=>'IR',
-                                            'Iraq'=>'IQ','Ireland'=>'IE','Israel'=>'IL','Italy'=>'IT','Japan'=>'JP',
-                                            'Jordan'=>'JO','Kazakhstan'=>'KZ','Kenya'=>'KE','Kuwait'=>'KW','Kyrgyzstan'=>'KG',
-                                            'Lebanon'=>'LB','Libya'=>'LY','Malaysia'=>'MY','Maldives'=>'MV','Mexico'=>'MX',
-                                            'Morocco'=>'MA','Myanmar'=>'MM','Nepal'=>'NP','Netherlands'=>'NL','New Zealand'=>'NZ',
-                                            'Nigeria'=>'NG','Norway'=>'NO','Oman'=>'OM','Pakistan'=>'PK','Palestine'=>'PS',
-                                            'Peru'=>'PE','Philippines'=>'PH','Poland'=>'PL','Portugal'=>'PT','Qatar'=>'QA',
-                                            'Romania'=>'RO','Russia'=>'RU','Saudi Arabia'=>'SA','Serbia'=>'RS','Singapore'=>'SG',
-                                            'South Africa'=>'ZA','South Korea'=>'KR','Spain'=>'ES','Sri Lanka'=>'LK','Sudan'=>'SD',
-                                            'Sweden'=>'SE','Switzerland'=>'CH','Syria'=>'SY','Taiwan'=>'TW','Tajikistan'=>'TJ',
-                                            'Tanzania'=>'TZ','Thailand'=>'TH','Tunisia'=>'TN','Turkey'=>'TR','Turkmenistan'=>'TM',
-                                            'Uganda'=>'UG','Ukraine'=>'UA','United Arab Emirates'=>'AE','United Kingdom'=>'GB',
-                                            'United States'=>'US','Uzbekistan'=>'UZ','Venezuela'=>'VE','Vietnam'=>'VN','Yemen'=>'YE','Zimbabwe'=>'ZW',
-                                        ];
-                                        @endphp
-                                        @foreach($countriesList as $name => $code)
+                                        @foreach(config('countries') as $name => $phone)
                                             <option value="{{ $name }}" {{ old('country_of_residence') == $name ? 'selected' : '' }}>{{ $name }}</option>
                                         @endforeach
                                     </select>
@@ -371,27 +348,7 @@ function filterTreatments(specialtyId) {
     select.options[0].textContent = matching.length ? 'Select specific treatment (optional)' : 'All treatments shown';
 }
 
-var PHONE_CODES = {
-    'Afghanistan':'+93','Albania':'+355','Algeria':'+213','Argentina':'+54','Australia':'+61',
-    'Austria':'+43','Azerbaijan':'+994','Bahrain':'+973','Bangladesh':'+880','Belarus':'+375',
-    'Belgium':'+32','Bolivia':'+591','Brazil':'+55','Bulgaria':'+359','Cambodia':'+855',
-    'Canada':'+1','Chile':'+56','China':'+86','Colombia':'+57','Croatia':'+385',
-    'Czech Republic':'+420','Denmark':'+45','Ecuador':'+593','Egypt':'+20','Ethiopia':'+251',
-    'Finland':'+358','France':'+33','Georgia':'+995','Germany':'+49','Ghana':'+233',
-    'Greece':'+30','Hungary':'+36','India':'+91','Indonesia':'+62','Iran':'+98',
-    'Iraq':'+964','Ireland':'+353','Israel':'+972','Italy':'+39','Japan':'+81',
-    'Jordan':'+962','Kazakhstan':'+7','Kenya':'+254','Kuwait':'+965','Kyrgyzstan':'+996',
-    'Lebanon':'+961','Libya':'+218','Malaysia':'+60','Maldives':'+960','Mexico':'+52',
-    'Morocco':'+212','Myanmar':'+95','Nepal':'+977','Netherlands':'+31','New Zealand':'+64',
-    'Nigeria':'+234','Norway':'+47','Oman':'+968','Pakistan':'+92','Palestine':'+970',
-    'Peru':'+51','Philippines':'+63','Poland':'+48','Portugal':'+351','Qatar':'+974',
-    'Romania':'+40','Russia':'+7','Saudi Arabia':'+966','Serbia':'+381','Singapore':'+65',
-    'South Africa':'+27','South Korea':'+82','Spain':'+34','Sri Lanka':'+94','Sudan':'+249',
-    'Sweden':'+46','Switzerland':'+41','Syria':'+963','Taiwan':'+886','Tajikistan':'+992',
-    'Tanzania':'+255','Thailand':'+66','Tunisia':'+216','Turkey':'+90','Turkmenistan':'+993',
-    'Uganda':'+256','Ukraine':'+380','United Arab Emirates':'+971','United Kingdom':'+44',
-    'United States':'+1','Uzbekistan':'+998','Venezuela':'+58','Vietnam':'+84','Yemen':'+967','Zimbabwe':'+263'
-};
+var PHONE_CODES = @json(config('countries'));
 
 function updateQuotePhoneCode(country) {
     var badge = document.getElementById('quote-phone-code');

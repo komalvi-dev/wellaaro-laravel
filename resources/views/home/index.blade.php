@@ -68,18 +68,9 @@
                                 <div class="mb-3">
                                     <select name="country_of_residence" class="form-select">
                                         <option value="">Select Country</option>
-                                        <option>United States</option>
-                                        <option>United Kingdom</option>
-                                        <option>Canada</option>
-                                        <option>Australia</option>
-                                        <option>Germany</option>
-                                        <option>France</option>
-                                        <option>UAE</option>
-                                        <option>Saudi Arabia</option>
-                                        <option>Kuwait</option>
-                                        <option>Nigeria</option>
-                                        <option>Kenya</option>
-                                        <option>Other</option>
+                                        @foreach(array_keys(config('countries')) as $country)
+                                            <option value="{{ $country }}">{{ $country }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
