@@ -20,13 +20,66 @@
             <div class="card-header bg-white fw-semibold">Inquiry Details</div>
             <div class="card-body">
                 <div class="row g-3">
+                    <div class="col-sm-6"><dt class="text-muted small">Country</dt><dd>{{ $inquiry->country_of_residence ?: $inquiry->patientProfile?->country_of_residence ?: '—' }}</dd></div>
+                    <div class="col-sm-3"><dt class="text-muted small">Age</dt><dd>{{ $inquiry->age ?? '—' }}</dd></div>
+                    <div class="col-sm-3"><dt class="text-muted small">Gender</dt><dd>{{ $inquiry->gender ? ucfirst($inquiry->gender) : '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Specialty</dt><dd>{{ $inquiry->specialty->name ?? '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Treatment</dt><dd>{{ $inquiry->treatment->name ?? '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Destination</dt><dd>{{ $inquiry->preferred_destination ?? '—' }}</dd></div>
                     <div class="col-sm-6"><dt class="text-muted small">Budget</dt><dd>{{ $inquiry->budget_range ?? '—' }}</dd></div>
-                    <div class="col-sm-6"><dt class="text-muted small">Travel Date</dt><dd>{{ $inquiry->preferred_travel_date ? $inquiry->preferred_travel_date->format('d M Y') : '—' }}</dd></div>
-                    <div class="col-12"><dt class="text-muted small">Medical Description</dt><dd>{{ $inquiry->condition_description ?? '—' }}</dd></div>
+                    <div class="col-sm-6"><dt class="text-muted small">Timeline</dt><dd>{{ [
+                        'asap' => 'As Soon As Possible',
+                        '1_3_months' => '1-3 Months',
+                        '3_6_months' => '3-6 Months',
+                        '6_plus' => '6+ Months',
+                    ][$inquiry->preferred_timeline] ?? '—' }}</dd></div>
+                    <div class="col-12"><dt class="text-muted small">Describe Your Condition</dt><dd>{{ $inquiry->condition_description ?? '—' }}</dd></div>
+                    <div class="col-sm-6"><dt class="text-muted small">Current Medications</dt><dd>{{ $inquiry->current_medications ?? '—' }}</dd></div>
+                    <div class="col-sm-6"><dt class="text-muted small">Previous Treatments Attempted</dt><dd>{{ $inquiry->previous_treatments ?? '—' }}</dd></div>
                     <div class="col-12"><dt class="text-muted small">Additional Notes</dt><dd>{{ $inquiry->additional_notes ?? '—' }}</dd></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Uploaded Medical Reports --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white fw-semibold">Uploaded Medical Reports</div>
+            <div class="card-body">
+                @forelse($documents ?? [] as $document)
+                <div class="d-flex align-items-center justify-content-between {{ !$loop->last ? 'border-bottom pb-2 mb-2' : '' }}">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-file-medical text-muted"></i>
+                        <span>{{ $document->file_name ?? $document->title }}</span>
+                    </div>
+                    <a href="{{ $document->file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                </div>
+                @empty
+                <p class="text-muted mb-0">No medical reports uploaded.</p>
+                @endforelse
+            </div>
+        </div>
+
+        {{-- Travel & Preferences --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white fw-semibold">Travel &amp; Preferences</div>
+            <div class="card-body">
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-6"><dt class="text-muted small">Number of Companions</dt><dd>{{ $inquiry->companions_count ?? '0' }}</dd></div>
+                    <div class="col-sm-6"><dt class="text-muted small">Accommodation Preference</dt><dd>{{ $inquiry->accommodation_pref ? ucfirst($inquiry->accommodation_pref) : '—' }}</dd></div>
+                </div>
+                <dt class="text-muted small mb-2">Services Required</dt>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    @if($inquiry->needs_visa_assistance)<span class="badge bg-info-subtle text-info-emphasis">Visa Assistance</span>@endif
+                    @if($inquiry->needs_airport_transfer)<span class="badge bg-info-subtle text-info-emphasis">Airport Transfer</span>@endif
+                    @if($inquiry->needs_interpreter)<span class="badge bg-info-subtle text-info-emphasis">Interpreter</span>@endif
+                    @if(!$inquiry->needs_visa_assistance && !$inquiry->needs_airport_transfer && !$inquiry->needs_interpreter)
+                    <span class="text-muted small">None requested</span>
+                    @endif
+                </div>
+                <dt class="text-muted small mb-2">Contact Preferences</dt>
+                <div class="d-flex flex-column gap-1 small">
+                    <div><i class="fas {{ $inquiry->whatsapp_opt_in ? 'fa-check text-success' : 'fa-times text-muted' }} me-2"></i>Contact me via WhatsApp for faster updates</div>
+                    <div><i class="fas {{ $inquiry->email_opt_in ? 'fa-check text-success' : 'fa-times text-muted' }} me-2"></i>Send me health articles and treatment updates by email</div>
                 </div>
             </div>
         </div>
@@ -45,7 +98,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $q->hospital->name ?? '—' }}</td>
-                            <td>{{ $q->currency }} {{ number_format($q->total_amount, 2) }}</td>
+                            <td>{{ $q->currency }} {{ number_format($q->total_cost, 2) }}</td>
                             <td>{{ $q->valid_until ? $q->valid_until->format('d M Y') : '—' }}</td>
                             <td><span class="badge bg-secondary">{{ ucfirst($q->status) }}</span></td>
                             <td>

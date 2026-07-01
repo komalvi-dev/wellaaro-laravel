@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <div class="fw-bold text-primary small">${{ number_format($quotation->total_amount ?? 0, 0) }}</div>
+                            <div class="fw-bold text-primary small">${{ number_format($quotation->total_cost ?? 0, 0) }}</div>
                             <span class="badge bg-warning text-dark" style="font-size:.65rem;">{{ ucfirst($quotation->status) }}</span>
                         </div>
                     </div>

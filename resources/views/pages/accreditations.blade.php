@@ -92,8 +92,8 @@
     </div>
 
     <div class="bg-light rounded-4 p-5 text-center">
-        <h4 class="display-5 fw-bold mb-2">{{ __('Our Hospital Selection Approach') }}</h4>
-        <p class="text-muted mb-4">{{ __('We help patients compare accredited hospitals across India based on their medical needs, budget, and preferences. Our goal is to provide clear information and independent guidance so patients can make informed healthcare decisions.') }}</p>
+        <h4 class="display-6 fw-bold mb-2">{{ __('Our Hospital Selection Approach') }}</h4>
+        <p class="text-muted mb-4" style="font-size:18px;">{{ __('We help patients compare accredited hospitals across India based on their medical needs, budget, and preferences. Our goal is to provide clear information and independent guidance so patients can make informed healthcare decisions.') }}</p>
     </div>
 
 </div>

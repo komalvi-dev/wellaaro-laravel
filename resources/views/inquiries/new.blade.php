@@ -22,7 +22,7 @@
 
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4 p-md-5">
-                    <form action="{{ route('inquiries.store') }}" method="POST" id="inquiry-form">
+                    <form action="{{ route('inquiries.store') }}" method="POST" id="inquiry-form" enctype="multipart/form-data">
                         @csrf
 
                         {{-- Step Indicators --}}

@@ -31,7 +31,7 @@
             </div>
             <div class="d-flex align-items-center gap-3">
                 <div class="text-end">
-                    <div class="fw-bold text-primary">${{ number_format($quotation->total_amount ?? 0, 0) }}</div>
+                    <div class="fw-bold text-primary">${{ number_format($quotation->total_cost ?? 0, 0) }}</div>
                     @php
                         $badgeClass = match($quotation->status) {
                             'pending'  => 'bg-warning text-dark',

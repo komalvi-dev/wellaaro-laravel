@@ -38,7 +38,7 @@
             <div class="col-lg-3 col-md-6">
                 <h6 class="fw-semibold text-white mb-3">{{ __('Contact Us') }}</h6>
                 <ul class="list-unstyled small text-white">
-                    <li class="mb-2"><i class="bi bi-envelope me-2"></i>care@wellaaro.com</li>
+                    <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:care@wellaaro.com" class="text-white text-decoration-none">care@wellaaro.com</a></li>
                     <li class="mb-2"><i class="bi bi-whatsapp me-2 text-success"></i><a href="https://wa.me/917211136620" class="text-white text-decoration-none" target="_blank" rel="noopener">+91 72111 36620</a></li>
                 </ul>
             </div>

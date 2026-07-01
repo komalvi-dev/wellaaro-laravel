@@ -60,14 +60,14 @@
                     <tfoot class="table-light">
                         <tr>
                             <th>Total</th>
-                            <th class="text-end text-primary">${{ number_format($quotation->total_amount ?? 0, 0) }}</th>
+                            <th class="text-end text-primary">${{ number_format($quotation->total_cost ?? 0, 0) }}</th>
                         </tr>
                     </tfoot>
                 </table>
                 @else
                 <div class="px-4 py-3 d-flex justify-content-between align-items-center border-bottom">
                     <span>Total Package Cost</span>
-                    <strong class="text-primary">${{ number_format($quotation->total_amount ?? 0, 0) }}</strong>
+                    <strong class="text-primary">${{ number_format($quotation->total_cost ?? 0, 0) }}</strong>
                 </div>
                 @endif
             </div>
@@ -123,7 +123,7 @@
             <div class="card-body">
                 <dl class="mb-0">
                     <dt class="small text-muted">Total Amount</dt>
-                    <dd class="h5 fw-bold text-primary">${{ number_format($quotation->total_amount ?? 0, 0) }}</dd>
+                    <dd class="h5 fw-bold text-primary">${{ number_format($quotation->total_cost ?? 0, 0) }}</dd>
 
                     <dt class="small text-muted">Valid Until</dt>
                     <dd>{{ $quotation->valid_until?->format('d M Y') ?? 'N/A' }}</dd>
