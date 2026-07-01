@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ config('locales.available.' . app()->getLocale() . '.rtl') ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,11 @@
     <link rel="icon" type="image/jpeg" href="{{ asset('images/only_logo.jpeg') }}">
     <meta name="theme-color" content="#1a6bcc">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    @if(config('locales.available.' . app()->getLocale() . '.rtl'))
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    @else
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -102,9 +106,9 @@
             theme: "classic",
             position: "bottom",
             content: {
-                message: "We use cookies to enhance your browsing experience and personalise content.",
-                dismiss: "Accept All",
-                link: "Learn more",
+                message: "{{ __('We use cookies to enhance your browsing experience and personalise content.') }}",
+                dismiss: "{{ __('Accept All') }}",
+                link: "{{ __('Learn more') }}",
                 href: "/privacy-policy"
             }
         });

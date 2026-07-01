@@ -9,12 +9,12 @@
             <div class="col-lg-8">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-white-50 small mb-2">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white-50">Home</a></li>
-                        <li class="breadcrumb-item active text-white">Destinations</li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white-50">{{ __('Home') }}</a></li>
+                        <li class="breadcrumb-item active text-white">{{ __('Destinations') }}</li>
                     </ol>
                 </nav>
-                <h1 class="display-5 fw-bold mb-3">Medical Tourism Destinations</h1>
-                <p class="lead mb-0">World-class healthcare in affordable destinations trusted by patients from 60+ countries.</p>
+                <h1 class="display-5 fw-bold mb-3">{{ __('Medical Tourism Destinations') }}</h1>
+                <p class="lead mb-0">{{ __('World-class healthcare in affordable destinations trusted by patients from 60+ countries.') }}</p>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
                                 <p class="text-muted small mb-3">{{ \Illuminate\Support\Str::limit($destination->description, 120) }}</p>
                             @endif
                             <a href="{{ route('destinations.show', $destination->slug) }}" class="btn btn-sm btn-outline-primary">
-                                Explore <i class="bi bi-arrow-right ms-1"></i>
+                                {{ __('Explore') }} <i class="bi bi-arrow-right ms-1"></i>
                             </a>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
         @else
             <div class="text-center py-5">
                 <i class="bi bi-geo display-4 text-muted d-block mb-3"></i>
-                <h5 class="text-muted">No destinations listed yet</h5>
+                <h5 class="text-muted">{{ __('No destinations listed yet') }}</h5>
             </div>
         @endif
     </div>
@@ -60,9 +60,9 @@
 
 <section class="bg-light py-5">
     <div class="container text-center">
-        <h2 class="fw-bold mb-3">Ready to Explore Your Options?</h2>
-        <p class="text-muted mb-4">Tell us about your medical needs and we'll match you with the best hospitals.</p>
-        <a href="{{ route('get_quote') }}" class="btn btn-primary btn-lg px-5">Get Free Consultation</a>
+        <h2 class="fw-bold mb-3">{{ __('Ready to Explore Your Options?') }}</h2>
+        <p class="text-muted mb-4">{{ __("Tell us about your medical needs and we'll match you with the best hospitals.") }}</p>
+        <a href="{{ route('get_quote') }}" class="btn btn-primary btn-lg px-5">{{ __('Get Free Consultation') }}</a>
     </div>
 </section>
 

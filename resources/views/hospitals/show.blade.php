@@ -7,8 +7,8 @@
     <div class="container">
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('hospitals.index') }}">Hospitals</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hospitals.index') }}">{{ __('Hospitals') }}</a></li>
                 <li class="breadcrumb-item active">{{ $hospital->name }}</li>
             </ol>
         </nav>
@@ -27,13 +27,13 @@
                         </p>
                         <div class="d-flex flex-wrap gap-2">
                             @if($hospital->is_jci_accredited)
-                                <span class="badge bg-warning text-dark"><i class="bi bi-patch-check me-1"></i>JCI Accredited</span>
+                                <span class="badge bg-warning text-dark"><i class="bi bi-patch-check me-1"></i>{{ __('JCI Accredited') }}</span>
                             @endif
                             @if($hospital->is_nabh_accredited)
-                                <span class="badge bg-info text-dark"><i class="bi bi-patch-check me-1"></i>NABH Accredited</span>
+                                <span class="badge bg-info text-dark"><i class="bi bi-patch-check me-1"></i>{{ __('NABH Accredited') }}</span>
                             @endif
                             @if($hospital->international_patient_desk)
-                                <span class="badge bg-primary">International Patient Desk</span>
+                                <span class="badge bg-primary">{{ __('International Patient Desk') }}</span>
                             @endif
                         </div>
                     </div>
@@ -50,18 +50,18 @@
                                 @endif
                             @endfor
                         </div>
-                        <span class="text-muted small">{{ number_format($hospital->average_rating, 1) }} ({{ $hospital->reviews()->count() }} reviews)</span>
+                        <span class="text-muted small">{{ number_format($hospital->average_rating, 1) }} ({{ $hospital->reviews()->count() }} {{ __('reviews') }})</span>
                     @endif
                     @if($hospital->established_year)
-                        <span class="text-muted small">Est. {{ $hospital->established_year }}</span>
+                        <span class="text-muted small">{{ __('Est.') }} {{ $hospital->established_year }}</span>
                     @endif
                 </div>
 
                 <div class="d-flex gap-3">
-                    <a href="{{ route('get_quote') }}?hospital={{ $hospital->id }}" class="btn btn-primary btn-lg">Get Free Quote</a>
+                    <a href="{{ route('get_quote') }}?hospital={{ $hospital->id }}" class="btn btn-primary btn-lg">{{ __('Get Free Quote') }}</a>
                     @if($hospital->phone)
                         <a href="tel:{{ $hospital->phone }}" class="btn btn-outline-success btn-lg">
-                            <i class="bi bi-telephone me-2"></i>Call Now
+                            <i class="bi bi-telephone me-2"></i>{{ __('Call Now') }}
                         </a>
                     @endif
                 </div>
@@ -74,11 +74,11 @@
 <div class="sticky-top bg-white border-bottom shadow-sm" style="top:70px;z-index:100;">
     <div class="container">
         <nav class="nav">
-            <a class="nav-link" href="#overview">Overview</a>
-            <a class="nav-link" href="#specialties">Departments</a>
-            <a class="nav-link" href="#doctors">Doctors</a>
-            @if($hospital->gallery->count())<a class="nav-link" href="#gallery">Gallery</a>@endif
-            <a class="nav-link" href="#reviews">Reviews</a>
+            <a class="nav-link" href="#overview">{{ __('Overview') }}</a>
+            <a class="nav-link" href="#specialties">{{ __('Departments') }}</a>
+            <a class="nav-link" href="#doctors">{{ __('Doctors') }}</a>
+            @if($hospital->gallery->count())<a class="nav-link" href="#gallery">{{ __('Gallery') }}</a>@endif
+            <a class="nav-link" href="#reviews">{{ __('Reviews') }}</a>
         </nav>
     </div>
 </div>
@@ -87,21 +87,21 @@
     <div class="container">
         <div class="row g-5">
             <div class="col-lg-8">
-                <h2 class="h4 fw-bold mb-3">About {{ $hospital->name }}</h2>
+                <h2 class="h4 fw-bold mb-3">{{ __('About') }} {{ $hospital->name }}</h2>
                 <div class="text-muted">
                     @if($hospital->description)<p>{{ $hospital->description }}</p>@endif
                     @if($hospital->about)<div class="mt-3">{!! nl2br(e($hospital->about)) !!}</div>@endif
                 </div>
 
                 <div class="row g-3 mt-2">
-                    @if($hospital->established_year)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ $hospital->established_year }}</div><div class="text-muted small">Established</div></div>@endif
-                    @if($hospital->bed_count)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ $hospital->bed_count }}</div><div class="text-muted small">Beds</div></div>@endif
-                    @if($hospital->ot_count)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ $hospital->ot_count }}</div><div class="text-muted small">OTs</div></div>@endif
-                    @if($hospital->annual_patients)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ number_format($hospital->annual_patients) }}</div><div class="text-muted small">Patients/Year</div></div>@endif
+                    @if($hospital->established_year)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ $hospital->established_year }}</div><div class="text-muted small">{{ __('Established') }}</div></div>@endif
+                    @if($hospital->bed_count)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ $hospital->bed_count }}</div><div class="text-muted small">{{ __('Beds') }}</div></div>@endif
+                    @if($hospital->ot_count)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ $hospital->ot_count }}</div><div class="text-muted small">{{ __('OTs') }}</div></div>@endif
+                    @if($hospital->annual_patients)<div class="col-6 col-md-3 text-center"><div class="fw-bold text-primary">{{ number_format($hospital->annual_patients) }}</div><div class="text-muted small">{{ __('Patients/Year') }}</div></div>@endif
                 </div>
 
                 @if($hospital->facilities->count())
-                    <h3 class="h5 fw-bold mt-5 mb-3">Facilities &amp; Amenities</h3>
+                    <h3 class="h5 fw-bold mt-5 mb-3">{{ __('Facilities & Amenities') }}</h3>
                     <div class="row g-2">
                         @foreach($hospital->facilities as $f)
                             <div class="col-6 col-md-4">
@@ -117,36 +117,36 @@
 
             <div class="col-lg-4">
                 <div class="card border-0 shadow-sm p-4">
-                    <h3 class="h6 fw-bold mb-3">Hospital Information</h3>
+                    <h3 class="h6 fw-bold mb-3">{{ __('Hospital Information') }}</h3>
                     <ul class="list-unstyled">
                         @if($hospital->bed_count)
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted small">Beds</span>
+                                <span class="text-muted small">{{ __('Beds') }}</span>
                                 <span class="fw-medium small">{{ $hospital->bed_count }}+</span>
                             </li>
                         @endif
                         @if($hospital->phone)
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted small"><i class="bi bi-telephone-fill me-1"></i>Phone</span>
+                                <span class="text-muted small"><i class="bi bi-telephone-fill me-1"></i>{{ __('Phone') }}</span>
                                 <span class="fw-medium small">{{ $hospital->phone }}</span>
                             </li>
                         @endif
                         @if($hospital->email)
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted small"><i class="bi bi-envelope-fill me-1"></i>Email</span>
+                                <span class="text-muted small"><i class="bi bi-envelope-fill me-1"></i>{{ __('Email') }}</span>
                                 <span class="fw-medium small">{{ $hospital->email }}</span>
                             </li>
                         @endif
                         @if($hospital->website)
                             <li class="py-2">
                                 <a href="{{ $hospital->website }}" class="small text-primary" target="_blank" rel="noopener">
-                                    <i class="bi bi-globe me-1"></i>Visit Website
+                                    <i class="bi bi-globe me-1"></i>{{ __('Visit Website') }}
                                 </a>
                             </li>
                         @endif
                     </ul>
                     <hr>
-                    <a href="{{ route('get_quote') }}?hospital={{ $hospital->id }}" class="btn btn-primary w-100">Get Free Quote</a>
+                    <a href="{{ route('get_quote') }}?hospital={{ $hospital->id }}" class="btn btn-primary w-100">{{ __('Get Free Quote') }}</a>
                 </div>
             </div>
         </div>
@@ -156,13 +156,13 @@
 @if($hospital->specialties->count())
 <section class="py-5 bg-light" id="specialties">
     <div class="container">
-        <h2 class="h4 fw-bold mb-4">Departments &amp; Specialties</h2>
+        <h2 class="h4 fw-bold mb-4">{{ __('Departments & Specialties') }}</h2>
         <div class="row g-3">
             @foreach($hospital->specialties as $s)
                 <div class="col-md-6">
                     <div class="card border-0 shadow-sm p-3">
                         <div class="fw-semibold">{{ $s->name }}</div>
-                        @if($s->pivot->is_center_of_excellence)<span class="badge bg-warning text-dark small">Centre of Excellence</span>@endif
+                        @if($s->pivot->is_center_of_excellence)<span class="badge bg-warning text-dark small">{{ __('Centre of Excellence') }}</span>@endif
                     </div>
                 </div>
             @endforeach
@@ -174,7 +174,7 @@
 @if($hospital->doctors()->published()->count())
 <section class="py-5 bg-light" id="doctors">
     <div class="container">
-        <h2 class="h4 fw-bold mb-4">Our Specialists</h2>
+        <h2 class="h4 fw-bold mb-4">{{ __('Our Specialists') }}</h2>
         <div class="row g-4">
             @foreach($hospital->doctors()->published()->get() as $doctor)
                 <div class="col-md-6">
@@ -201,7 +201,7 @@
 @if($hospital->gallery->count())
 <section class="py-5" id="gallery">
     <div class="container">
-        <h2 class="h4 fw-bold mb-4">Gallery</h2>
+        <h2 class="h4 fw-bold mb-4">{{ __('Gallery') }}</h2>
         <div class="row g-3">
             @foreach($hospital->gallery as $img)
                 <div class="col-4 col-md-3"><img src="{{ $img->image_url }}" class="img-fluid rounded" alt="{{ $img->caption }}"></div>
@@ -216,15 +216,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h2 class="h4 fw-bold mb-4">Patient Reviews</h2>
+                <h2 class="h4 fw-bold mb-4">{{ __('Patient Reviews') }}</h2>
                 @foreach($hospital->reviews as $review)
                     <div class="card border-0 shadow-sm mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-2">
                                 <div>
-                                    <span class="fw-medium">{{ $review->patient_name ?? 'Anonymous Patient' }}</span>
+                                    <span class="fw-medium">{{ $review->patient_name ?? __('Anonymous Patient') }}</span>
                                     @if($review->is_verified)
-                                        <span class="badge bg-success-subtle text-success ms-2 small">Verified</span>
+                                        <span class="badge bg-success-subtle text-success ms-2 small">{{ __('Verified') }}</span>
                                     @endif
                                 </div>
                                 <div class="d-flex align-items-center gap-1">

@@ -47,10 +47,10 @@
                     </td>
                     <td>
                         <div class="d-flex gap-1">
-                            <a href="{{ route('admin.treatments.edit', $t) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ route('admin.treatments.edit', $t) }}" class="btn btn-sm btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></a>
                             <form method="POST" action="{{ route('admin.treatments.destroy', $t) }}" onsubmit="return confirm('Delete {{ $t->name }}?')">
                                 @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></button>
                             </form>
                         </div>
                     </td>

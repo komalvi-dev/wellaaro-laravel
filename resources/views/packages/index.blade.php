@@ -3,8 +3,8 @@
 @section('content')
 <div class="bg-light py-4 mb-4">
     <div class="container">
-        <h1 class="h3 fw-bold mb-1">Medical Packages</h1>
-        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li><li class="breadcrumb-item active">Packages</li></ol></nav>
+        <h1 class="h3 fw-bold mb-1">{{ __('Medical Packages') }}</h1>
+        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item active">{{ __('Packages') }}</li></ol></nav>
     </div>
 </div>
 <div class="container py-4">
@@ -18,15 +18,15 @@
                         <h6 class="fw-bold mb-1">{{ $package->name }}</h6>
                         @if($package->tagline)<p class="text-muted small mb-2">{{ $package->tagline }}</p>@endif
                         <div class="d-flex justify-content-between align-items-center">
-                            @if($package->duration_days_min)<span class="text-muted small"><i class="fas fa-clock me-1"></i>{{ $package->duration_days_min }}-{{ $package->duration_days_max ?? $package->duration_days_min }} days</span>@endif
-                            @if($package->price_usd_from)<span class="text-success fw-bold">From ${{ number_format($package->price_usd_from) }}</span>@endif
+                            @if($package->duration_days_min)<span class="text-muted small"><i class="fas fa-clock me-1"></i>{{ $package->duration_days_min }}-{{ $package->duration_days_max ?? $package->duration_days_min }} {{ __('days') }}</span>@endif
+                            @if($package->price_usd_from)<span class="text-success fw-bold">{{ __('From') }} ${{ number_format($package->price_usd_from) }}</span>@endif
                         </div>
                     </div>
                 </div>
             </a>
         </div>
         @empty
-        <div class="col-12 text-center py-5 text-muted">No packages available.</div>
+        <div class="col-12 text-center py-5 text-muted">{{ __('No packages available.') }}</div>
         @endforelse
     </div>
     <div class="mt-4">{{ $packages->links() }}</div>

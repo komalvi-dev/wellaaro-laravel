@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'World-Class Medical Tourism in India')
+@section('title', __('World-Class Medical Tourism in India'))
 
 @section('content')
 
@@ -15,83 +15,86 @@
         <div class="container py-5">
             <div class="row align-items-center">
                 <div class="col-lg-6 text-white">
-                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 fs-6">Trusted by 10,000+ Patients</span>
-                    <h1 class="display-4 fw-bold mb-4">World-Class Healthcare at <span class="text-warning">Affordable Prices</span></h1>
-                    <p class="lead mb-4 text-white-75">Access the best hospitals and doctors in India. Save up to 70% on medical treatments without compromising on quality.</p>
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 fs-6">{{ __('Led by medical professionals') }}</span>
+                    <h1 class="display-4 fw-bold mb-4">{{ __('World-Class Healthcare at') }} <span class="text-warning">{{ __('Affordable Prices') }}</span></h1>
+                    <p class="lead mb-4 text-white-75">{{ __('Access the best hospitals and doctors in India. Save up to 70% on medical treatments without compromising on quality.') }}</p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="{{ route('get_quote') }}" class="btn btn-warning btn-lg fw-bold px-5">
-                            <i class="bi bi-send me-2"></i>Get Free Consultation
+                            <i class="bi bi-send me-2"></i>{{ __('Get Free Consultation') }}
                         </a>
                         <a href="{{ route('how_it_works') }}" class="btn btn-outline-light btn-lg px-4">
-                            <i class="bi bi-play-circle me-2"></i>How It Works
+                            <i class="bi bi-play-circle me-2"></i>{{ __('How It Works') }}
                         </a>
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-4">
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-shield-check" style="color:#4ade80;"></i> Dedicated case manager
+                            <i class="bi bi-shield-check" style="color:#4ade80;"></i> {{ __('Dedicated case manager') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-translate" style="color:#60a5fa;"></i> Multilingual support
+                            <i class="bi bi-translate" style="color:#60a5fa;"></i> {{ __('Multilingual support') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-airplane" style="color:#fbbf24;"></i> Travel & visa assistance
+                            <i class="bi bi-airplane" style="color:#fbbf24;"></i> {{ __('Travel & visa assistance') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-patch-check-fill" style="color:#a78bfa;"></i> Verified, accredited hospitals
+                            <i class="bi bi-patch-check-fill" style="color:#a78bfa;"></i> {{ __('Verified, accredited hospitals') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-headset" style="color:#f9a8d4;"></i> 24/7 Patient assistance
+                            <i class="bi bi-headset" style="color:#f9a8d4;"></i> {{ __('24/7 Patient assistance') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-file-medical" style="color:#fbbf24;"></i> Free expert medical opinions
+                            <i class="bi bi-file-medical" style="color:#fbbf24;"></i> {{ __('Free expert medical opinions') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-lightning-charge-fill" style="color:#f472b6;"></i> Fast inquiry response
+                            <i class="bi bi-lightning-charge-fill" style="color:#f472b6;"></i> {{ __('Fast inquiry response') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-bar-chart-line-fill" style="color:#34d399;"></i> Price comparison
+                            <i class="bi bi-bar-chart-line-fill" style="color:#34d399;"></i> {{ __('Price comparison') }}
                         </span>
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1 d-none d-lg-block">
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-body p-4">
-                            <h5 class="fw-bold mb-3"><i class="bi bi-chat-text me-2 text-primary"></i>Get a Free Consultation</h5>
+                            <h5 class="fw-bold mb-3"><i class="bi bi-chat-text me-2 text-primary"></i>{{ __('Get a Free Consultation') }}</h5>
                             <form action="{{ route('inquiries.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <input type="text" name="first_name" placeholder="Your Name" class="form-control" required>
+                                    <input type="text" name="first_name" placeholder="{{ __('Your Name') }}" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="email" name="email" placeholder="Email Address" class="form-control" required>
+                                    <input type="email" name="email" placeholder="{{ __('Email Address') }}" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <select name="country_of_residence" class="form-select">
-                                        <option value="">Select Country</option>
+                                    <select name="country_of_residence" id="home-country-select" class="form-select" onchange="updateHomePhoneCode(this.value)">
+                                        <option value="">{{ __('Select Country') }}</option>
                                         @foreach(array_keys(config('countries')) as $country)
                                             <option value="{{ $country }}">{{ $country }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="text" name="phone" placeholder="Phone Number" class="form-control" required>
+                                    <div class="input-group">
+                                        <span class="input-group-text fw-semibold" id="home-phone-code" style="min-width:54px;justify-content:center;">+</span>
+                                        <input type="tel" name="phone" placeholder="{{ __('Phone / WhatsApp') }}" class="form-control" required>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <select name="specialty_id" class="form-select">
-                                        <option value="">Select Specialty</option>
+                                        <option value="">{{ __('Select Specialty') }}</option>
                                         @foreach(\App\Models\Specialty::published()->ordered()->get() as $sp)
                                             <option value="{{ $sp->id }}">{{ $sp->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <textarea name="condition_description" placeholder="Describe your condition or treatment needed" class="form-control" rows="3"></textarea>
+                                    <textarea name="condition_description" placeholder="{{ __('Describe your condition or treatment needed') }}" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg fw-bold">Submit Inquiry</button>
+                                    <button type="submit" class="btn btn-primary btn-lg fw-bold">{{ __('Submit Inquiry') }}</button>
                                 </div>
                                 <p class="text-muted small text-center mt-2 mb-0">
-                                    By submitting the form I agree to the <a href="{{ route('terms') }}" class="text-primary text-decoration-none">Terms of Use</a> and <a href="{{ route('privacy_policy') }}" class="text-primary text-decoration-none">Privacy Policy</a>.
+                                    {{ __('By submitting the form I agree to the') }} <a href="{{ route('terms') }}" class="text-primary text-decoration-none">{{ __('Terms of Use') }}</a> {{ __('and') }} <a href="{{ route('privacy_policy') }}" class="text-primary text-decoration-none">{{ __('Privacy Policy') }}</a>.
                                 </p>
                             </form>
                         </div>
@@ -103,19 +106,35 @@
 
 </section>
 
+@push('scripts')
+<script>
+    var HOME_PHONE_CODES = @json(config('countries'));
+
+    function updateHomePhoneCode(country) {
+        var badge = document.getElementById('home-phone-code');
+        if (badge) badge.textContent = HOME_PHONE_CODES[country] || '+';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var sel = document.getElementById('home-country-select');
+        if (sel && sel.value) updateHomePhoneCode(sel.value);
+    });
+</script>
+@endpush
+
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-2">Simple Process</span>
-            <h2 class="fw-bold">How It Works</h2>
-            <p class="text-muted">Your journey to better health in 4 simple steps</p>
+            <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-2">{{ __('Simple Process') }}</span>
+            <h2 class="fw-bold">{{ __('How It Works') }}</h2>
+            <p class="text-muted">{{ __('Your journey to better health in 4 simple steps') }}</p>
         </div>
         <div class="row g-4">
             @foreach([
-                ['step'=>'1','icon'=>'bi-send','color'=>'primary','title'=>'Submit Inquiry','desc'=>'Fill out our simple form with your medical needs and contact details.'],
-                ['step'=>'2','icon'=>'bi-file-medical','color'=>'success','title'=>'Receive Treatment Plan','desc'=>'Our experts review your case and send you a personalised treatment plan with costs.'],
-                ['step'=>'3','icon'=>'bi-airplane','color'=>'warning','title'=>'Travel to India','desc'=>'We arrange your visa, airport pickup, accommodation and hospital appointment.'],
-                ['step'=>'4','icon'=>'bi-heart-pulse','color'=>'danger','title'=>'Treatment & Recovery','desc'=>'Receive world-class treatment and enjoy full post-operative support from our team.'],
+                ['step'=>'1','icon'=>'bi-send','color'=>'primary','title'=>__('Submit Inquiry'),'desc'=>__('Fill out our simple form with your medical needs and contact details.')],
+                ['step'=>'2','icon'=>'bi-file-medical','color'=>'success','title'=>__('Receive Treatment Plan'),'desc'=>__('Our experts review your case and send you a personalised treatment plan with costs.')],
+                ['step'=>'3','icon'=>'bi-airplane','color'=>'warning','title'=>__('Travel to India'),'desc'=>__('We arrange your visa, airport pickup, accommodation and hospital appointment.')],
+                ['step'=>'4','icon'=>'bi-heart-pulse','color'=>'danger','title'=>__('Treatment & Recovery'),'desc'=>__('Receive world-class treatment and enjoy full post-operative support from our team.')],
             ] as $step)
             <div class="col-md-3">
                 <div class="text-center p-4">
@@ -136,10 +155,10 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">Medical Specialties</h2>
-                <p class="text-muted mb-0">Explore our comprehensive range of medical specialties</p>
+                <h2 class="fw-bold mb-1">{{ __('Medical Specialties') }}</h2>
+                <p class="text-muted mb-0">{{ __('Explore our comprehensive range of medical specialties') }}</p>
             </div>
-            <a href="{{ route('specialties.index') }}" class="btn btn-outline-primary">View All</a>
+            <a href="{{ route('specialties.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
         </div>
         <div class="row g-3">
             @foreach($specialties as $specialty)
@@ -166,10 +185,10 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">Top Partner Hospitals</h2>
-                <p class="text-muted mb-0">JCI &amp; NABH accredited hospitals across India</p>
+                <h2 class="fw-bold mb-1">{{ __('Top Partner Hospitals') }}</h2>
+                <p class="text-muted mb-0">{{ __('JCI & NABH accredited hospitals across India') }}</p>
             </div>
-            <a href="{{ route('hospitals.index') }}" class="btn btn-outline-primary">View All</a>
+            <a href="{{ route('hospitals.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
         </div>
         <div class="row g-4">
             @foreach($hospitals as $hospital)
@@ -186,10 +205,10 @@
                         <div class="card-body">
                             <div class="d-flex gap-1 mb-2">
                                 @if($hospital->is_jci_accredited)
-                                    <span class="badge bg-success-subtle text-success small">JCI</span>
+                                    <span class="badge bg-success-subtle text-success small">{{ __('JCI') }}</span>
                                 @endif
                                 @if($hospital->is_nabh_accredited)
-                                    <span class="badge bg-primary-subtle text-primary small">NABH</span>
+                                    <span class="badge bg-primary-subtle text-primary small">{{ __('NABH') }}</span>
                                 @endif
                             </div>
                             <h6 class="fw-bold text-dark mb-1">{{ $hospital->name }}</h6>
@@ -210,10 +229,10 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">Expert Doctors</h2>
-                <p class="text-muted mb-0">Internationally trained specialists</p>
+                <h2 class="fw-bold mb-1">{{ __('Expert Doctors') }}</h2>
+                <p class="text-muted mb-0">{{ __('Internationally trained specialists') }}</p>
             </div>
-            <a href="{{ route('doctors.index') }}" class="btn btn-outline-primary">View All</a>
+            <a href="{{ route('doctors.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
         </div>
         <div class="row g-4">
             @foreach($doctors as $doctor)
@@ -229,9 +248,9 @@
                         </div>
                         <h6 class="fw-bold text-dark mb-1">{{ $doctor->full_name }}</h6>
                         <div class="text-muted small mb-1">{{ $doctor->specialties->first()?->name }}</div>
-                        <div class="text-muted small">{{ $doctor->experience_years }} yrs experience</div>
+                        <div class="text-muted small">{{ __(':years yrs experience', ['years' => $doctor->experience_years]) }}</div>
                         @if($doctor->online_consultation)
-                            <span class="badge bg-success-subtle text-success mt-2">Online Consultation</span>
+                            <span class="badge bg-success-subtle text-success mt-2">{{ __('Online Consultation') }}</span>
                         @endif
                     </div>
                 </a>
@@ -246,10 +265,10 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">Treatment Packages</h2>
-                <p class="text-muted mb-0">All-inclusive packages for popular treatments</p>
+                <h2 class="fw-bold mb-1">{{ __('Treatment Packages') }}</h2>
+                <p class="text-muted mb-0">{{ __('All-inclusive packages for popular treatments') }}</p>
             </div>
-            <a href="{{ route('packages.index') }}" class="btn btn-outline-primary">View All</a>
+            <a href="{{ route('packages.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
         </div>
         <div class="row g-4">
             @foreach($packages as $pkg)
@@ -262,10 +281,10 @@
                             <p class="text-muted small mb-3">{{ $pkg->tagline }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <div class="text-primary fw-bold fs-5">From ${{ number_format($pkg->price_usd_from) }}</div>
-                                    <div class="text-muted small">{{ $pkg->duration_days_min }}–{{ $pkg->duration_days_max }} days</div>
+                                    <div class="text-primary fw-bold fs-5">{{ __('From $:price', ['price' => number_format($pkg->price_usd_from)]) }}</div>
+                                    <div class="text-muted small">{{ __(':min–:max days', ['min' => $pkg->duration_days_min, 'max' => $pkg->duration_days_max]) }}</div>
                                 </div>
-                                <span class="btn btn-outline-primary btn-sm">View Details</span>
+                                <span class="btn btn-outline-primary btn-sm">{{ __('View Details') }}</span>
                             </div>
                         </div>
                     </div>
@@ -280,17 +299,17 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Why Choose Us</h2>
-            <p class="text-muted">Everything you need for a successful medical journey</p>
+            <h2 class="fw-bold">{{ __('Why Choose Us') }}</h2>
+            <p class="text-muted">{{ __('Everything you need for a successful medical journey') }}</p>
         </div>
         <div class="row g-4">
             @foreach([
-                ['icon'=>'bi-cash-coin','color'=>'success','title'=>'Save Up to 70%','desc'=>'Get the same quality treatment at a fraction of the cost compared to Western countries.'],
-                ['icon'=>'bi-award','color'=>'warning','title'=>'JCI Accredited Hospitals','desc'=>'All partner hospitals meet international quality standards with JCI or NABH accreditation.'],
-                ['icon'=>'bi-person-lines-fill','color'=>'primary','title'=>'Dedicated Case Manager','desc'=>'A personal coordinator guides you every step of the way from inquiry to recovery.'],
-                ['icon'=>'bi-airplane-fill','color'=>'info','title'=>'Travel & Visa Support','desc'=>'We assist with visa letters, airport transfers, hotel bookings and local transport.'],
-                ['icon'=>'bi-translate','color'=>'success','title'=>'Multilingual Support','desc'=>'Our team speaks 10+ languages to ensure clear communication throughout your journey.'],
-                ['icon'=>'bi-shield-check','color'=>'primary','title'=>'Verified Reviews','desc'=>'Authentic patient testimonials from people who have completed their treatment with us.'],
+                ['icon'=>'bi-cash-coin','color'=>'success','title'=>__('Save Up to 70%'),'desc'=>__('Get the same quality treatment at a fraction of the cost compared to Western countries.')],
+                ['icon'=>'bi-award','color'=>'warning','title'=>__('JCI Accredited Hospitals'),'desc'=>__('All partner hospitals meet international quality standards with JCI or NABH accreditation.')],
+                ['icon'=>'bi-person-lines-fill','color'=>'primary','title'=>__('Dedicated Case Manager'),'desc'=>__('A personal coordinator guides you every step of the way from inquiry to recovery.')],
+                ['icon'=>'bi-airplane-fill','color'=>'info','title'=>__('Travel & Visa Support'),'desc'=>__('We assist with visa letters, airport transfers, hotel bookings and local transport.')],
+                ['icon'=>'bi-translate','color'=>'success','title'=>__('Multilingual Support'),'desc'=>__('Our team speaks 10+ languages to ensure clear communication throughout your journey.')],
+                ['icon'=>'bi-shield-check','color'=>'primary','title'=>__('Verified Reviews'),'desc'=>__('Authentic patient testimonials from people who have completed their treatment with us.')],
             ] as $f)
             <div class="col-md-4">
                 <div class="d-flex gap-3">
@@ -314,8 +333,8 @@
 <section class="py-5 bg-primary bg-opacity-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Patient Stories</h2>
-            <p class="text-muted">Real experiences from patients around the world</p>
+            <h2 class="fw-bold">{{ __('Patient Stories') }}</h2>
+            <p class="text-muted">{{ __('Real experiences from patients around the world') }}</p>
         </div>
         <div class="row g-4">
             @foreach($testimonials as $testimonial)
@@ -343,7 +362,7 @@
             @endforeach
         </div>
         <div class="text-center mt-4">
-            <a href="{{ route('patient_stories') }}" class="btn btn-outline-primary">Read All Stories</a>
+            <a href="{{ route('patient_stories') }}" class="btn btn-outline-primary">{{ __('Read All Stories') }}</a>
         </div>
     </div>
 </section>
@@ -354,10 +373,10 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">Health & Travel Blog</h2>
-                <p class="text-muted mb-0">Expert advice on medical tourism and treatments</p>
+                <h2 class="fw-bold mb-1">{{ __('Health & Travel Blog') }}</h2>
+                <p class="text-muted mb-0">{{ __('Expert advice on medical tourism and treatments') }}</p>
             </div>
-            <a href="{{ route('blog.index') }}" class="btn btn-outline-primary">View All</a>
+            <a href="{{ route('blog.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
         </div>
         <div class="row g-4">
             @foreach($blogPosts as $post)
@@ -376,7 +395,7 @@
                         <p class="text-muted small">{{ Str::limit($post->excerpt, 100) }}</p>
                     </div>
                     <div class="card-footer bg-transparent border-0 small text-muted">
-                        <i class="bi bi-clock me-1"></i>{{ $post->read_time_minutes }} min read •
+                        <i class="bi bi-clock me-1"></i>{{ __(':minutes min read', ['minutes' => $post->read_time_minutes]) }} •
                         {{ $post->published_at?->format('M d, Y') }}
                     </div>
                 </div>
@@ -389,14 +408,14 @@
 
 <section style="background: linear-gradient(rgba(10,20,45,0.75), rgba(10,20,45,0.75)), url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1920&q=80') 50% 30%/cover no-repeat; padding: 5rem 0;">
     <div class="container text-center">
-        <h2 class="fw-bold mb-3 text-white">Ready to Start Your Medical Journey?</h2>
-        <p class="lead mb-4" style="color:rgba(255,255,255,0.75);">Get a free consultation from our medical experts today.</p>
+        <h2 class="fw-bold mb-3 text-white">{{ __('Ready to Start Your Medical Journey?') }}</h2>
+        <p class="lead mb-4" style="color:rgba(255,255,255,0.75);">{{ __('Get a free consultation from our medical experts today.') }}</p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <a href="{{ route('get_quote') }}" class="btn btn-warning btn-lg fw-bold px-5">
-                <i class="bi bi-send me-2"></i>Get Free Quote
+                <i class="bi bi-send me-2"></i>{{ __('Get Free Quote') }}
             </a>
             <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg px-5">
-                <i class="bi bi-chat me-2"></i>Contact Us
+                <i class="bi bi-chat me-2"></i>{{ __('Contact Us') }}
             </a>
         </div>
     </div>

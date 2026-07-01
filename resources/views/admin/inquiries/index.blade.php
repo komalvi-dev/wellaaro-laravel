@@ -44,6 +44,7 @@
                     <tr>
                         <th>Ref #</th>
                         <th>Patient</th>
+                        <th>Phone</th>
                         <th>Specialty</th>
                         <th>Treatment</th>
                         <th>Status</th>
@@ -57,6 +58,7 @@
                     <tr>
                         <td><a href="{{ route('admin.inquiries.show', $inquiry) }}" class="text-decoration-none fw-semibold">{{ $inquiry->reference_number }}</a></td>
                         <td>{{ $inquiry->patient_name }}</td>
+                        <td>{{ $inquiry->patient_phone ?? '—' }}</td>
                         <td>{{ $inquiry->specialty->name ?? '—' }}</td>
                         <td>{{ $inquiry->treatment->name ?? '—' }}</td>
                         <td><span class="badge {{ $inquiry->statusBadgeClass() }}">{{ ucfirst(str_replace('_',' ',$inquiry->status)) }}</span></td>
@@ -68,7 +70,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="8" class="text-center text-muted py-4">No inquiries found</td></tr>
+                    <tr><td colspan="9" class="text-center text-muted py-4">No inquiries found</td></tr>
                     @endforelse
                 </tbody>
             </table>

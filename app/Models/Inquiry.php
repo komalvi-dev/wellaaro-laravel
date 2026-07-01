@@ -100,6 +100,18 @@ class Inquiry extends Model
         return $this->email ?? $this->patientProfile?->user?->email;
     }
 
+    public function getPatientPhoneAttribute(): ?string
+    {
+        $code  = $this->phone_country_code ?? $this->patientProfile?->phone_country_code;
+        $phone = $this->phone ?? $this->patientProfile?->phone;
+
+        if (empty($phone)) {
+            return null;
+        }
+
+        return $code ? "+{$code} {$phone}" : $phone;
+    }
+
     public function activeQuotation(): ?Quotation
     {
         return $this->quotations()

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $treatment->exists ? route('admin.treatments.update', $treatment) : route('admin.treatments.store') }}">
+<form method="POST" action="{{ $treatment->exists ? route('admin.treatments.update', $treatment) : route('admin.treatments.store') }}" enctype="multipart/form-data">
     @csrf
     @if($treatment->exists) @method('PUT') @endif
     @if($errors->any())
@@ -77,6 +77,19 @@
         </div>
         <div class="col-md-4">
             <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white fw-medium">Featured Image</div>
+                <div class="card-body">
+                    @if(!empty($treatment->featured_image_url))
+                        <div class="mb-2"><img src="{{ $treatment->featured_image_url }}" alt="{{ $treatment->name }}" style="max-height:100px;max-width:100%;object-fit:cover;border:1px solid #dee2e6;border-radius:4px;padding:2px;"></div>
+                    @endif
+                    <input type="file" name="featured_image" accept="image/*" class="form-control @error('featured_image') is-invalid @enderror">
+                    @error('featured_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <div class="form-text">Upload an image, or enter a URL below (upload takes priority). Shown on the public treatment page.</div>
+                    <input type="url" name="featured_image_url" value="{{ old('featured_image_url', $treatment->featured_image_url) }}" class="form-control mt-1" placeholder="https://example.com/image.jpg">
+                    @error('featured_image_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+            </div>
+            <div class="card border-0 shadow-sm mt-3">
                 <div class="card-header bg-white fw-medium">Publishing</div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-2">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\NotifyStaffOfNewInquiry;
 use App\Mail\InquiryConfirmationMail;
+use App\Mail\InquiryNotificationMail;
 use App\Models\Inquiry;
 use App\Models\Specialty;
 use App\Models\Treatment;
@@ -60,6 +61,7 @@ class InquiriesController extends Controller
 
         try {
             Mail::send(new InquiryConfirmationMail($inquiry));
+            Mail::to(config('mail.inquiry_notification_address'))->send(new InquiryNotificationMail($inquiry));
             NotifyStaffOfNewInquiry::dispatch($inquiry);
         } catch (\Throwable $e) {
             \Log::error('Inquiry mail failed: ' . $e->getMessage(), ['inquiry_id' => $inquiry->id]);

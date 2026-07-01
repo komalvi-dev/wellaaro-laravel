@@ -114,7 +114,9 @@ return [
 
     'admin_address' => env('MAIL_ADMIN_ADDRESS', 'admin@wellaaro.com'),
 
-    'support_address' => env('SUPPORT_EMAIL', 'support@wellaaro.com'),
+    'support_address' => env('SUPPORT_EMAIL', 'care@wellaaro.com'),
+
+    'inquiry_notification_address' => env('INQUIRY_NOTIFICATION_EMAIL', 'care@wellaaro.com'),
 
     /*
     |--------------------------------------------------------------------------

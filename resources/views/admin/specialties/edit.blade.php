@@ -9,7 +9,7 @@
 </div>
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.specialties.update', $specialty) }}">
+        <form method="POST" action="{{ route('admin.specialties.update', $specialty) }}" enctype="multipart/form-data">
             @csrf @method('PUT')
             <div class="row g-3">
                 <div class="col-md-6"><label class="form-label">Name</label><input type="text" name="name" class="form-control" value="{{ old('name', $specialty->name) }}" required></div>
@@ -21,7 +21,17 @@
                     <label class="form-check-label">Featured</label></div>
                 </div>
                 <div class="col-12"><label class="form-label">Description</label><textarea name="description" class="form-control" rows="3">{{ old('description', $specialty->description) }}</textarea></div>
-                <div class="col-12"><label class="form-label">Featured Image URL</label><input type="url" name="featured_image_url" class="form-control" value="{{ old('featured_image_url', $specialty->featured_image_url) }}" placeholder="https://example.com/image.jpg"></div>
+                <div class="col-12">
+                    <label class="form-label">Featured Image</label>
+                    @if(!empty($specialty->featured_image_url))
+                        <div class="mb-1"><img src="{{ $specialty->featured_image_url }}" alt="{{ $specialty->name }}" style="max-height:80px;max-width:160px;object-fit:cover;border:1px solid #dee2e6;border-radius:4px;padding:2px;"></div>
+                    @endif
+                    <input type="file" name="featured_image" accept="image/*" class="form-control @error('featured_image') is-invalid @enderror">
+                    @error('featured_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <div class="form-text">Upload an image file, or enter a URL below (upload takes priority). Shown on the public specialties page.</div>
+                    <input type="url" name="featured_image_url" value="{{ old('featured_image_url', $specialty->featured_image_url) }}" class="form-control mt-1" placeholder="https://example.com/image.jpg">
+                    @error('featured_image_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
             </div>
             <div class="mt-4 d-flex gap-2">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

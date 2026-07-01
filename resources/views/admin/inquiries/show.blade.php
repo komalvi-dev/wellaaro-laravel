@@ -160,10 +160,10 @@
             <div class="card-header bg-white fw-semibold">Patient</div>
             <div class="card-body">
                 @php $patient = $inquiry->patientProfile; @endphp
-                <div class="fw-semibold">{{ $patient?->user?->name ?? '—' }}</div>
-                <div class="text-muted small">{{ $patient?->user?->email ?? '' }}</div>
-                <div class="text-muted small mt-1">{{ $patient?->phone ?? '' }}</div>
-                <div class="text-muted small">{{ $patient?->nationality ?? '' }}</div>
+                <div class="fw-semibold">{{ $inquiry->patient_name }}</div>
+                <div class="text-muted small">{{ $inquiry->patient_email ?? '' }}</div>
+                <div class="text-muted small mt-1"><i class="fas fa-phone fa-xs me-1"></i>{{ $inquiry->patient_phone ?? '—' }}</div>
+                <div class="text-muted small">{{ $inquiry->nationality ?? $patient?->nationality ?? '' }}</div>
                 @if($patient)
                 <a href="{{ route('admin.patients.show', $patient->id) }}" class="btn btn-sm btn-outline-secondary mt-2">View Profile</a>
                 @endif

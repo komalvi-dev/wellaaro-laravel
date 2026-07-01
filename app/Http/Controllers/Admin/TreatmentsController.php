@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Treatment;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TreatmentsController extends Controller
 {
@@ -39,6 +40,12 @@ class TreatmentsController extends Controller
     {
         $data = $this->validateTreatment($request);
 
+        if ($request->hasFile('featured_image')) {
+            $data['featured_image_url'] = Storage::disk('public')->url(
+                $request->file('featured_image')->store('treatments/featured', 'public')
+            );
+        }
+
         $treatment = Treatment::create($data);
 
         return redirect()->route('admin.treatments.show', $treatment)
@@ -62,7 +69,15 @@ class TreatmentsController extends Controller
 
     public function update(Request $request, Treatment $treatment)
     {
-        $treatment->update($this->validateTreatment($request));
+        $data = $this->validateTreatment($request);
+
+        if ($request->hasFile('featured_image')) {
+            $data['featured_image_url'] = Storage::disk('public')->url(
+                $request->file('featured_image')->store('treatments/featured', 'public')
+            );
+        }
+
+        $treatment->update($data);
 
         return redirect()->route('admin.treatments.show', $treatment)
             ->with('success', 'Treatment updated.');
@@ -93,6 +108,7 @@ class TreatmentsController extends Controller
             'cost_usa'           => 'nullable|integer|min:0',
             'cost_uk'            => 'nullable|integer|min:0',
             'cost_savings_percent'=> 'nullable|integer|min:0|max:100',
+            'featured_image'     => 'nullable|file|image|max:2048',
             'featured_image_url' => 'nullable|url|max:500',
             'published'          => 'boolean',
             'featured'           => 'boolean',

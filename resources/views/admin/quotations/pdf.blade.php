@@ -105,7 +105,7 @@
 
     <div class="footer">
         This quotation is valid until {{ $quotation->valid_until ? $quotation->valid_until->format('d M Y') : 'date stated above' }}.
-        Prices are estimates and may vary. Contact us at omap-support@getaltadx.com for any queries.
+        Prices are estimates and may vary. Contact us at care@wellaaro.com for any queries.
         &copy; {{ date('Y') }} Wellaaro. All rights reserved.
     </div>
 </div>

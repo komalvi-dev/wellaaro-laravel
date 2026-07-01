@@ -8,7 +8,7 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb small mb-0">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
                 <li class="breadcrumb-item active">{{ $condition->name }}</li>
             </ol>
         </nav>
@@ -35,7 +35,7 @@
 
                 @if($condition->treatments && $condition->treatments->isNotEmpty())
                 <div class="mt-5">
-                    <h3 class="fw-bold mb-4">Available Treatments</h3>
+                    <h3 class="fw-bold mb-4">{{ __('Available Treatments') }}</h3>
                     <div class="row g-3">
                         @foreach($condition->treatments as $treatment)
                         <div class="col-sm-6">
@@ -47,7 +47,7 @@
                                     @endif
                                     @if($treatment->cost_from)
                                     <div class="text-primary fw-semibold small mt-2">
-                                        From ${{ number_format($treatment->cost_from, 0) }}
+                                        {{ __('From') }} ${{ number_format($treatment->cost_from, 0) }}
                                     </div>
                                     @endif
                                 </div>
@@ -63,19 +63,19 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body p-4 text-center">
                         <div class="text-primary mb-3"><i class="fas fa-user-md fa-3x"></i></div>
-                        <h6 class="fw-bold mb-2">Get Expert Opinion</h6>
-                        <p class="text-muted small mb-3">Connect with our specialists for a personalized treatment plan.</p>
-                        <a href="{{ route('get_quote') }}" class="btn btn-primary w-100">Get Free Quote</a>
+                        <h6 class="fw-bold mb-2">{{ __('Get Expert Opinion') }}</h6>
+                        <p class="text-muted small mb-3">{{ __('Connect with our specialists for a personalized treatment plan.') }}</p>
+                        <a href="{{ route('get_quote') }}" class="btn btn-primary w-100">{{ __('Get Free Quote') }}</a>
                     </div>
                 </div>
 
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4 text-center">
                         <div class="text-success mb-3"><i class="fab fa-whatsapp fa-3x"></i></div>
-                        <h6 class="fw-bold mb-2">Chat with Us</h6>
-                        <p class="text-muted small mb-3">Have questions? Chat with our medical team on WhatsApp.</p>
+                        <h6 class="fw-bold mb-2">{{ __('Chat with Us') }}</h6>
+                        <p class="text-muted small mb-3">{{ __('Have questions? Chat with our medical team on WhatsApp.') }}</p>
                         <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="btn btn-success w-100">
-                            <i class="fab fa-whatsapp me-1"></i>WhatsApp Us
+                            <i class="fab fa-whatsapp me-1"></i>{{ __('WhatsApp Us') }}
                         </a>
                     </div>
                 </div>

@@ -1,17 +1,17 @@
 @extends('layouts.app')
-@section('title', 'Treatments')
+@section('title', __('Treatments'))
 @section('content')
 <div class="bg-light py-4 mb-4">
     <div class="container">
-        <h1 class="h3 fw-bold mb-1">Medical Treatments</h1>
-        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li><li class="breadcrumb-item active">Treatments</li></ol></nav>
+        <h1 class="h3 fw-bold mb-1">{{ __('Medical Treatments') }}</h1>
+        <nav aria-label="{{ __('breadcrumb') }}"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item active">{{ __('Treatments') }}</li></ol></nav>
     </div>
 </div>
 <div class="container py-4">
     <div class="row g-4">
         <div class="col-lg-3">
             <div class="card border-0 shadow-sm p-3">
-                <h6 class="fw-bold mb-3">Filter by Specialty</h6>
+                <h6 class="fw-bold mb-3">{{ __('Filter by Specialty') }}</h6>
                 <form method="GET">
                     @foreach($specialties ?? [] as $specialty)
                     <div class="form-check mb-1">
@@ -20,8 +20,8 @@
                     </div>
                     @endforeach
                     <div class="mt-3 d-flex gap-2">
-                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                        <a href="{{ route('treatments.index') }}" class="btn btn-outline-secondary btn-sm">Clear</a>
+                        <button type="submit" class="btn btn-primary btn-sm">{{ __('Filter') }}</button>
+                        <a href="{{ route('treatments.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('Clear') }}</a>
                     </div>
                 </form>
             </div>
@@ -38,10 +38,10 @@
                                 <p class="text-muted small">{{ $treatment->short_description }}</p>
                                 <div class="row g-1 text-center mt-2">
                                     @if($treatment->recovery_time)
-                                        <div class="col-6"><small class="text-muted">Recovery</small><br><small class="fw-semibold">{{ $treatment->recovery_time }}</small></div>
+                                        <div class="col-6"><small class="text-muted">{{ __('Recovery') }}</small><br><small class="fw-semibold">{{ $treatment->recovery_time }}</small></div>
                                     @endif
                                     @if($treatment->cost_india_min)
-                                        <div class="col-6"><small class="text-muted">Cost from</small><br><small class="fw-semibold text-success">${{ number_format($treatment->cost_india_min) }}</small></div>
+                                        <div class="col-6"><small class="text-muted">{{ __('Cost from') }}</small><br><small class="fw-semibold text-success">${{ number_format($treatment->cost_india_min) }}</small></div>
                                     @endif
                                 </div>
                             </div>

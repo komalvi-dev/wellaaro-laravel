@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-light py-5">
     <div class="container">
-        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-3"><li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li><li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Doctors</a></li><li class="breadcrumb-item active">{{ $doctor->full_name }}</li></ol></nav>
+        <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-3"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">{{ __('Doctors') }}</a></li><li class="breadcrumb-item active">{{ $doctor->full_name }}</li></ol></nav>
         <div class="row align-items-center g-4">
             <div class="col-auto">
                 @if($doctor->photo_url)<img src="{{ $doctor->photo_url }}" class="rounded-circle shadow" width="120" height="120" style="object-fit:cover;" alt="{{ $doctor->full_name }}">
@@ -15,8 +15,8 @@
                 <p class="text-muted small mb-2">{{ $doctor->qualifications }}</p>
                 <div class="d-flex flex-wrap gap-2">
                     @foreach($doctor->specialties as $s)<span class="badge bg-primary">{{ $s->name }}</span>@endforeach
-                    @if($doctor->experience_years)<span class="badge bg-light text-muted">{{ $doctor->experience_years }} yrs experience</span>@endif
-                    @if($doctor->online_consultation)<span class="badge bg-success">Online Consultation</span>@endif
+                    @if($doctor->experience_years)<span class="badge bg-light text-muted">{{ $doctor->experience_years }} {{ __('yrs experience') }}</span>@endif
+                    @if($doctor->online_consultation)<span class="badge bg-success">{{ __('Online Consultation') }}</span>@endif
                 </div>
             </div>
         </div>
@@ -27,25 +27,25 @@
         <div class="col-lg-8">
             @if($doctor->about)
             <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white fw-semibold">About</div>
+                <div class="card-header bg-white fw-semibold">{{ __('About') }}</div>
                 <div class="card-body">{!! nl2br(e($doctor->about)) !!}</div>
             </div>
             @endif
             @if($doctor->training)
             <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white fw-semibold">Training & Education</div>
+                <div class="card-header bg-white fw-semibold">{{ __('Training & Education') }}</div>
                 <div class="card-body">{!! nl2br(e($doctor->training)) !!}</div>
             </div>
             @endif
             @if($doctor->achievements)
             <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white fw-semibold">Achievements</div>
+                <div class="card-header bg-white fw-semibold">{{ __('Achievements') }}</div>
                 <div class="card-body">{!! nl2br(e($doctor->achievements)) !!}</div>
             </div>
             @endif
             @if($doctor->hospitals->count())
             <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white fw-semibold">Affiliated Hospitals</div>
+                <div class="card-header bg-white fw-semibold">{{ __('Affiliated Hospitals') }}</div>
                 <div class="card-body">
                     <div class="row g-3">
                         @foreach($doctor->hospitals as $h)
@@ -66,16 +66,16 @@
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3">Consultation</h6>
-                    @if($doctor->consultation_fee_usd)<p class="mb-2"><span class="text-muted small">Fee:</span> <strong>${{ $doctor->consultation_fee_usd }}</strong></p>@endif
-                    @if($doctor->response_time_hours)<p class="mb-3"><span class="text-muted small">Response time:</span> <strong>{{ $doctor->response_time_hours }}h</strong></p>@endif
-                    <a href="{{ route('get_quote') }}?doctor_id={{ $doctor->id }}" class="btn btn-primary w-100 mb-2">Book Consultation</a>
+                    <h6 class="fw-bold mb-3">{{ __('Consultation') }}</h6>
+                    @if($doctor->consultation_fee_usd)<p class="mb-2"><span class="text-muted small">{{ __('Fee:') }}</span> <strong>${{ $doctor->consultation_fee_usd }}</strong></p>@endif
+                    @if($doctor->response_time_hours)<p class="mb-3"><span class="text-muted small">{{ __('Response time:') }}</span> <strong>{{ $doctor->response_time_hours }}h</strong></p>@endif
+                    <a href="{{ route('get_quote') }}?doctor_id={{ $doctor->id }}" class="btn btn-primary w-100 mb-2">{{ __('Book Consultation') }}</a>
                 </div>
             </div>
             @if($doctor->languages_spoken && count($doctor->languages_spoken))
             <div class="card border-0 shadow-sm">
                 <div class="card-body small">
-                    <h6 class="fw-bold mb-2">Languages</h6>
+                    <h6 class="fw-bold mb-2">{{ __('Languages') }}</h6>
                     @foreach($doctor->languages_spoken as $lang)<span class="badge bg-light text-muted me-1">{{ $lang }}</span>@endforeach
                 </div>
             </div>

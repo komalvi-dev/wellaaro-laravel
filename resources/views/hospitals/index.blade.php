@@ -6,12 +6,12 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-2">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Hospitals</li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('Hospitals') }}</li>
             </ol>
         </nav>
-        <h1 class="h2 fw-bold">Top Hospitals</h1>
-        <p class="text-muted">Find JCI &amp; NABH accredited hospitals with world-class facilities</p>
+        <h1 class="h2 fw-bold">{{ __('Top Hospitals') }}</h1>
+        <p class="text-muted">{{ __('Find JCI & NABH accredited hospitals with world-class facilities') }}</p>
     </div>
 </section>
 
@@ -21,17 +21,17 @@
             <!-- Filters sidebar -->
             <div class="col-lg-3">
                 <form method="GET" action="{{ route('hospitals.index') }}" id="filter-form" class="card border-0 shadow-sm p-3 sticky-top" style="top:80px;">
-                    <h6 class="fw-bold mb-3">Filter Hospitals</h6>
+                    <h6 class="fw-bold mb-3">{{ __('Filter Hospitals') }}</h6>
 
                     <div class="mb-3">
-                        <label class="form-label small fw-medium">Search</label>
-                        <input type="text" name="q" class="form-control form-control-sm" value="{{ request('q') }}" placeholder="Hospital name...">
+                        <label class="form-label small fw-medium">{{ __('Search') }}</label>
+                        <input type="text" name="q" class="form-control form-control-sm" value="{{ request('q') }}" placeholder="{{ __('Hospital name...') }}">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label small fw-medium">Specialty</label>
+                        <label class="form-label small fw-medium">{{ __('Specialty') }}</label>
                         <select name="specialty_id" class="form-select form-select-sm">
-                            <option value="">All Specialties</option>
+                            <option value="">{{ __('All Specialties') }}</option>
                             @foreach($specialties ?? [] as $s)
                                 <option value="{{ $s->id }}" {{ request('specialty_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
                             @endforeach
@@ -39,9 +39,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label small fw-medium">City</label>
+                        <label class="form-label small fw-medium">{{ __('City') }}</label>
                         <select name="city_id" class="form-select form-select-sm">
-                            <option value="">All Cities</option>
+                            <option value="">{{ __('All Cities') }}</option>
                             @foreach($cities ?? [] as $c)
                                 <option value="{{ $c->id }}" {{ request('city_id') == $c->id ? 'selected' : '' }}>{{ $c->name }}</option>
                             @endforeach
@@ -51,17 +51,17 @@
                     <div class="mb-3">
                         <div class="form-check">
                             <input type="checkbox" name="jci" value="1" class="form-check-input" id="filter_jci" {{ request('jci') == '1' ? 'checked' : '' }}>
-                            <label class="form-check-label small" for="filter_jci">JCI Accredited</label>
+                            <label class="form-check-label small" for="filter_jci">{{ __('JCI Accredited') }}</label>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" name="nabh" value="1" class="form-check-input" id="filter_nabh" {{ request('nabh') == '1' ? 'checked' : '' }}>
-                            <label class="form-check-label small" for="filter_nabh">NABH Accredited</label>
+                            <label class="form-check-label small" for="filter_nabh">{{ __('NABH Accredited') }}</label>
                         </div>
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Apply Filters</button>
-                        <a href="{{ route('hospitals.index') }}" class="btn btn-outline-secondary btn-sm">Clear</a>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">{{ __('Apply Filters') }}</button>
+                        <a href="{{ route('hospitals.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('Clear') }}</a>
                     </div>
                 </form>
             </div>
@@ -69,13 +69,13 @@
             <!-- Hospital listing -->
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <p class="mb-0 text-muted"><strong>{{ $hospitals->total() }}</strong> hospitals found</p>
+                    <p class="mb-0 text-muted"><strong>{{ $hospitals->total() }}</strong> {{ __('hospitals found') }}</p>
                     <div class="d-flex align-items-center gap-2">
-                        <label class="small text-muted">Sort by:</label>
+                        <label class="small text-muted">{{ __('Sort by:') }}</label>
                         <select name="sort" class="form-select form-select-sm" style="width:auto;" onchange="this.form.submit()" form="filter-form">
-                            <option value="featured" {{ request('sort') == 'featured' || !request('sort') ? 'selected' : '' }}>Featured</option>
-                            <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>Rating</option>
-                            <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name</option>
+                            <option value="featured" {{ request('sort') == 'featured' || !request('sort') ? 'selected' : '' }}>{{ __('Featured') }}</option>
+                            <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>{{ __('Rating') }}</option>
+                            <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>{{ __('Name') }}</option>
                         </select>
                     </div>
                 </div>
@@ -94,16 +94,16 @@
                                     <h6 class="fw-bold mb-1">{{ $hospital->name }}</h6>
                                     <p class="text-muted small mb-2">{{ $hospital->city?->name }}, {{ $hospital->country?->name }}</p>
                                     <div class="d-flex flex-wrap gap-1">
-                                        @if($hospital->is_jci_accredited)<span class="badge bg-success-subtle text-success small">JCI Accredited</span>@endif
-                                        @if($hospital->is_nabh_accredited)<span class="badge bg-primary-subtle text-primary small">NABH</span>@endif
-                                        @if($hospital->bed_count)<span class="badge bg-light text-muted small">{{ $hospital->bed_count }} Beds</span>@endif
+                                        @if($hospital->is_jci_accredited)<span class="badge bg-success-subtle text-success small">{{ __('JCI Accredited') }}</span>@endif
+                                        @if($hospital->is_nabh_accredited)<span class="badge bg-primary-subtle text-primary small">{{ __('NABH') }}</span>@endif
+                                        @if($hospital->bed_count)<span class="badge bg-light text-muted small">{{ $hospital->bed_count }} {{ __('Beds') }}</span>@endif
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                     @empty
-                    <div class="col-12 text-center py-5 text-muted">No hospitals found.</div>
+                    <div class="col-12 text-center py-5 text-muted">{{ __('No hospitals found.') }}</div>
                     @endforelse
                 </div>
 

@@ -14,14 +14,14 @@
                         <i class="bi bi-search" style="font-size:0.875rem;"></i>
                     </span>
                     <input class="form-control border-start-0 ps-0" type="search" name="q"
-                           placeholder="Search treatments, hospitals, doctors…"
+                           placeholder="{{ __('Search treatments, hospitals, doctors…') }}"
                            aria-label="Search">
                 </div>
             </form>
 
             <div class="ms-auto d-flex align-items-center gap-2 flex-shrink-0">
 
-                <a href="{{ route('get_quote') }}" class="btn-quote d-none d-md-inline-block">Get a Free Quote</a>
+                <a href="{{ route('get_quote') }}" class="btn-quote d-none d-md-inline-block">{{ __('Get a Free Quote') }}</a>
 
                 @auth
                     <div class="dropdown">
@@ -44,18 +44,18 @@
                             @if(auth()->user()->isAdmin() || auth()->user()->isCaseManager())
                                 <li>
                                     <a href="{{ route('admin.dashboard') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                                        <i class="bi bi-grid text-primary"></i> Dashboard
+                                        <i class="bi bi-grid text-primary"></i> {{ __('Dashboard') }}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.dashboard') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                                        <i class="bi bi-shield-check text-secondary"></i> Admin Panel
+                                        <i class="bi bi-shield-check text-secondary"></i> {{ __('Admin Panel') }}
                                     </a>
                                 </li>
                             @else
                                 <li>
                                     <a href="{{ route('patient.dashboard') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                                        <i class="bi bi-grid text-primary"></i> Dashboard
+                                        <i class="bi bi-grid text-primary"></i> {{ __('Dashboard') }}
                                     </a>
                                 </li>
                             @endif
@@ -64,14 +64,14 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger border-0 bg-transparent w-100 text-start">
-                                        <i class="bi bi-box-arrow-right"></i> Sign out
+                                        <i class="bi bi-box-arrow-right"></i> {{ __('Sign out') }}
                                     </button>
                                 </form>
                             </li>
                         </ul>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary d-none d-md-inline-block">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary d-none d-md-inline-block">{{ __('Login') }}</a>
                 @endauth
 
                 <button id="mobile-toggle" class="btn btn-sm border-0 p-1" type="button"
@@ -88,12 +88,12 @@
 
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        Treatments
+                        {{ __('Treatments') }}
                     </a>
                     <div class="dropdown-menu p-3" style="min-width:580px;">
                         <div class="row g-1">
@@ -109,67 +109,95 @@
                             @endforeach
                         </div>
                         <hr class="my-2">
-                        <a href="{{ route('treatments.index') }}" class="dropdown-item fw-semibold text-primary">View All Treatments</a>
+                        <a href="{{ route('treatments.index') }}" class="dropdown-item fw-semibold text-primary">{{ __('View All Treatments') }}</a>
                     </div>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        Hospitals
+                        {{ __('Hospitals') }}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('hospitals.index') }}" class="dropdown-item">Top Partner Hospitals</a></li>
-                        <li><a href="{{ route('hospitals.index') }}" class="dropdown-item">By Specialty</a></li>
-                        <li><a href="{{ route('hospitals.index') }}?jci=1" class="dropdown-item">JCI Accredited</a></li>
+                        <li><a href="{{ route('hospitals.index') }}" class="dropdown-item">{{ __('Top Partner Hospitals') }}</a></li>
+                        <li><a href="{{ route('hospitals.index') }}" class="dropdown-item">{{ __('By Specialty') }}</a></li>
+                        <li><a href="{{ route('hospitals.index') }}?jci=1" class="dropdown-item">{{ __('JCI Accredited') }}</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('doctors.index') }}" class="nav-link">Doctors</a>
+                    <a href="{{ route('doctors.index') }}" class="nav-link">{{ __('Doctors') }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('why_india') }}" class="nav-link">Why India</a>
+                    <a href="{{ route('why_india') }}" class="nav-link">{{ __('Why India') }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('blog.index') }}" class="nav-link">Blog</a>
+                    <a href="{{ route('blog.index') }}" class="nav-link">{{ __('Blog') }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('about') }}" class="nav-link">About Us</a>
+                    <a href="{{ route('about') }}" class="nav-link">{{ __('About Us') }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('contact') }}" class="nav-link">Contact</a>
+                    <a href="{{ route('contact') }}" class="nav-link">{{ __('Contact') }}</a>
                 </li>
             </ul>
+
+            <div class="dropdown lang-switcher d-none d-lg-block">
+                <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-globe2 me-1"></i>{{ config('locales.available.' . app()->getLocale() . '.flag') }} {{ config('locales.available.' . app()->getLocale() . '.name') }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    @foreach(config('locales.available') as $code => $lang)
+                        <li>
+                            <a href="{{ request()->fullUrlWithQuery(['locale' => $code]) }}"
+                               class="dropdown-item {{ app()->getLocale() === $code ? 'active fw-semibold' : '' }}">
+                                {{ $lang['flag'] }} {{ $lang['name'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
 
             <div class="d-block d-lg-none w-100 mt-2 pt-2" style="border-top:1px solid rgba(255,255,255,0.15);">
                 @auth
                     @if(auth()->user()->isAdmin() || auth()->user()->isCaseManager())
                         <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                            <i class="bi bi-grid me-2"></i>Dashboard
+                            <i class="bi bi-grid me-2"></i>{{ __('Dashboard') }}
                         </a>
                     @else
                         <a href="{{ route('patient.dashboard') }}" class="nav-link">
-                            <i class="bi bi-grid me-2"></i>Dashboard
+                            <i class="bi bi-grid me-2"></i>{{ __('Dashboard') }}
                         </a>
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="nav-link text-danger border-0 bg-transparent text-start w-100">
-                            <i class="bi bi-box-arrow-right me-2"></i>Sign out
+                            <i class="bi bi-box-arrow-right me-2"></i>{{ __('Sign out') }}
                         </button>
                     </form>
                 @else
                     <a href="{{ route('get_quote') }}" class="nav-link fw-semibold">
-                        <i class="bi bi-file-earmark-text me-2"></i>Get a Free Quote
+                        <i class="bi bi-file-earmark-text me-2"></i>{{ __('Get a Free Quote') }}
                     </a>
                     <a href="{{ route('login') }}" class="nav-link">
-                        <i class="bi bi-person me-2"></i>Login
+                        <i class="bi bi-person me-2"></i>{{ __('Login') }}
                     </a>
                 @endauth
+
+                <div class="pt-2 mt-1" style="border-top:1px solid rgba(255,255,255,0.12);">
+                    <div class="px-0 py-1" style="font-size:0.75rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;">{{ __('Language') }}</div>
+                    <div class="d-flex flex-wrap gap-2 pb-1">
+                        @foreach(config('locales.available') as $code => $lang)
+                            <a href="{{ request()->fullUrlWithQuery(['locale' => $code]) }}"
+                               class="lang-btn {{ app()->getLocale() === $code ? 'active' : '' }}" style="{{ app()->getLocale() === $code ? 'background:rgba(255,255,255,0.18);' : '' }}">
+                                {{ $lang['flag'] }} {{ $lang['name'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
             </div>
 
         </div>

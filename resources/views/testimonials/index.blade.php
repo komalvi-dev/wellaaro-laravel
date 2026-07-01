@@ -3,8 +3,8 @@
 @section('content')
 <div class="bg-light py-4 mb-4">
     <div class="container">
-        <h1 class="h3 fw-bold mb-1">Patient Stories</h1>
-        <p class="text-muted mb-0">Real experiences from patients who chose India for their treatment</p>
+        <h1 class="h3 fw-bold mb-1">{{ __('Patient Stories') }}</h1>
+        <p class="text-muted mb-0">{{ __('Real experiences from patients who chose India for their treatment') }}</p>
     </div>
 </div>
 <div class="container py-4">
@@ -25,7 +25,7 @@
             </a>
         </div>
         @empty
-        <div class="col-12 text-center py-5 text-muted">No patient stories yet.</div>
+        <div class="col-12 text-center py-5 text-muted">{{ __('No patient stories yet.') }}</div>
         @endforelse
     </div>
     <div class="mt-4">{{ $testimonials->links() }}</div>

@@ -5,12 +5,12 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-2">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Doctors</li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('Doctors') }}</li>
             </ol>
         </nav>
-        <h1 class="h2 fw-bold">Find a Specialist</h1>
-        <p class="text-muted">Connect with leading specialists across top accredited hospitals</p>
+        <h1 class="h2 fw-bold">{{ __('Find a Specialist') }}</h1>
+        <p class="text-muted">{{ __('Connect with leading specialists across top accredited hospitals') }}</p>
     </div>
 </section>
 
@@ -19,21 +19,21 @@
         <div class="row g-4">
             <div class="col-lg-3">
                 <div class="card border-0 shadow-sm p-3 sticky-top" style="top:80px;">
-                    <h6 class="fw-bold mb-3">Filter Doctors</h6>
+                    <h6 class="fw-bold mb-3">{{ __('Filter Doctors') }}</h6>
                     <form method="GET" action="{{ route('doctors.index') }}">
                         <div class="mb-3">
-                            <label for="specialty_id" class="form-label small fw-medium">Specialty</label>
+                            <label for="specialty_id" class="form-label small fw-medium">{{ __('Specialty') }}</label>
                             <select name="specialty_id" id="specialty_id" class="form-select form-select-sm">
-                                <option value="">All Specialties</option>
+                                <option value="">{{ __('All Specialties') }}</option>
                                 @foreach($specialties ?? [] as $s)
                                     <option value="{{ $s->id }}" {{ request('specialty_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="hospital_id" class="form-label small fw-medium">Hospital</label>
+                            <label for="hospital_id" class="form-label small fw-medium">{{ __('Hospital') }}</label>
                             <select name="hospital_id" id="hospital_id" class="form-select form-select-sm">
-                                <option value="">All Hospitals</option>
+                                <option value="">{{ __('All Hospitals') }}</option>
                                 @foreach($hospitals ?? [] as $h)
                                     <option value="{{ $h->id }}" {{ request('hospital_id') == $h->id ? 'selected' : '' }}>{{ $h->name }}</option>
                                 @endforeach
@@ -42,17 +42,17 @@
                         <div class="mb-3">
                             <div class="form-check">
                                 <input type="checkbox" name="online_consultation" id="online_consultation" value="1" class="form-check-input" {{ request('online_consultation') == '1' ? 'checked' : '' }}>
-                                <label for="online_consultation" class="form-check-label small">Online Consultation</label>
+                                <label for="online_consultation" class="form-check-label small">{{ __('Online Consultation') }}</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Apply</button>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">{{ __('Apply') }}</button>
                     </form>
                 </div>
             </div>
 
             <div class="col-lg-9">
                 <div class="mb-4">
-                    <p class="text-muted"><strong>{{ $doctors->total() }}</strong> specialists found</p>
+                    <p class="text-muted"><strong>{{ $doctors->total() }}</strong> {{ __('specialists found') }}</p>
                 </div>
                 <div class="row g-4">
                     @forelse($doctors as $doctor)
@@ -68,10 +68,10 @@
                                         </div>
                                     @endif
                                     <div>
-                                        <h5 class="card-title fw-bold text-dark mb-1">Dr. {{ $doctor->first_name }} {{ $doctor->last_name }}</h5>
+                                        <h5 class="card-title fw-bold text-dark mb-1">{{ __('Dr.') }} {{ $doctor->first_name }} {{ $doctor->last_name }}</h5>
                                         <p class="text-primary small mb-1">{{ $doctor->designation }}</p>
                                         @if($doctor->experience_years)
-                                            <p class="text-muted small mb-1">{{ $doctor->experience_years }} years experience</p>
+                                            <p class="text-muted small mb-1">{{ $doctor->experience_years }} {{ __('years experience') }}</p>
                                         @endif
                                         @if($doctor->primary_hospital ?? null)
                                             <p class="text-muted small mb-0">
@@ -80,7 +80,7 @@
                                         @endif
                                         @if($doctor->online_consultation ?? false)
                                             <span class="badge bg-success-subtle text-success mt-1 small">
-                                                <i class="bi bi-camera-video me-1"></i>Online Consultation
+                                                <i class="bi bi-camera-video me-1"></i>{{ __('Online Consultation') }}
                                             </span>
                                         @endif
                                     </div>
@@ -89,7 +89,7 @@
                         </a>
                     </div>
                     @empty
-                    <div class="col-12 text-center py-5 text-muted">No doctors found.</div>
+                    <div class="col-12 text-center py-5 text-muted">{{ __('No doctors found.') }}</div>
                     @endforelse
                 </div>
 

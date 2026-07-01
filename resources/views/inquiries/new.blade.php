@@ -4,8 +4,8 @@
 
 <div class="bg-primary py-4">
     <div class="container">
-        <h1 class="text-white fw-bold mb-0">Get Your Free Treatment Quote</h1>
-        <p class="text-white-75 mb-0">Fill in your details and receive quotes from top hospitals within 24 hours</p>
+        <h1 class="text-white fw-bold mb-0">{{ __('Get Your Free Treatment Quote') }}</h1>
+        <p class="text-white-75 mb-0">{{ __('Fill in your details and receive quotes from top hospitals within 24 hours') }}</p>
     </div>
 </div>
 
@@ -27,7 +27,7 @@
 
                         {{-- Step Indicators --}}
                         <div class="d-flex gap-2 mb-4 flex-wrap" id="step-indicators">
-                            @php $labels = ['Personal Info', 'Treatment', 'Medical Details', 'Travel & Submit']; @endphp
+                            @php $labels = [__('Personal Info'), __('Treatment'), __('Medical Details'), __('Travel & Submit')]; @endphp
                             @foreach($labels as $i => $label)
                                 <div class="step-indicator d-flex align-items-center gap-2">
                                     <div class="step-number rounded-circle d-flex align-items-center justify-content-center fw-bold {{ $i === 0 ? 'bg-primary text-white' : 'bg-light text-muted' }}" style="width:32px;height:32px;font-size:14px;">
@@ -41,69 +41,69 @@
 
                         {{-- Step 1: Personal Info --}}
                         <div class="form-step" id="step-1">
-                            <h5 class="fw-bold mb-4"><i class="bi bi-person-fill me-2 text-primary"></i>Personal Information</h5>
+                            <h5 class="fw-bold mb-4"><i class="bi bi-person-fill me-2 text-primary"></i>{{ __('Personal Information') }}</h5>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name') }}" placeholder="Your first name" required>
+                                    <label class="form-label fw-semibold">{{ __('First Name') }} <span class="text-danger">*</span></label>
+                                    <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name') }}" placeholder="{{ __('Your first name') }}" required>
                                     @error('first_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" placeholder="Your last name" required>
+                                    <label class="form-label fw-semibold">{{ __('Last Name') }} <span class="text-danger">*</span></label>
+                                    <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" placeholder="{{ __('Your last name') }}" required>
                                     @error('last_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-semibold">{{ __('Email Address') }} <span class="text-danger">*</span></label>
                                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="you@example.com" required>
                                     @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Country of Residence</label>
+                                    <label class="form-label fw-semibold">{{ __('Country of Residence') }}</label>
                                     <select name="country_of_residence" id="quote-country-select" class="form-select" onchange="updateQuotePhoneCode(this.value)">
-                                        <option value="">Select your country</option>
+                                        <option value="">{{ __('Select your country') }}</option>
                                         @foreach(config('countries') as $name => $phone)
                                             <option value="{{ $name }}" {{ old('country_of_residence') == $name ? 'selected' : '' }}>{{ $name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Phone / WhatsApp <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-semibold">{{ __('Phone / WhatsApp') }} <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text fw-semibold" id="quote-phone-code" style="min-width:54px;justify-content:center;">+</span>
-                                        <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Phone / WhatsApp" required>
+                                        <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="{{ __('Phone / WhatsApp') }}" required>
                                         @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="form-label fw-semibold">Age</label>
+                                    <label class="form-label fw-semibold">{{ __('Age') }}</label>
                                     <input type="number" name="age" class="form-control" value="{{ old('age') }}" min="1" max="120">
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="form-label fw-semibold">Gender</label>
+                                    <label class="form-label fw-semibold">{{ __('Gender') }}</label>
                                     <select name="gender" class="form-select">
-                                        <option value="">Select</option>
-                                        <option value="male" {{ old('gender')=='male'?'selected':'' }}>Male</option>
-                                        <option value="female" {{ old('gender')=='female'?'selected':'' }}>Female</option>
-                                        <option value="other" {{ old('gender')=='other'?'selected':'' }}>Other</option>
+                                        <option value="">{{ __('Select') }}</option>
+                                        <option value="male" {{ old('gender')=='male'?'selected':'' }}>{{ __('Male') }}</option>
+                                        <option value="female" {{ old('gender')=='female'?'selected':'' }}>{{ __('Female') }}</option>
+                                        <option value="other" {{ old('gender')=='other'?'selected':'' }}>{{ __('Other') }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="text-end mt-4">
                                 <button type="button" class="btn btn-primary px-5" onclick="nextStep(2)">
-                                    Next: Treatment Details <i class="bi bi-arrow-right ms-1"></i>
+                                    {{ __('Next: Treatment Details') }} <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
                         </div>
 
                         {{-- Step 2: Treatment --}}
                         <div class="form-step d-none" id="step-2">
-                            <h5 class="fw-bold mb-4"><i class="bi bi-heart-pulse me-2 text-primary"></i>Treatment Details</h5>
+                            <h5 class="fw-bold mb-4"><i class="bi bi-heart-pulse me-2 text-primary"></i>{{ __('Treatment Details') }}</h5>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Treatment Category <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-semibold">{{ __('Treatment Category') }} <span class="text-danger">*</span></label>
                                     <select name="specialty_id" id="specialty-select" class="form-select @error('specialty_id') is-invalid @enderror" required onchange="filterTreatments(this.value)">
-                                        <option value="">Select Specialty</option>
+                                        <option value="">{{ __('Select Specialty') }}</option>
                                         @foreach($specialties as $s)
                                             <option value="{{ $s->id }}" {{ old('specialty_id')==$s->id?'selected':'' }}>{{ $s->name }}</option>
                                         @endforeach
@@ -111,133 +111,133 @@
                                     @error('specialty_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Specific Treatment</label>
+                                    <label class="form-label fw-semibold">{{ __('Specific Treatment') }}</label>
                                     <select name="treatment_id" id="treatment-select" class="form-select">
-                                        <option value="">Select treatment first</option>
+                                        <option value="">{{ __('Select treatment first') }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">When do you plan to travel?</label>
+                                    <label class="form-label fw-semibold">{{ __('When do you plan to travel?') }}</label>
                                     <select name="preferred_timeline" class="form-select">
-                                        <option value="">Select Timeline</option>
-                                        <option value="asap" {{ old('preferred_timeline')=='asap'?'selected':'' }}>As Soon As Possible</option>
-                                        <option value="1_3_months" {{ old('preferred_timeline')=='1_3_months'?'selected':'' }}>1–3 Months</option>
-                                        <option value="3_6_months" {{ old('preferred_timeline')=='3_6_months'?'selected':'' }}>3–6 Months</option>
-                                        <option value="6_plus" {{ old('preferred_timeline')=='6_plus'?'selected':'' }}>6+ Months</option>
+                                        <option value="">{{ __('Select Timeline') }}</option>
+                                        <option value="asap" {{ old('preferred_timeline')=='asap'?'selected':'' }}>{{ __('As Soon As Possible') }}</option>
+                                        <option value="1_3_months" {{ old('preferred_timeline')=='1_3_months'?'selected':'' }}>{{ __('1–3 Months') }}</option>
+                                        <option value="3_6_months" {{ old('preferred_timeline')=='3_6_months'?'selected':'' }}>{{ __('3–6 Months') }}</option>
+                                        <option value="6_plus" {{ old('preferred_timeline')=='6_plus'?'selected':'' }}>{{ __('6+ Months') }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Budget Range (USD)</label>
+                                    <label class="form-label fw-semibold">{{ __('Budget Range (USD)') }}</label>
                                     <select name="budget_range" class="form-select">
-                                        <option value="">Select budget (optional)</option>
-                                        <option value="0-5000" {{ old('budget_range')=='0-5000'?'selected':'' }}>Under $5,000</option>
-                                        <option value="5000-10000" {{ old('budget_range')=='5000-10000'?'selected':'' }}>$5,000–$10,000</option>
-                                        <option value="10000-25000" {{ old('budget_range')=='10000-25000'?'selected':'' }}>$10,000–$25,000</option>
-                                        <option value="25000+" {{ old('budget_range')=='25000+'?'selected':'' }}>$25,000+</option>
+                                        <option value="">{{ __('Select budget (optional)') }}</option>
+                                        <option value="0-5000" {{ old('budget_range')=='0-5000'?'selected':'' }}>{{ __('Under $5,000') }}</option>
+                                        <option value="5000-10000" {{ old('budget_range')=='5000-10000'?'selected':'' }}>{{ __('$5,000–$10,000') }}</option>
+                                        <option value="10000-25000" {{ old('budget_range')=='10000-25000'?'selected':'' }}>{{ __('$10,000–$25,000') }}</option>
+                                        <option value="25000+" {{ old('budget_range')=='25000+'?'selected':'' }}>{{ __('$25,000+') }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-4">
                                 <button type="button" class="btn btn-outline-secondary px-4" onclick="prevStep(1)">
-                                    <i class="bi bi-arrow-left me-1"></i> Back
+                                    <i class="bi bi-arrow-left me-1"></i> {{ __('Back') }}
                                 </button>
                                 <button type="button" class="btn btn-primary px-5" onclick="nextStep(3)">
-                                    Next: Medical Details <i class="bi bi-arrow-right ms-1"></i>
+                                    {{ __('Next: Medical Details') }} <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
                         </div>
 
                         {{-- Step 3: Medical Details --}}
                         <div class="form-step d-none" id="step-3">
-                            <h5 class="fw-bold mb-4"><i class="bi bi-file-medical me-2 text-primary"></i>Medical Information</h5>
+                            <h5 class="fw-bold mb-4"><i class="bi bi-file-medical me-2 text-primary"></i>{{ __('Medical Information') }}</h5>
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold">Describe your condition <span class="text-danger">*</span></label>
-                                    <textarea name="condition_description" class="form-control @error('condition_description') is-invalid @enderror" rows="4" required placeholder="Please describe your current medical condition, symptoms, and any previous diagnoses...">{{ old('condition_description') }}</textarea>
+                                    <label class="form-label fw-semibold">{{ __('Describe your condition') }} <span class="text-danger">*</span></label>
+                                    <textarea name="condition_description" class="form-control @error('condition_description') is-invalid @enderror" rows="4" required placeholder="{{ __('Please describe your current medical condition, symptoms, and any previous diagnoses...') }}">{{ old('condition_description') }}</textarea>
                                     @error('condition_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Current Medications</label>
-                                    <textarea name="current_medications" class="form-control" rows="2" placeholder="List any medications you are currently taking...">{{ old('current_medications') }}</textarea>
+                                    <label class="form-label fw-semibold">{{ __('Current Medications') }}</label>
+                                    <textarea name="current_medications" class="form-control" rows="2" placeholder="{{ __('List any medications you are currently taking...') }}">{{ old('current_medications') }}</textarea>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Previous Treatments Attempted</label>
-                                    <textarea name="previous_treatments" class="form-control" rows="2" placeholder="List any treatments or procedures already tried...">{{ old('previous_treatments') }}</textarea>
+                                    <label class="form-label fw-semibold">{{ __('Previous Treatments Attempted') }}</label>
+                                    <textarea name="previous_treatments" class="form-control" rows="2" placeholder="{{ __('List any treatments or procedures already tried...') }}">{{ old('previous_treatments') }}</textarea>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold">Upload Medical Reports</label>
+                                    <label class="form-label fw-semibold">{{ __('Upload Medical Reports') }}</label>
                                     <div class="border rounded-3 p-4 text-center bg-light" id="upload-dropzone">
                                         <input type="file" name="medical_reports[]" id="medical-reports-input" multiple style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
                                         <i class="bi bi-cloud-upload fs-1 text-muted d-block mb-2"></i>
                                         <label for="medical-reports-input" class="btn btn-outline-primary mb-2" style="cursor:pointer;">
-                                            <i class="bi bi-upload me-2"></i>Choose Files
+                                            <i class="bi bi-upload me-2"></i>{{ __('Choose Files') }}
                                         </label>
-                                        <p class="text-muted small mb-0">Any format accepted (PDF, JPG, PNG, DOCX&hellip;) &bull; Multiple files at once</p>
+                                        <p class="text-muted small mb-0">{{ __('Any format accepted (PDF, JPG, PNG, DOCX…) • Multiple files at once') }}</p>
                                     </div>
                                     <div id="selected-files-list" class="mt-2"></div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-4">
                                 <button type="button" class="btn btn-outline-secondary px-4" onclick="prevStep(2)">
-                                    <i class="bi bi-arrow-left me-1"></i> Back
+                                    <i class="bi bi-arrow-left me-1"></i> {{ __('Back') }}
                                 </button>
                                 <button type="button" class="btn btn-primary px-5" onclick="nextStep(4)">
-                                    Next: Travel Details <i class="bi bi-arrow-right ms-1"></i>
+                                    {{ __('Next: Travel Details') }} <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
                         </div>
 
                         {{-- Step 4: Travel & Submit --}}
                         <div class="form-step d-none" id="step-4">
-                            <h5 class="fw-bold mb-4"><i class="bi bi-airplane me-2 text-primary"></i>Travel & Preferences</h5>
+                            <h5 class="fw-bold mb-4"><i class="bi bi-airplane me-2 text-primary"></i>{{ __('Travel & Preferences') }}</h5>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Number of Companions</label>
+                                    <label class="form-label fw-semibold">{{ __('Number of Companions') }}</label>
                                     <input type="number" name="companions_count" class="form-control" value="{{ old('companions_count', 0) }}" min="0" max="10">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Accommodation Preference</label>
+                                    <label class="form-label fw-semibold">{{ __('Accommodation Preference') }}</label>
                                     <select name="accommodation_pref" class="form-select">
-                                        <option value="">Select preference</option>
-                                        <option value="budget" {{ old('accommodation_pref')=='budget'?'selected':'' }}>Budget (3-star)</option>
-                                        <option value="standard" {{ old('accommodation_pref')=='standard'?'selected':'' }}>Standard (4-star)</option>
-                                        <option value="premium" {{ old('accommodation_pref')=='premium'?'selected':'' }}>Premium (5-star)</option>
-                                        <option value="luxury" {{ old('accommodation_pref')=='luxury'?'selected':'' }}>Luxury</option>
+                                        <option value="">{{ __('Select preference') }}</option>
+                                        <option value="budget" {{ old('accommodation_pref')=='budget'?'selected':'' }}>{{ __('Budget (3-star)') }}</option>
+                                        <option value="standard" {{ old('accommodation_pref')=='standard'?'selected':'' }}>{{ __('Standard (4-star)') }}</option>
+                                        <option value="premium" {{ old('accommodation_pref')=='premium'?'selected':'' }}>{{ __('Premium (5-star)') }}</option>
+                                        <option value="luxury" {{ old('accommodation_pref')=='luxury'?'selected':'' }}>{{ __('Luxury') }}</option>
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold d-block mb-2">Services Required</label>
+                                    <label class="form-label fw-semibold d-block mb-2">{{ __('Services Required') }}</label>
                                     <div class="d-flex flex-wrap gap-3">
                                         <div class="form-check">
                                             <input type="checkbox" name="needs_visa_assistance" value="1" id="visa" class="form-check-input" {{ old('needs_visa_assistance') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="visa"><i class="bi bi-passport me-1"></i>Visa Assistance</label>
+                                            <label class="form-check-label" for="visa"><i class="bi bi-passport me-1"></i>{{ __('Visa Assistance') }}</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="checkbox" name="needs_airport_transfer" value="1" id="transfer" class="form-check-input" {{ old('needs_airport_transfer') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="transfer"><i class="bi bi-car-front me-1"></i>Airport Transfer</label>
+                                            <label class="form-check-label" for="transfer"><i class="bi bi-car-front me-1"></i>{{ __('Airport Transfer') }}</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="checkbox" name="needs_interpreter" value="1" id="interpreter" class="form-check-input" {{ old('needs_interpreter') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="interpreter"><i class="bi bi-translate me-1"></i>Interpreter</label>
+                                            <label class="form-check-label" for="interpreter"><i class="bi bi-translate me-1"></i>{{ __('Interpreter') }}</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold">Additional Notes</label>
-                                    <textarea name="additional_notes" class="form-control" rows="3" placeholder="Any other information or special requirements...">{{ old('additional_notes') }}</textarea>
+                                    <label class="form-label fw-semibold">{{ __('Additional Notes') }}</label>
+                                    <textarea name="additional_notes" class="form-control" rows="3" placeholder="{{ __('Any other information or special requirements...') }}">{{ old('additional_notes') }}</textarea>
                                 </div>
                                 <div class="col-12">
                                     <div class="bg-light rounded-3 p-3">
                                         <div class="form-check mb-2">
                                             <input type="checkbox" name="whatsapp_opt_in" value="1" id="whatsapp_opt" class="form-check-input" {{ old('whatsapp_opt_in') ? 'checked' : '' }}>
                                             <label class="form-check-label small" for="whatsapp_opt">
-                                                <i class="bi bi-whatsapp text-success me-1"></i>Contact me via WhatsApp for faster updates
+                                                <i class="bi bi-whatsapp text-success me-1"></i>{{ __('Contact me via WhatsApp for faster updates') }}
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input type="checkbox" name="email_opt_in" value="1" id="email_opt" class="form-check-input" checked>
                                             <label class="form-check-label small" for="email_opt">
-                                                <i class="bi bi-envelope me-1"></i>Send me health articles and treatment updates by email
+                                                <i class="bi bi-envelope me-1"></i>{{ __('Send me health articles and treatment updates by email') }}
                                             </label>
                                         </div>
                                     </div>
@@ -245,12 +245,12 @@
                             </div>
                             <div class="d-flex justify-content-between mt-4">
                                 <button type="button" class="btn btn-outline-secondary px-4" onclick="prevStep(3)">
-                                    <i class="bi bi-arrow-left me-1"></i> Back
+                                    <i class="bi bi-arrow-left me-1"></i> {{ __('Back') }}
                                 </button>
-                                <button type="submit" class="btn btn-success btn-lg px-5 fw-bold">Submit My Inquiry &rarr;</button>
+                                <button type="submit" class="btn btn-success btn-lg px-5 fw-bold">{{ __('Submit My Inquiry →') }}</button>
                             </div>
                             <p class="text-muted small text-end mt-2 mb-0">
-                                By submitting I agree to the <a href="{{ route('terms') }}" class="text-primary text-decoration-none">Terms of Use</a> and <a href="{{ route('privacy_policy') }}" class="text-primary text-decoration-none">Privacy Policy</a>.
+                                {{ __('By submitting I agree to the') }} <a href="{{ route('terms') }}" class="text-primary text-decoration-none">{{ __('Terms of Use') }}</a> {{ __('and') }} <a href="{{ route('privacy_policy') }}" class="text-primary text-decoration-none">{{ __('Privacy Policy') }}</a>.
                             </p>
                         </div>
 
@@ -263,38 +263,38 @@
         <div class="col-lg-4">
             <div class="card border-0 bg-primary text-white mb-4">
                 <div class="card-body p-4">
-                    <h6 class="fw-bold mb-3"><i class="bi bi-shield-check me-2"></i>What Happens Next?</h6>
+                    <h6 class="fw-bold mb-3"><i class="bi bi-shield-check me-2"></i>{{ __('What Happens Next?') }}</h6>
                     <ol class="small mb-0 ps-3">
-                        <li class="mb-2">Our medical coordinator reviews your inquiry within 24 hours</li>
-                        <li class="mb-2">We match you with the most suitable hospitals and doctors</li>
-                        <li class="mb-2">You receive detailed cost estimates with full breakdown</li>
-                        <li class="mb-2">We assist with travel planning once you're ready to proceed</li>
+                        <li class="mb-2">{{ __('Our medical coordinator reviews your inquiry within 24 hours') }}</li>
+                        <li class="mb-2">{{ __('We match you with the most suitable hospitals and doctors') }}</li>
+                        <li class="mb-2">{{ __('You receive detailed cost estimates with full breakdown') }}</li>
+                        <li class="mb-2">{{ __("We assist with travel planning once you're ready to proceed") }}</li>
                     </ol>
                 </div>
             </div>
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body p-4">
-                    <h6 class="fw-bold mb-3">Need Help?</h6>
+                    <h6 class="fw-bold mb-3">{{ __('Need Help?') }}</h6>
                     <div class="d-flex align-items-center gap-2 mb-3">
                         <i class="bi bi-whatsapp fs-4 text-success"></i>
                         <div>
-                            <div class="fw-semibold small">WhatsApp</div>
+                            <div class="fw-semibold small">{{ __('WhatsApp') }}</div>
                             <div class="text-muted small">+91 72111 36620</div>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-envelope-fill fs-4 text-primary"></i>
                         <div>
-                            <div class="fw-semibold small">Email</div>
-                            <div class="text-muted small">support@wellaaro.com</div>
+                            <div class="fw-semibold small">{{ __('Email') }}</div>
+                            <div class="text-muted small">care@wellaaro.com</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card border-0 bg-success bg-opacity-10 border-success-subtle">
                 <div class="card-body p-4">
-                    <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle me-2"></i>Patient-First Policy</h6>
-                    <p class="small text-muted mb-0">We do not accept hospital commissions for referrals. Our recommendations remain independent and unbiased. We charge a transparent service fee for case management and patient support.</p>
+                    <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle me-2"></i>{{ __('Patient-First Policy') }}</h6>
+                    <p class="small text-muted mb-0">{{ __('We do not accept hospital commissions for referrals. Our recommendations remain independent and unbiased. We charge a transparent service fee for case management and patient support.') }}</p>
                 </div>
             </div>
         </div>

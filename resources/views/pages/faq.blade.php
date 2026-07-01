@@ -4,8 +4,8 @@
 
 <section class="py-5 bg-light text-center">
   <div class="container">
-    <h1 class="display-6 fw-bold mb-3">Frequently Asked Questions</h1>
-    <p class="lead text-muted">Everything you need to know about medical tourism in India</p>
+    <h1 class="display-6 fw-bold mb-3">{{ __('Frequently Asked Questions') }}</h1>
+    <p class="lead text-muted">{{ __('Everything you need to know about medical tourism in India') }}</p>
   </div>
 </section>
 
@@ -36,9 +36,9 @@
         @endforeach
 
         <div class="text-center mt-5 p-4 bg-primary-subtle rounded-3">
-          <h3 class="h5 fw-bold mb-2">Still have questions?</h3>
-          <p class="text-muted mb-3">Our medical consultants are ready to help.</p>
-          <a href="{{ route('contact') }}" class="btn btn-primary">Contact Us</a>
+          <h3 class="h5 fw-bold mb-2">{{ __('Still have questions?') }}</h3>
+          <p class="text-muted mb-3">{{ __('Our medical consultants are ready to help.') }}</p>
+          <a href="{{ route('contact') }}" class="btn btn-primary">{{ __('Contact Us') }}</a>
         </div>
       </div>
     </div>
