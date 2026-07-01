@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="text-end mt-4">
-                                <button type="button" class="btn btn-primary px-5" onclick="nextStep(2)">
+                                <button type="button" id="next-1" class="btn btn-primary px-5" onclick="nextStep(2)" disabled>
                                     {{ __('Next: Treatment Details') }} <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
@@ -141,7 +141,7 @@
                                 <button type="button" class="btn btn-outline-secondary px-4" onclick="prevStep(1)">
                                     <i class="bi bi-arrow-left me-1"></i> {{ __('Back') }}
                                 </button>
-                                <button type="button" class="btn btn-primary px-5" onclick="nextStep(3)">
+                                <button type="button" id="next-2" class="btn btn-primary px-5" onclick="nextStep(3)" disabled>
                                     {{ __('Next: Medical Details') }} <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
@@ -181,7 +181,7 @@
                                 <button type="button" class="btn btn-outline-secondary px-4" onclick="prevStep(2)">
                                     <i class="bi bi-arrow-left me-1"></i> {{ __('Back') }}
                                 </button>
-                                <button type="button" class="btn btn-primary px-5" onclick="nextStep(4)">
+                                <button type="button" id="next-3" class="btn btn-primary px-5" onclick="nextStep(4)" disabled>
                                     {{ __('Next: Travel Details') }} <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
@@ -313,6 +313,26 @@ function nextStep(n) {
 }
 function prevStep(n) { nextStep(n); }
 
+var STEP_REQUIRED_FIELDS = {
+    1: ['first_name', 'last_name', 'email', 'phone'],
+    2: ['specialty_id'],
+    3: ['condition_description'],
+};
+
+function isStepValid(step) {
+    return (STEP_REQUIRED_FIELDS[step] || []).every(function(name) {
+        var el = document.querySelector('#step-' + step + ' [name="' + name + '"]');
+        return !el || el.checkValidity();
+    });
+}
+
+function refreshStepButtons() {
+    Object.keys(STEP_REQUIRED_FIELDS).forEach(function(step) {
+        var btn = document.getElementById('next-' + step);
+        if (btn) btn.disabled = !isStepValid(step);
+    });
+}
+
 function updateStepIndicators(active) {
     document.querySelectorAll('.step-number').forEach(function(el, i) {
         var step = i + 1;
@@ -365,6 +385,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (specialtySelect && specialtySelect.value) {
         filterTreatments(specialtySelect.value);
     }
+
+    var form = document.getElementById('inquiry-form');
+    form.addEventListener('input', refreshStepButtons);
+    form.addEventListener('change', refreshStepButtons);
+    form.addEventListener('submit', function(e) {
+        for (var s = 1; s <= 3; s++) {
+            if (!isStepValid(s)) {
+                e.preventDefault();
+                nextStep(s);
+                refreshStepButtons();
+                return;
+            }
+        }
+    });
+    refreshStepButtons();
 
     var fileInput = document.getElementById('medical-reports-input');
     if (fileInput) {

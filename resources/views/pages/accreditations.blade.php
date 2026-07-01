@@ -73,7 +73,6 @@
         </div>
     </div>
 
-    <h2 class="fw-bold mb-4">{{ __('Our Accredited Partner Hospitals') }}</h2>
     <div class="row g-4 mb-5">
         @foreach ($hospitals as $h)
         <div class="col-md-6 col-lg-3">
@@ -93,9 +92,8 @@
     </div>
 
     <div class="bg-light rounded-4 p-5 text-center">
-        <h4 class="fw-bold mb-2">{{ __('Our Hospital Selection Approach') }}</h4>
+        <h4 class="display-5 fw-bold mb-2">{{ __('Our Hospital Selection Approach') }}</h4>
         <p class="text-muted mb-4">{{ __('We help patients compare accredited hospitals across India based on their medical needs, budget, and preferences. Our goal is to provide clear information and independent guidance so patients can make informed healthcare decisions.') }}</p>
-        <a href="{{ route('hospitals.index') }}" class="btn btn-primary px-5">{{ __('View All Hospitals') }}</a>
     </div>
 
 </div>

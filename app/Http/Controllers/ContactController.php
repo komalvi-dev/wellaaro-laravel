@@ -23,7 +23,11 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
-        Mail::send(new ContactMail($validated));
+        try {
+            Mail::send(new ContactMail($validated));
+        } catch (\Throwable $e) {
+            \Log::error('Contact mail failed: ' . $e->getMessage(), $validated);
+        }
 
         return redirect()->route('contact')
             ->with('success', 'Your message has been sent. We will be in touch shortly.');

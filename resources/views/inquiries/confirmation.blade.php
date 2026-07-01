@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <div class="mb-4">
-                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:80px;height:80px;font-size:2rem;">
-                    <i class="fas fa-check"></i>
+                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:80px;height:80px;font-size:2.25rem;">
+                    ✅
                 </div>
                 <h1 class="h3 fw-bold text-success">{{ __('Inquiry Submitted Successfully!') }}</h1>
             </div>

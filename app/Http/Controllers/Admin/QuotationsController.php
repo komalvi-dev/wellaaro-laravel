@@ -87,7 +87,11 @@ class QuotationsController extends Controller
         $patientEmail = $inquiry->patient_email;
 
         if ($patientEmail) {
-            Mail::to($patientEmail)->send(new QuotationSentMail($quotation));
+            try {
+                Mail::to($patientEmail)->send(new QuotationSentMail($quotation));
+            } catch (\Throwable $e) {
+                \Log::error('Quotation mail failed: ' . $e->getMessage(), ['quotation_id' => $quotation->id]);
+            }
         }
 
         return redirect()->route('admin.inquiries.show', $inquiry)

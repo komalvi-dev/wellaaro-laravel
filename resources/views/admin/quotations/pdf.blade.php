@@ -4,110 +4,176 @@
 <meta charset="utf-8">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: DejaVu Sans, Arial, sans-serif; font-size: 11px; color: #222; }
-    .page { padding: 40px; }
-    .header { display: flex; justify-content: space-between; border-bottom: 2px solid #0d6efd; padding-bottom: 16px; margin-bottom: 24px; }
-    .brand { font-size: 20px; font-weight: 700; color: #0d6efd; }
-    .brand small { display: block; font-size: 11px; font-weight: 400; color: #666; }
-    .doc-title { text-align: right; }
-    .doc-title h1 { font-size: 18px; color: #0d6efd; }
-    .doc-title p { color: #666; font-size: 10px; }
-    .section { margin-bottom: 20px; }
-    .section h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #0d6efd; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; margin-bottom: 10px; }
-    .info-grid { display: flex; flex-wrap: wrap; gap: 8px 24px; }
-    .info-item { min-width: 180px; }
-    .info-item dt { font-size: 9px; text-transform: uppercase; color: #888; margin-bottom: 2px; }
-    .info-item dd { font-weight: 600; }
-    table { width: 100%; border-collapse: collapse; }
-    th { background: #f0f2f5; text-align: left; padding: 7px 10px; font-size: 10px; text-transform: uppercase; }
-    td { padding: 7px 10px; border-bottom: 1px solid #f0f2f5; }
-    .text-right { text-align: right; }
-    .total-row td { font-weight: 700; font-size: 13px; border-top: 2px solid #0d6efd; }
-    .footer { margin-top: 32px; border-top: 1px solid #e5e7eb; padding-top: 12px; font-size: 9px; color: #888; text-align: center; }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 9px; font-weight: 600; background: #e0f0ff; color: #0d6efd; }
-    .notes-box { background: #f9f9f9; border-left: 3px solid #0d6efd; padding: 10px 14px; font-size: 10px; }
+    body { font-family: DejaVu Sans, Arial, sans-serif; font-size: 11px; color: #333; }
+    .header { background: #1a6bcc; color: #fff; padding: 10px 20px; }
+    .header h1 { font-size: 16px; margin-bottom: 2px; }
+    .header p { font-size: 11px; }
+    .logo { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+    .container { padding: 10px 20px; }
+    .section { margin-bottom: 10px; }
+    .section-title { font-size: 12px; font-weight: bold; color: #1a6bcc; border-bottom: 1px solid #1a6bcc; padding-bottom: 2px; margin-bottom: 6px; }
+    .info-grid { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+    .info-grid > div { flex: 1; min-width: 220px; }
+    .info-item { margin-bottom: 3px; }
+    .info-label { font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: 0.4px; }
+    .info-value { font-weight: 600; font-size: 11px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+    th { background: #f0f4f8; padding: 5px 8px; text-align: left; font-size: 10px; color: #555; }
+    td { padding: 4px 8px; border-bottom: 1px solid #eee; font-size: 11px; }
+    .amount { text-align: right; font-weight: 600; }
+    .total-row td { font-weight: bold; font-size: 12px; background: #f8f9fa; }
+    .discount-row td { color: #dc3545; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+    .badge-success { background: #d1fae5; color: #065f46; }
+    .terms { background: #f8f9fa; border-radius: 4px; padding: 8px; font-size: 9px; color: #666; margin-top: 8px; }
+    .footer { background: #1a6bcc; color: #fff; padding: 8px 20px; margin-top: 10px; font-size: 10px; text-align: center; }
 </style>
 </head>
 <body>
-<div class="page">
-    <div class="header">
+@php
+    $currencySymbols = ['USD' => '$', 'GBP' => '£', 'EUR' => '€', 'INR' => '₹'];
+    $symbol = $currencySymbols[strtoupper($quotation->currency)] ?? $quotation->currency;
+    $money = fn ($amount) => $symbol . number_format($amount ?? 0, 2);
+@endphp
+<div class="header">
+    <div class="logo">Wellaaro</div>
+    <h1>Treatment Quotation</h1>
+    <p>Ref: {{ $quotation->reference_number }} &nbsp;|&nbsp; Version {{ $quotation->version }}</p>
+</div>
+
+<div class="container">
+    <div class="info-grid" style="margin-bottom:25px;">
         <div>
-            <div class="brand">Wellaaro<small>Your Medical Journey, Simplified</small></div>
+            <div class="section-title" style="margin-top:0;">Patient Details</div>
+            <div class="info-item">
+                <div class="info-label">Name</div>
+                <div class="info-value">{{ $inquiry->patient_name }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value">{{ $inquiry->patient_email }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Country</div>
+                <div class="info-value">{{ $inquiry->country_of_residence ?: $inquiry->patientProfile?->country_of_residence ?: '—' }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Inquiry Ref</div>
+                <div class="info-value">{{ $inquiry->reference_number }}</div>
+            </div>
         </div>
-        <div class="doc-title">
-            <h1>Medical Treatment Quotation</h1>
-            <p>Reference: {{ $inquiry->reference_number ?? '—' }}</p>
-            <p>Date: {{ now()->format('d M Y') }}</p>
+
+        <div>
+            <div class="section-title" style="margin-top:0;">Quotation Details</div>
+            <div class="info-item">
+                <div class="info-label">Quote Date</div>
+                <div class="info-value">{{ $quotation->created_at->format('F d, Y') }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Valid Until</div>
+                <div class="info-value">{{ $quotation->valid_until ? $quotation->valid_until->format('F d, Y') : '30 days' }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Status</div>
+                <div class="info-value"><span class="badge badge-success">{{ ucfirst(str_replace('_', ' ', $quotation->status)) }}</span></div>
+            </div>
         </div>
     </div>
-
-    <div class="section">
-        <h3>Patient Information</h3>
-        <div class="info-grid">
-            <div class="info-item"><dt>Name</dt><dd>{{ $inquiry->patientProfile->user->name ?? '—' }}</dd></div>
-            <div class="info-item"><dt>Nationality</dt><dd>{{ $inquiry->patientProfile->nationality ?? '—' }}</dd></div>
-            <div class="info-item"><dt>Treatment</dt><dd>{{ $inquiry->treatment->name ?? '—' }}</dd></div>
-            <div class="info-item"><dt>Specialty</dt><dd>{{ $inquiry->specialty->name ?? '—' }}</dd></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>Hospital &amp; Doctor</h3>
-        <div class="info-grid">
-            <div class="info-item"><dt>Hospital</dt><dd>{{ $quotation->hospital->name ?? '—' }}</dd></div>
-            <div class="info-item"><dt>Location</dt><dd>{{ $quotation->hospital?->city?->name ?? '' }}</dd></div>
-            <div class="info-item"><dt>Doctor</dt><dd>{{ $quotation->doctor?->full_name ?? 'To be assigned' }}</dd></div>
-            <div class="info-item"><dt>Valid Until</dt><dd>{{ $quotation->valid_until ? $quotation->valid_until->format('d M Y') : '—' }}</dd></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>Cost Breakdown</h3>
-        <table>
-            <thead><tr><th>Description</th><th class="text-right">Amount ({{ $quotation->currency }})</th></tr></thead>
-            <tbody>
-                @foreach($quotation->line_items ?? [] as $item)
-                <tr>
-                    <td>{{ $item['description'] ?? '' }}</td>
-                    <td class="text-right">{{ number_format($item['amount'] ?? 0, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr class="total-row">
-                    <td>Total Estimated Cost</td>
-                    <td class="text-right">{{ $quotation->currency }} {{ number_format($quotation->total_cost, 2) }}</td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-    @if($quotation->inclusions)
-    <div class="section">
-        <h3>Inclusions</h3>
-        <div class="notes-box">{{ $quotation->inclusions }}</div>
-    </div>
-    @endif
-
-    @if($quotation->exclusions)
-    <div class="section">
-        <h3>Exclusions</h3>
-        <div class="notes-box">{{ $quotation->exclusions }}</div>
-    </div>
-    @endif
 
     @if($quotation->notes)
     <div class="section">
-        <h3>Additional Notes</h3>
-        <div class="notes-box">{{ $quotation->notes }}</div>
+        <div class="section-title">Additional Notes</div>
+        <p style="color:#555;">{{ $quotation->notes }}</p>
     </div>
     @endif
 
-    <div class="footer">
-        This quotation is valid until {{ $quotation->valid_until ? $quotation->valid_until->format('d M Y') : 'date stated above' }}.
-        Prices are estimates and may vary. Contact us at care@wellaaro.com for any queries.
-        &copy; {{ date('Y') }} Wellaaro. All rights reserved.
+    @if($quotation->hospital || $inquiry->treatment_name)
+    <div class="section">
+        <div class="section-title">Treatment Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Treatment</div>
+                <div class="info-value">{{ $inquiry->treatment_name ?: $quotation->treatment?->name ?: '—' }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Hospital</div>
+                <div class="info-value">{{ $quotation->hospital->name ?? 'To be confirmed' }}</div>
+            </div>
+            @if($quotation->doctor)
+            <div class="info-item">
+                <div class="info-label">Specialist</div>
+                <div class="info-value">{{ $quotation->doctor->full_name }}</div>
+            </div>
+            @endif
+        </div>
     </div>
+    @endif
+
+    <div class="section">
+        <div class="section-title">Cost Breakdown</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th class="amount">Amount ({{ $quotation->currency }})</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach([
+                    ['Treatment / Procedure', $quotation->treatment_cost],
+                    ['Hospital Stay', $quotation->hospital_stay_cost],
+                    ['Consultation', $quotation->consultation_cost],
+                    ['Diagnostics', $quotation->diagnostic_cost],
+                    ['Medicines', $quotation->medicine_cost],
+                    ['Accommodation', $quotation->accommodation_cost],
+                    ['Travel', $quotation->travel_cost],
+                    ['Visa Assistance', $quotation->visa_cost],
+                    ['Other', $quotation->other_cost],
+                ] as [$label, $amount])
+                    @if($amount > 0)
+                    <tr>
+                        <td>{{ $label }}</td>
+                        <td class="amount">{{ $money($amount) }}</td>
+                    </tr>
+                    @endif
+                @endforeach
+                @if($quotation->discount_amount > 0)
+                <tr class="discount-row">
+                    <td>Discount</td>
+                    <td class="amount">&minus;{{ $money($quotation->discount_amount) }}</td>
+                </tr>
+                @endif
+                <tr class="total-row">
+                    <td>Total Estimated Cost</td>
+                    <td class="amount">{{ $money($quotation->total_cost) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        @if($quotation->deposit_percentage)
+        <p style="margin-top:10px;font-size:12px;color:#666;">
+            * Advance required: {{ $quotation->deposit_percentage }}%
+            ({{ $money($quotation->total_cost * $quotation->deposit_percentage / 100) }})
+            to confirm booking
+        </p>
+        @endif
+    </div>
+
+    <div class="terms">
+        <strong>Terms &amp; Conditions</strong><br>
+        1. This quotation is an estimate based on the available medical information and may change after the treating doctor&rsquo;s evaluation.<br>
+        2. Hospital charges, treatment plans, and accommodation costs are subject to availability and final confirmation.<br>
+        3. Travel, airfare, visa fees, insurance, personal expenses, and unforeseen medical expenses are not included unless specifically mentioned.<br>
+        4. Advance payment is required to confirm the booking. The balance payment shall be payable as per the hospital&rsquo;s and Wellaaro&rsquo;s payment policy.<br>
+        5. Cancellation and refund are subject to the respective hospital&rsquo;s policies and applicable service charges.<br>
+        6. Wellaaro acts solely as a medical tourism facilitator and does not provide medical advice or guarantee treatment outcomes.<br>
+        7. By accepting this quotation, the patient agrees to Wellaaro&rsquo;s complete Terms &amp; Conditions and Privacy Policy available on our website.
+    </div>
+</div>
+
+<div class="footer">
+    <p>For queries: {{ \App\Models\SiteSetting::get('contact_email', 'info@wellaaro.com') }} | {{ \App\Models\SiteSetting::get('phone', '+91 72111 36620') }}</p>
+    <p style="margin-top:5px;">{{ \App\Models\SiteSetting::get('address', 'New Delhi, India') }}</p>
 </div>
 </body>
 </html>

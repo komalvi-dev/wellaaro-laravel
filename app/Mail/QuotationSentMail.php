@@ -52,7 +52,7 @@ class QuotationSentMail extends Mailable
 
     public function attachments(): array
     {
-        $pdfData = (new QuotationPdfService)->generate($this->quotation);
+        $pdfData = (new QuotationPdfService)->generate($this->quotation)->output();
 
         return [
             Attachment::fromData(fn () => $pdfData, 'quotation-' . $this->quotation->reference_number . '.pdf')

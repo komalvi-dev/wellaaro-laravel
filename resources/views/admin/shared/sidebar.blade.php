@@ -1,6 +1,6 @@
 <nav class="sidebar d-flex flex-column">
     <div class="brand">
-        <a href="{{ route('admin.dashboard') }}"><i class="fas fa-heartbeat me-2"></i>{{ config('app.name', 'Wellaaro') }}</a>
+        <a href="{{ route('admin.dashboard') }}"><i class="fas fa-heartbeat me-2"></i>Wellaaro</a>
         <div class="text-white-50 small mt-1">Admin Panel</div>
     </div>
     <div class="flex-grow-1 py-2">
@@ -34,9 +34,6 @@
         </a>
         <a href="{{ route('admin.packages.index') }}" class="nav-link {{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
             <i class="fas fa-box-open me-2"></i>Packages
-        </a>
-        <a href="{{ route('admin.destinations.index') }}" class="nav-link {{ request()->routeIs('admin.destinations.*') ? 'active' : '' }}">
-            <i class="fas fa-map-marked-alt me-2"></i>Destinations
         </a>
 
         <div class="nav-section">Content</div>
