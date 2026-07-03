@@ -53,12 +53,14 @@
                     <td><span class="badge {{ $hospital->published ? 'bg-success' : 'bg-secondary' }}">{{ $hospital->published ? 'Published' : 'Draft' }}</span></td>
                     <td>@if($hospital->featured)<i class="bi bi-star-fill text-warning"></i>@endif</td>
                     <td>
-                        <a href="{{ route('admin.hospitals.show', $hospital->id) }}" class="btn btn-xs btn-outline-primary me-1" title="View"><i class="fas fa-eye"></i></a>
-                        <a href="{{ route('admin.hospitals.edit', $hospital->id) }}" class="btn btn-xs btn-outline-secondary me-1" title="Edit"><i class="fas fa-edit"></i></a>
-                        <form action="{{ route('admin.hospitals.destroy', $hospital->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this hospital?')">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-xs btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></button>
-                        </form>
+                        <div class="d-flex gap-1">
+                            <a href="{{ route('admin.hospitals.show', $hospital->id) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
+                            <a href="{{ route('admin.hospitals.edit', $hospital->id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <form action="{{ route('admin.hospitals.destroy', $hospital->id) }}" method="POST" onsubmit="return confirm('Delete this hospital?')">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @empty

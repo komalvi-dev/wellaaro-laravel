@@ -24,11 +24,13 @@
                         <td class="text-muted small">{{ $item->slug }}</td>
                         <td>@if($item->featured)<span class="badge bg-success">Yes</span>@else<span class="badge bg-secondary">No</span>@endif</td>
                         <td>
-                            <a href="{{ route('admin.specialties.edit', $item) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                            <form method="POST" action="{{ route('admin.specialties.destroy', $item) }}" class="d-inline" onsubmit="return confirm('Delete?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                            </form>
+                            <div class="d-flex gap-1">
+                                <a href="{{ route('admin.specialties.edit', $item) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                <form method="POST" action="{{ route('admin.specialties.destroy', $item) }}" onsubmit="return confirm('Delete this specialty?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @empty

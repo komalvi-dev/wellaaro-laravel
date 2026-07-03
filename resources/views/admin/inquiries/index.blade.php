@@ -65,8 +65,10 @@
                         <td>{{ $inquiry->assignedTo->name ?? '—' }}</td>
                         <td>{{ $inquiry->created_at->format('d M Y') }}</td>
                         <td>
-                            <a href="{{ route('admin.inquiries.show', $inquiry) }}" class="btn btn-sm btn-outline-primary">View</a>
-                            <a href="{{ route('admin.inquiries.edit', $inquiry) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <div class="d-flex gap-1">
+                                <a href="{{ route('admin.inquiries.show', $inquiry) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
+                                <a href="{{ route('admin.inquiries.edit', $inquiry) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            </div>
                         </td>
                     </tr>
                     @empty

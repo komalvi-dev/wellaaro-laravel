@@ -39,8 +39,10 @@
                         <td>{{ $apt->appointment_date ? $apt->appointment_date->format('d M Y') : '—' }}</td>
                         <td><span class="badge bg-secondary">{{ ucfirst(str_replace('_',' ',$apt->status)) }}</span></td>
                         <td>
-                            <a href="{{ route('admin.appointments.show', $apt) }}" class="btn btn-sm btn-outline-primary">View</a>
-                            <a href="{{ route('admin.appointments.edit', $apt) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <div class="d-flex gap-1">
+                                <a href="{{ route('admin.appointments.show', $apt) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
+                                <a href="{{ route('admin.appointments.edit', $apt) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            </div>
                         </td>
                     </tr>
                     @empty
