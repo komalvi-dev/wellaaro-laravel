@@ -18,7 +18,6 @@
                     @endif
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
-                            <i class="{{ $specialty->icon_class ?? 'fas fa-stethoscope' }} fa-lg text-primary me-3"></i>
                             <h5 class="card-title fw-bold mb-0">{{ $specialty->name }}</h5>
                         </div>
                         <p class="card-text text-muted small">{{ $specialty->short_description }}</p>

@@ -14,7 +14,6 @@
             <div class="row g-3">
                 <div class="col-md-6"><label class="form-label">Name</label><input type="text" name="name" class="form-control" value="{{ old('name', $specialty->name) }}" required></div>
                 <div class="col-md-6"><label class="form-label">Slug</label><input type="text" name="slug" class="form-control" value="{{ old('slug', $specialty->slug) }}"></div>
-                <div class="col-md-4"><label class="form-label">Icon Class</label><input type="text" name="icon_class" class="form-control" value="{{ old('icon_class', $specialty->icon_class) }}" placeholder="bi-heart-pulse"></div>
                 <div class="col-md-4"><label class="form-label">Position</label><input type="number" name="position" class="form-control" value="{{ old('position', $specialty->position) }}"></div>
                 <div class="col-md-4 d-flex align-items-end">
                     <div class="form-check"><input class="form-check-input" type="checkbox" name="featured" value="1" {{ old('featured', $specialty->featured) ? 'checked':'' }}>

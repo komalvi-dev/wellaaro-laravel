@@ -12,7 +12,7 @@ class Specialty extends Model
     use HasFactory, HasSlug;
 
     protected $fillable = [
-        'name', 'slug', 'short_description', 'description', 'icon_class', 'icon_svg',
+        'name', 'slug', 'short_description', 'description',
         'featured_image_url', 'published', 'featured', 'position',
         'meta_title', 'meta_description', 'meta_keywords',
     ];

@@ -9,13 +9,19 @@
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover table-striped mb-0">
-                <thead class="table-light"><tr><th>Name</th><th>Slug</th><th>Icon</th><th>Featured</th><th>Actions</th></tr></thead>
+                <thead class="table-light"><tr><th>Image</th><th>Name</th><th>Slug</th><th>Featured</th><th>Actions</th></tr></thead>
                 <tbody>
                     @forelse($specialties as $item)
                     <tr>
+                        <td>
+                            @if($item->featured_image_url)
+                                <img src="{{ $item->featured_image_url }}" alt="{{ $item->name }}" style="width:48px;height:48px;object-fit:cover;border-radius:4px;">
+                            @else
+                                <span class="text-muted">—</span>
+                            @endif
+                        </td>
                         <td class="fw-semibold">{{ $item->name }}</td>
                         <td class="text-muted small">{{ $item->slug }}</td>
-                        <td>{{ $item->icon_class ?? '—' }}</td>
                         <td>@if($item->featured)<span class="badge bg-success">Yes</span>@else<span class="badge bg-secondary">No</span>@endif</td>
                         <td>
                             <a href="{{ route('admin.specialties.edit', $item) }}" class="btn btn-sm btn-outline-secondary">Edit</a>

@@ -80,8 +80,6 @@ class SpecialtiesController extends Controller
             'slug'               => 'nullable|string|max:255',
             'short_description'  => 'nullable|string|max:500',
             'description'        => 'nullable|string',
-            'icon_class'         => 'nullable|string|max:100',
-            'icon_svg'           => 'nullable|string',
             'featured_image'     => 'nullable|file|image|max:2048',
             'featured_image_url' => 'nullable|url|max:500',
             'published'          => 'boolean',

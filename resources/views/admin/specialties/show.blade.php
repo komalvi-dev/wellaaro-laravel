@@ -30,9 +30,9 @@
                 <table class="table table-sm table-borderless mb-0">
                     <tr><td class="text-muted small" style="width:40%">Name</td><td class="fw-semibold">{{ $specialty->name }}</td></tr>
                     <tr><td class="text-muted small">Slug</td><td><code>{{ $specialty->slug }}</code></td></tr>
-                    <tr><td class="text-muted small">Icon</td><td>
-                        @if($specialty->icon_class)
-                            <i class="{{ $specialty->icon_class }} me-1"></i><code>{{ $specialty->icon_class }}</code>
+                    <tr><td class="text-muted small">Image</td><td>
+                        @if($specialty->featured_image_url)
+                            <img src="{{ $specialty->featured_image_url }}" alt="{{ $specialty->name }}" style="max-height:60px;max-width:120px;object-fit:cover;border-radius:4px;">
                         @else
                             <span class="text-muted">—</span>
                         @endif

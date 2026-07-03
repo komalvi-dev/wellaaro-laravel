@@ -166,10 +166,10 @@
                 <a href="{{ route('specialties.show', $specialty->slug) }}" class="text-decoration-none">
                     <div class="card border-0 shadow-sm text-center p-3 h-100 specialty-card hover-lift">
                         <div class="mb-2" style="height:56px;display:flex;align-items:center;justify-content:center;">
-                            @if($specialty->icon_svg)
-                                <div style="max-height:56px;max-width:100%;">{!! $specialty->icon_svg !!}</div>
+                            @if($specialty->featured_image_url)
+                                <img src="{{ $specialty->featured_image_url }}" alt="{{ $specialty->name }}" style="max-height:56px;max-width:100%;object-fit:contain;">
                             @else
-                                <i class="bi {{ $specialty->icon_class ?: 'bi-heart-pulse' }} fs-2 text-primary"></i>
+                                <i class="bi bi-heart-pulse fs-2 text-primary"></i>
                             @endif
                         </div>
                         <div class="fw-semibold small">{{ $specialty->name }}</div>

@@ -99,9 +99,9 @@
                         <div class="row g-1">
                             @foreach(\App\Models\Specialty::published()->featured()->ordered()->limit(8)->get() as $navSpecialty)
                                 <div class="col-6">
-                                    <a href="{{ route('specialties.show', $navSpecialty->slug) }}" class="dropdown-item rounded py-1">
-                                        @if($navSpecialty->icon_class)
-                                            <i class="bi {{ $navSpecialty->icon_class }} me-2 text-primary"></i>
+                                    <a href="{{ route('specialties.show', $navSpecialty->slug) }}" class="dropdown-item rounded py-1 d-flex align-items-center">
+                                        @if($navSpecialty->featured_image_url)
+                                            <img src="{{ $navSpecialty->featured_image_url }}" alt="" style="width:20px;height:20px;object-fit:cover;border-radius:3px;" class="me-2">
                                         @endif
                                         {{ $navSpecialty->name }}
                                     </a>
