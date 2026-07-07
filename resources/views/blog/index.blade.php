@@ -40,7 +40,7 @@
                 <div class="card-header bg-white fw-semibold">{{ __('Categories') }}</div>
                 <div class="card-body">
                     @foreach($categories as $cat)
-                    <a href="{{ route('blog.by_category', $cat->slug) }}" class="d-flex justify-content-between align-items-center text-decoration-none text-dark py-1 border-bottom">
+                    <a href="{{ route('blog.category', $cat->slug) }}" class="d-flex justify-content-between align-items-center text-decoration-none text-dark py-1 border-bottom">
                         <span class="small">{{ $cat->name }}</span>
                         <span class="badge bg-light text-muted">{{ $cat->posts_count ?? $cat->posts->count() }}</span>
                     </a>
