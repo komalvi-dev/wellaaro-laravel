@@ -19,7 +19,7 @@
                             <div class="card-body">
                                 @if($post->category)<span class="badge bg-primary-subtle text-primary small mb-2">{{ $post->category->name }}</span>@endif
                                 <h6 class="fw-bold mb-2">{{ $post->title }}</h6>
-                                <p class="text-muted small">{{ Str::limit($post->excerpt, 100) }}</p>
+                                <p class="text-muted small">{{ Str::limit(strip_tags($post->excerpt), 100) }}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-2">
                                     <small class="text-muted">{{ $post->published_at?->format('M d, Y') }}</small>
                                     @if($post->read_time_minutes)<small class="text-muted">{{ $post->read_time_minutes }} {{ __('min read') }}</small>@endif
@@ -44,6 +44,16 @@
                         <span class="small">{{ $cat->name }}</span>
                         <span class="badge bg-light text-muted">{{ $cat->posts_count ?? $cat->posts->count() }}</span>
                     </a>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            @if(isset($tags) && $tags->count())
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white fw-semibold">{{ __('Tags') }}</div>
+                <div class="card-body d-flex flex-wrap gap-2">
+                    @foreach($tags as $t)
+                    <a href="{{ route('blog.tag', $t->slug) }}" class="badge bg-light text-muted text-decoration-none">{{ $t->name }} ({{ $t->posts_count }})</a>
                     @endforeach
                 </div>
             </div>

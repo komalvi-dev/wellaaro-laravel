@@ -12,11 +12,13 @@
             </div>
             <div class="mb-3">
                 <label class="form-label fw-medium">Excerpt / Summary</label>
-                <textarea name="excerpt" class="form-control" rows="2">{{ old('excerpt', $post->excerpt) }}</textarea>
+                <div id="excerpt-editor" style="height: 300px;">{!! old('excerpt', $post->excerpt) !!}</div>
+                <textarea name="excerpt" id="excerpt-input" class="d-none">{{ old('excerpt', $post->excerpt) }}</textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label fw-medium">Body</label>
-                <textarea name="body" class="form-control" rows="20">{{ old('body', $post->body) }}</textarea>
+                <div id="body-editor" style="height: 400px;">{!! old('body', $post->body) !!}</div>
+                <textarea name="body" id="body-input" class="d-none">{{ old('body', $post->body) }}</textarea>
             </div>
         </div>
         <div class="col-lg-4">
@@ -89,9 +91,11 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css">
 @endpush
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/scripts/choices.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             new Choices('#tag-select', {
@@ -101,6 +105,32 @@
                 searchPlaceholderValue: 'Search tags...',
                 shouldSort: false,
             });
+
+            function initRichTextEditor(editorId, inputId) {
+                var editorEl = document.getElementById(editorId);
+                var input = document.getElementById(inputId);
+                var quill = new Quill(editorEl, {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{ header: [2, 3, false] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            [{ list: 'ordered' }, { list: 'bullet' }],
+                            ['blockquote', 'link'],
+                            ['clean'],
+                        ],
+                    },
+                });
+                quill.on('text-change', function () {
+                    input.value = quill.root.innerHTML;
+                });
+                input.closest('form').addEventListener('submit', function () {
+                    input.value = quill.root.innerHTML;
+                });
+            }
+
+            initRichTextEditor('excerpt-editor', 'excerpt-input');
+            initRichTextEditor('body-editor', 'body-input');
         });
     </script>
 @endpush

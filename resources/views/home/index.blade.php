@@ -392,7 +392,7 @@
                         <h6 class="fw-bold">
                             <a href="{{ route('blog.show', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->title }}</a>
                         </h6>
-                        <p class="text-muted small">{{ Str::limit($post->excerpt, 100) }}</p>
+                        <p class="text-muted small">{{ Str::limit(strip_tags($post->excerpt), 100) }}</p>
                     </div>
                     <div class="card-footer bg-transparent border-0 small text-muted">
                         <i class="bi bi-clock me-1"></i>{{ __(':minutes min read', ['minutes' => $post->read_time_minutes]) }} •
