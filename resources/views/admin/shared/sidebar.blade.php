@@ -43,6 +43,9 @@
         <a href="{{ route('admin.blog-categories.index') }}" class="nav-link {{ request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}">
             <i class="fas fa-tags me-2"></i>Blog Categories
         </a>
+        <a href="{{ route('admin.blog-tags.index') }}" class="nav-link {{ request()->routeIs('admin.blog-tags.*') ? 'active' : '' }}">
+            <i class="fas fa-tag me-2"></i>Blog Tags
+        </a>
         <a href="{{ route('admin.cms-pages.index') }}" class="nav-link {{ request()->routeIs('admin.cms-pages.*') ? 'active' : '' }}">
             <i class="fas fa-file-alt me-2"></i>CMS Pages
         </a>

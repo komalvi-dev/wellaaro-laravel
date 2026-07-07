@@ -16,7 +16,7 @@
             <div class="post-content">{!! $post->body !!}</div>
             @if($post->tags->count())
             <div class="mt-4">
-                @foreach($post->tags as $tag)<a href="{{ route('blog.by_tag', $tag->slug) }}" class="badge bg-light text-muted me-1 text-decoration-none">{{ $tag->name }}</a>@endforeach
+                @foreach($post->tags as $tag)<a href="{{ route('blog.tag', $tag->slug) }}" class="badge bg-light text-muted me-1 text-decoration-none">{{ $tag->name }}</a>@endforeach
             </div>
             @endif
         </div>
@@ -28,11 +28,11 @@
                     <a href="{{ route('get_quote') }}" class="btn btn-primary w-100">{{ __('Get Free Quote') }}</a>
                 </div>
             </div>
-            @if(isset($relatedPosts) && $relatedPosts->count())
+            @if(isset($related) && $related->count())
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white fw-semibold">{{ __('Related Posts') }}</div>
                 <div class="card-body p-0">
-                    @foreach($relatedPosts as $related)
+                    @foreach($related as $related)
                     <a href="{{ route('blog.show', $related->slug) }}" class="text-decoration-none d-flex gap-2 p-3 border-bottom">
                         @if($related->featured_image_url)<img src="{{ $related->featured_image_url }}" width="60" height="50" style="object-fit:cover;border-radius:4px;">@endif
                         <div><div class="fw-semibold small">{{ Str::limit($related->title, 60) }}</div><div class="text-muted small">{{ $related->published_at?->format('M d') }}</div></div>

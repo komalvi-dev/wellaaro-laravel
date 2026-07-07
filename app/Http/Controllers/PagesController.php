@@ -30,8 +30,9 @@ class PagesController extends Controller
 
     public function faq()
     {
-        $faqs = Faq::published()->ordered()->get();
-        return view('pages.faq', compact('faqs'));
+        $faq_groups = Faq::published()->ordered()->get()
+            ->groupBy(fn ($faq) => $faq->category ?: 'General');
+        return view('pages.faq', compact('faq_groups'));
     }
 
     public function cmsPage(string $slug)

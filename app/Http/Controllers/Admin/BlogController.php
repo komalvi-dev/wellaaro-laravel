@@ -11,6 +11,7 @@ use App\Models\Treatment;
 use App\Models\Hospital;
 use App\Models\Destination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -44,6 +45,12 @@ class BlogController extends Controller
         $data = $this->validatePost($request);
         $data['author_user_id'] = auth()->id();
 
+        if ($request->hasFile('og_image')) {
+            $data['og_image_url'] = Storage::disk('public')->url(
+                $request->file('og_image')->store('blog/og', 'public')
+            );
+        }
+
         $post = BlogPost::create($data);
 
         if ($request->filled('tag_ids')) {
@@ -61,7 +68,15 @@ class BlogController extends Controller
 
     public function update(Request $request, BlogPost $post)
     {
-        $post->update($this->validatePost($request));
+        $data = $this->validatePost($request);
+
+        if ($request->hasFile('og_image')) {
+            $data['og_image_url'] = Storage::disk('public')->url(
+                $request->file('og_image')->store('blog/og', 'public')
+            );
+        }
+
+        $post->update($data);
 
         if ($request->has('tag_ids')) {
             $post->tags()->sync($request->tag_ids ?? []);
@@ -116,6 +131,7 @@ class BlogController extends Controller
             'meta_description'   => 'nullable|string|max:500',
             'meta_keywords'      => 'nullable|string|max:500',
             'canonical_url'      => 'nullable|url|max:500',
+            'og_image'           => 'nullable|file|image|max:2048',
             'og_image_url'       => 'nullable|url|max:500',
             'published'          => 'boolean',
             'published_at'       => 'nullable|date',

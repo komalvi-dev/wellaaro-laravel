@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $post->exists ? route('admin.blog.update', $post) : route('admin.blog.store') }}">
+<form method="POST" action="{{ $post->exists ? route('admin.blog.update', $post) : route('admin.blog.store') }}" enctype="multipart/form-data">
     @csrf
     @if($post->exists) @method('PUT') @endif
     @if($errors->any())
@@ -50,7 +50,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-medium">Tags</label>
-                    <select name="tag_ids[]" class="form-select form-select-sm" multiple>
+                    <select name="tag_ids[]" id="tag-select" class="form-select form-select-sm" multiple>
                         @foreach($tags as $tag)
                             <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tag_ids', $post->tags->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $tag->name }}</option>
                         @endforeach
@@ -68,8 +68,15 @@
                     <textarea name="meta_description" class="form-control form-control-sm" rows="2">{{ old('meta_description', $post->meta_description) }}</textarea>
                 </div>
                 <div class="mb-2">
-                    <label class="form-label small fw-medium">OG Image URL</label>
-                    <input type="url" name="og_image_url" value="{{ old('og_image_url', $post->og_image_url) }}" class="form-control form-control-sm">
+                    <label class="form-label small fw-medium">OG Image</label>
+                    @if(!empty($post->og_image_url))
+                        <div class="mb-2"><img src="{{ $post->og_image_url }}" alt="OG image" style="max-height:80px;max-width:100%;object-fit:cover;border:1px solid #dee2e6;border-radius:4px;padding:2px;"></div>
+                    @endif
+                    <input type="file" name="og_image" accept="image/*" class="form-control form-control-sm @error('og_image') is-invalid @enderror">
+                    @error('og_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <div class="form-text">Upload an image, or enter a URL below (upload takes priority).</div>
+                    <input type="url" name="og_image_url" value="{{ old('og_image_url', $post->og_image_url) }}" class="form-control form-control-sm mt-1" placeholder="https://example.com/image.jpg">
+                    @error('og_image_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
             </div>
             <div class="d-flex gap-2">
@@ -79,3 +86,21 @@
         </div>
     </div>
 </form>
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/styles/choices.min.css">
+@endpush
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/scripts/choices.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new Choices('#tag-select', {
+                removeItemButton: true,
+                placeholder: true,
+                placeholderValue: 'Select tags...',
+                searchPlaceholderValue: 'Search tags...',
+                shouldSort: false,
+            });
+        });
+    </script>
+@endpush
