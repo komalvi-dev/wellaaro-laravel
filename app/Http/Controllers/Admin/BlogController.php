@@ -115,7 +115,7 @@ class BlogController extends Controller
     {
         return $request->validate([
             'title'              => 'required|string|max:255',
-            'excerpt'            => 'nullable|string|max:500',
+            'excerpt'            => 'nullable|string|max:5000',
             'body'               => 'required|string',
             'blog_category_id'   => 'nullable|exists:blog_categories,id',
             'author_name'        => 'nullable|string|max:255',
