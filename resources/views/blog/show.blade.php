@@ -17,6 +17,16 @@
                 <span><i class="fas fa-calendar me-1"></i>{{ $post->published_at?->format('M d, Y') }}</span>
                 @if($post->read_time_minutes)<span><i class="fas fa-clock me-1"></i>{{ $post->read_time_minutes }} {{ __('min read') }}</span>@endif
             </div>
+            @if($post->medically_reviewed_by)
+            <div class="d-flex align-items-center gap-2 p-2 mb-4 bg-light rounded-3">
+                @if($post->medically_reviewed_by_photo_url)
+                    <img src="{{ $post->medically_reviewed_by_photo_url }}" alt="{{ $post->medically_reviewed_by }}" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
+                @else
+                    <i class="fas fa-user-md text-primary" style="font-size:1.5rem;width:40px;"></i>
+                @endif
+                <span class="small text-muted">{{ __('Medically reviewed by') }} <strong class="text-dark">{{ $post->medically_reviewed_by }}</strong></span>
+            </div>
+            @endif
             @if($post->featured_image_url)<img src="{{ $post->featured_image_url }}" class="img-fluid rounded mb-4 w-100" style="max-height:400px;object-fit:cover;" alt="{{ $post->featured_image_alt ?? $post->title }}">@endif
             <div class="post-content">{!! $post->body !!}</div>
             @if($post->tags->count())

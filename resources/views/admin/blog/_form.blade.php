@@ -42,6 +42,17 @@
                     <label class="form-label fw-medium">Medically Reviewed By</label>
                     <input type="text" name="medically_reviewed_by" value="{{ old('medically_reviewed_by', $post->medically_reviewed_by) }}" class="form-control form-control-sm">
                 </div>
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Reviewer Photo</label>
+                    @if(!empty($post->medically_reviewed_by_photo_url))
+                        <div class="mb-2"><img src="{{ $post->medically_reviewed_by_photo_url }}" alt="Reviewer photo" style="height:60px;width:60px;object-fit:cover;border-radius:50%;border:1px solid #dee2e6;"></div>
+                    @endif
+                    <input type="file" name="medically_reviewed_by_photo" accept="image/*" class="form-control form-control-sm @error('medically_reviewed_by_photo') is-invalid @enderror">
+                    @error('medically_reviewed_by_photo')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <div class="form-text">Upload a photo, or enter a URL below (upload takes priority).</div>
+                    <input type="url" name="medically_reviewed_by_photo_url" value="{{ old('medically_reviewed_by_photo_url', $post->medically_reviewed_by_photo_url) }}" class="form-control form-control-sm mt-1" placeholder="https://example.com/reviewer.jpg">
+                    @error('medically_reviewed_by_photo_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
             </div>
             <div class="card border-0 shadow-sm p-3 mb-3">
                 <h6 class="fw-bold mb-3">Categorization</h6>
