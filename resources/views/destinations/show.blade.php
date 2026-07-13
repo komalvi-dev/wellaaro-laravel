@@ -4,6 +4,11 @@
 <div class="bg-light py-4 mb-4">
     <div class="container">
         <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-2"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item"><a href="{{ route('destinations.index') }}">{{ __('Destinations') }}</a></li><li class="breadcrumb-item active">{{ $destination->name }}</li></ol></nav>
+        <x-breadcrumb-schema :items="[
+            ['name' => __('Home'), 'url' => route('home')],
+            ['name' => __('Destinations'), 'url' => route('destinations.index')],
+            ['name' => $destination->name],
+        ]" />
         <h1 class="h2 fw-bold">{{ $destination->name }}</h1>
         <p class="text-muted">{{ $destination->country->name }}</p>
     </div>

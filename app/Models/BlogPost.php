@@ -13,6 +13,7 @@ class BlogPost extends Model
 
     protected $fillable = [
         'title', 'slug', 'excerpt', 'body', 'author_user_id', 'author_name',
+        'medically_reviewed_by',
         'blog_category_id', 'featured_image_url', 'featured_image_alt',
         'read_time_minutes', 'views_count', 'published', 'published_at',
         'specialty_id', 'treatment_id', 'hospital_id', 'destination_id',

@@ -5,6 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-4"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item"><a href="{{ route('patient_stories') }}">{{ __('Patient Stories') }}</a></li><li class="breadcrumb-item active">{{ $testimonial->patient_name }}</li></ol></nav>
+            <x-breadcrumb-schema :items="[
+                ['name' => __('Home'), 'url' => route('home')],
+                ['name' => __('Patient Stories'), 'url' => route('patient_stories')],
+                ['name' => $testimonial->patient_name],
+            ]" />
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center gap-3 mb-4">

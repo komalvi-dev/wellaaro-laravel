@@ -119,6 +119,7 @@ class BlogController extends Controller
             'body'               => 'required|string',
             'blog_category_id'   => 'nullable|exists:blog_categories,id',
             'author_name'        => 'nullable|string|max:255',
+            'medically_reviewed_by' => 'nullable|string|max:255',
             'featured_image_url' => 'nullable|url|max:500',
             'featured_image_alt' => 'nullable|string|max:255',
             'read_time_minutes'  => 'nullable|integer|min:1',

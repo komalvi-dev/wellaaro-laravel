@@ -5,6 +5,11 @@
     <div class="row g-4">
         <div class="col-lg-8">
             <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-3"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item"><a href="{{ route('blog.index') }}">{{ __('Blog') }}</a></li><li class="breadcrumb-item active">{{ Str::limit($post->title, 40) }}</li></ol></nav>
+            <x-breadcrumb-schema :items="[
+                ['name' => __('Home'), 'url' => route('home')],
+                ['name' => __('Blog'), 'url' => route('blog.index')],
+                ['name' => $post->title],
+            ]" />
             @if($post->category)<span class="badge bg-primary mb-2">{{ $post->category->name }}</span>@endif
             <h1 class="h2 fw-bold mb-3">{{ $post->title }}</h1>
             <div class="d-flex align-items-center gap-3 mb-4 text-muted small">

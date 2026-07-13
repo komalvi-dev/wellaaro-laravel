@@ -4,6 +4,11 @@
 <div class="bg-light py-4 mb-4">
     <div class="container">
         <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-2"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item"><a href="{{ route('packages.index') }}">{{ __('Packages') }}</a></li><li class="breadcrumb-item active">{{ $package->name }}</li></ol></nav>
+        <x-breadcrumb-schema :items="[
+            ['name' => __('Home'), 'url' => route('home')],
+            ['name' => __('Packages'), 'url' => route('packages.index')],
+            ['name' => $package->name],
+        ]" />
         <h1 class="h2 fw-bold">{{ $package->name }}</h1>
         @if($package->tagline)<p class="text-muted">{{ $package->tagline }}</p>@endif
     </div>

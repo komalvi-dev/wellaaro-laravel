@@ -70,6 +70,35 @@
         footer a:hover { color: #fff !important; }
     </style>
     @stack('styles')
+    @php
+        $orgAddressParts = array_map('trim', explode(',', \App\Models\SiteSetting::get('address', 'Ahmedabad, Gujarat, India')));
+        $orgSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => \App\Models\SiteSetting::get('site_name', config('app.name', 'Wellaaro')),
+            'url' => config('app.url'),
+            'logo' => asset('images/logo.jpeg'),
+            'description' => \App\Models\SiteSetting::get('meta_description', \App\Models\SiteSetting::get('site_tagline', '')),
+            'email' => \App\Models\SiteSetting::get('contact_email', 'care@wellaaro.com'),
+            'telephone' => \App\Models\SiteSetting::get('phone', '+91 72111 36620'),
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressLocality' => $orgAddressParts[0] ?? null,
+                'addressRegion' => $orgAddressParts[1] ?? null,
+                'addressCountry' => $orgAddressParts[2] ?? null,
+            ],
+            'sameAs' => [
+                'https://youtube.com/@wellaaro?si=Y7W0cnBxgeSXk0i-',
+                'https://www.facebook.com/share/1BsY6LNm38/?mibextid=wwXIfr',
+                'https://x.com/wellaaro?s=11',
+                'https://www.instagram.com/wellaaro_?igsh=dzMwaXNwN210dWxu&utm_source=qr',
+                'https://www.threads.com/@wellaaro_?igshid=NTc4MTIwNjQ2YQ==',
+                'https://www.linkedin.com/in/harsh-panara-0a1479410?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+                'https://wa.me/917211136620',
+            ],
+        ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($orgSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 </head>
 <body>
     @include('shared.navbar')

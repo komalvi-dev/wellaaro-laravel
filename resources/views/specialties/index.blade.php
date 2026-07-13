@@ -5,6 +5,10 @@
     <div class="container">
         <h1 class="h3 fw-bold mb-1">{{ __('Medical Specialties') }}</h1>
         <nav aria-label="{{ __('breadcrumb') }}"><ol class="breadcrumb small mb-0"><li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li><li class="breadcrumb-item active">{{ __('Specialties') }}</li></ol></nav>
+        <x-breadcrumb-schema :items="[
+            ['name' => __('Home'), 'url' => route('home')],
+            ['name' => __('Specialties')],
+        ]" />
     </div>
 </div>
 <div class="container py-4">

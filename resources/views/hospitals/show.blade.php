@@ -12,6 +12,11 @@
                 <li class="breadcrumb-item active">{{ $hospital->name }}</li>
             </ol>
         </nav>
+        <x-breadcrumb-schema :items="[
+            ['name' => __('Home'), 'url' => route('home')],
+            ['name' => __('Hospitals'), 'url' => route('hospitals.index')],
+            ['name' => $hospital->name],
+        ]" />
 
         <div class="row align-items-center">
             <div class="col-lg-8">

@@ -12,6 +12,10 @@
                 <li class="breadcrumb-item active">{{ $condition->name }}</li>
             </ol>
         </nav>
+        <x-breadcrumb-schema :items="[
+            ['name' => __('Home'), 'url' => route('home')],
+            ['name' => $condition->name],
+        ]" />
     </div>
 </div>
 

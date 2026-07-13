@@ -2,6 +2,34 @@
 @section('title', 'Frequently Asked Questions')
 @section('content')
 
+<x-breadcrumb-schema :items="[
+    ['name' => __('Home'), 'url' => route('home')],
+    ['name' => __('FAQ')],
+]" />
+
+@php
+    $faqSchemaItems = [];
+    foreach (($faq_groups ?? $faqs_by_category ?? []) as $faqs) {
+        foreach ($faqs as $faq) {
+            $faqSchemaItems[] = [
+                '@type' => 'Question',
+                'name' => $faq->question,
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => strip_tags($faq->answer),
+                ],
+            ];
+        }
+    }
+@endphp
+@if(count($faqSchemaItems))
+<script type="application/ld+json">{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => $faqSchemaItems,
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@endif
+
 <section class="py-5 bg-light text-center">
   <div class="container">
     <h1 class="display-6 fw-bold mb-3">{{ __('Frequently Asked Questions') }}</h1>

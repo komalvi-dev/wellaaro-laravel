@@ -38,6 +38,10 @@
                     <label class="form-label fw-medium">Author</label>
                     <input type="text" name="author_name" value="{{ old('author_name', $post->author_name) }}" class="form-control form-control-sm">
                 </div>
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Medically Reviewed By</label>
+                    <input type="text" name="medically_reviewed_by" value="{{ old('medically_reviewed_by', $post->medically_reviewed_by) }}" class="form-control form-control-sm">
+                </div>
             </div>
             <div class="card border-0 shadow-sm p-3 mb-3">
                 <h6 class="fw-bold mb-3">Categorization</h6>

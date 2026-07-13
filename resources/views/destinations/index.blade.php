@@ -13,6 +13,10 @@
                         <li class="breadcrumb-item active text-white">{{ __('Destinations') }}</li>
                     </ol>
                 </nav>
+                <x-breadcrumb-schema :items="[
+                    ['name' => __('Home'), 'url' => route('home')],
+                    ['name' => __('Destinations')],
+                ]" />
                 <h1 class="display-5 fw-bold mb-3">{{ __('Medical Tourism Destinations') }}</h1>
                 <p class="lead mb-0">{{ __('World-class healthcare in affordable destinations trusted by patients from 60+ countries.') }}</p>
             </div>

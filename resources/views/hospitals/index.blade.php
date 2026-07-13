@@ -10,6 +10,10 @@
                 <li class="breadcrumb-item active">{{ __('Hospitals') }}</li>
             </ol>
         </nav>
+        <x-breadcrumb-schema :items="[
+            ['name' => __('Home'), 'url' => route('home')],
+            ['name' => __('Hospitals')],
+        ]" />
         <h1 class="h2 fw-bold">{{ __('Top Hospitals') }}</h1>
         <p class="text-muted">{{ __('Find JCI & NABH accredited hospitals with world-class facilities') }}</p>
     </div>
