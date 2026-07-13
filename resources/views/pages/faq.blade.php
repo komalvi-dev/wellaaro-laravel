@@ -14,18 +14,19 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         @foreach($faq_groups ?? $faqs_by_category ?? [] as $category => $faqs)
+          @php($categorySlug = Str::slug($category) ?: 'general')
           <h2 class="h5 fw-bold mb-3 mt-4">{{ Str::headline($category) }}</h2>
-          <div class="accordion mb-4" id="faq-{{ $category }}">
-            @foreach($faqs as $i => $faq)
+          <div class="accordion mb-4" id="faq-{{ $categorySlug }}">
+            @foreach($faqs as $faq)
               <div class="accordion-item border-0 mb-2 shadow-sm">
                 <h3 class="accordion-header">
                   <button class="accordion-button collapsed fw-medium"
                           type="button" data-bs-toggle="collapse"
-                          data-bs-target="#faq-{{ $category }}-{{ $i }}">
+                          data-bs-target="#faq-{{ $categorySlug }}-{{ $faq->id }}">
                     {{ $faq->question }}
                   </button>
                 </h3>
-                <div id="faq-{{ $category }}-{{ $i }}" class="accordion-collapse collapse">
+                <div id="faq-{{ $categorySlug }}-{{ $faq->id }}" class="accordion-collapse collapse">
                   <div class="accordion-body text-muted">
                     {!! nl2br(e($faq->answer)) !!}
                   </div>
