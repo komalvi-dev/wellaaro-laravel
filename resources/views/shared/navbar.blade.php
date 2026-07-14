@@ -113,15 +113,8 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ __('Hospitals') }}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('hospitals.index') }}" class="dropdown-item">{{ __('Top Partner Hospitals') }}</a></li>
-                        <li><a href="{{ route('hospitals.index') }}" class="dropdown-item">{{ __('By Specialty') }}</a></li>
-                        <li><a href="{{ route('hospitals.index') }}?jci=1" class="dropdown-item">{{ __('JCI Accredited') }}</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a href="{{ route('hospitals.index') }}" class="nav-link">{{ __('Hospitals') }}</a>
                 </li>
 
                 <li class="nav-item">

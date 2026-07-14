@@ -9,11 +9,14 @@
                 <li class="breadcrumb-item active">{{ __('Doctors') }}</li>
             </ol>
         </nav>
+        @if(false)
         <h1 class="h2 fw-bold">{{ __('How We Select the Right Doctor') }}</h1>
         <p class="text-muted">{{ __('Every recommendation is tailored to your medical needs.') }}</p>
+        @endif
     </div>
 </section>
 
+@if(false)
 <section class="py-5">
     <div class="container">
         <div class="row g-4">
@@ -98,6 +101,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <section class="py-5 bg-light">
     <div class="container">

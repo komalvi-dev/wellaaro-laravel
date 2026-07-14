@@ -14,11 +14,14 @@
             ['name' => __('Home'), 'url' => route('home')],
             ['name' => __('Hospitals')],
         ]" />
+        @if(false)
         <h1 class="h2 fw-bold">{{ __('Find the Right Hospital for You') }}</h1>
         <p class="text-muted">{{ __("Independent recommendations based on your medical needs — not fixed partnerships.") }}</p>
+        @endif
     </div>
 </section>
 
+@if(false)
 <section class="py-5">
     <div class="container">
         <div class="row g-4">
@@ -118,6 +121,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <section class="py-5 bg-light">
     <div class="container">
@@ -172,23 +176,28 @@
             </div>
         </div>
 
-        <div class="text-center mt-5">
-            <h5 class="fw-bold mb-3">{{ __('Why Patients Trust Wellaaro') }}</h5>
-            <div class="row g-2 justify-content-center">
+        <div class="rounded-4 p-4 p-md-5 mt-5" style="background: linear-gradient(135deg, #1a6bcc 0%, #123f80 100%);">
+            <div class="text-center mb-4">
+                <i class="bi bi-shield-fill-check text-white" style="font-size:2rem;"></i>
+                <h4 class="fw-bold text-white mt-2 mb-0">{{ __('Why Patients Trust Wellaaro') }}</h4>
+            </div>
+            <div class="row g-3">
                 @foreach([
-                    'Independent hospital recommendations',
-                    'Patient-first approach',
-                    'Transparent selection process',
-                    'No exclusive hospital tie-ups',
-                    'Personalised treatment options',
-                    'Multiple hospital comparisons',
-                    'Focus on quality, safety and value',
-                    'Guidance from first enquiry until return home',
+                    ['icon' => 'bi-compass', 'text' => 'Independent hospital recommendations'],
+                    ['icon' => 'bi-heart', 'text' => 'Patient-first approach'],
+                    ['icon' => 'bi-eye', 'text' => 'Transparent selection process'],
+                    ['icon' => 'bi-link-45deg', 'text' => 'No exclusive hospital tie-ups'],
+                    ['icon' => 'bi-sliders', 'text' => 'Personalised treatment options'],
+                    ['icon' => 'bi-columns-gap', 'text' => 'Multiple hospital comparisons'],
+                    ['icon' => 'bi-gem', 'text' => 'Focus on quality, safety and value'],
+                    ['icon' => 'bi-signpost-2', 'text' => 'Guidance from first enquiry until return home'],
                 ] as $point)
-                <div class="col-md-6 col-lg-4 text-start">
-                    <div class="d-flex align-items-start gap-2 mb-2">
-                        <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                        <span>{{ __($point) }}</span>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="d-flex flex-column align-items-center text-center gap-2 h-100 p-3 rounded-3" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:rgba(255,255,255,0.15);">
+                            <i class="bi {{ $point['icon'] }} text-white fs-5"></i>
+                        </div>
+                        <span class="text-white small fw-medium">{{ __($point['text']) }}</span>
                     </div>
                 </div>
                 @endforeach

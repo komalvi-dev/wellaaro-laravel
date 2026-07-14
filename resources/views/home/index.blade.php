@@ -306,12 +306,12 @@
         </div>
         <div class="row g-4">
             @foreach([
-                ['icon'=>'bi-cash-coin','color'=>'success','title'=>__('Save Up to 70%'),'desc'=>__('Get the same quality treatment at a fraction of the cost compared to Western countries.')],
-                ['icon'=>'bi-award','color'=>'warning','title'=>__('JCI Accredited Hospitals'),'desc'=>__('All partner hospitals meet international quality standards with JCI or NABH accreditation.')],
-                ['icon'=>'bi-person-lines-fill','color'=>'primary','title'=>__('Dedicated Case Manager'),'desc'=>__('A personal coordinator guides you every step of the way from inquiry to recovery.')],
-                ['icon'=>'bi-airplane-fill','color'=>'info','title'=>__('Travel & Visa Support'),'desc'=>__('We assist with visa letters, airport transfers, hotel bookings and local transport.')],
-                ['icon'=>'bi-translate','color'=>'success','title'=>__('Multilingual Support'),'desc'=>__('Our team speaks 10+ languages to ensure clear communication throughout your journey.')],
-                ['icon'=>'bi-shield-check','color'=>'primary','title'=>__('Verified Reviews'),'desc'=>__('Authentic patient testimonials from people who have completed their treatment with us.')],
+                ['icon'=>'bi-cash-stack','color'=>'success','title'=>__('Affordable Treatment Options'),'desc'=>__('Helping you explore quality treatment options that fit your medical needs and budget.')],
+                ['icon'=>'bi-hospital','color'=>'warning','title'=>__('Quality-Focused Hospital Selection'),'desc'=>__('Hospitals are recommended based on accreditation, expertise, patient requirements, and treatment quality.')],
+                ['icon'=>'bi-person-vcard-fill','color'=>'primary','title'=>__('Personal Care Coordinator'),'desc'=>__('One dedicated contact to assist you throughout your medical journey.')],
+                ['icon'=>'bi-airplane-fill','color'=>'info','title'=>__('Travel Assistance'),'desc'=>__('Guidance with visa documentation, accommodation, airport transfers, and travel planning.')],
+                ['icon'=>'bi-globe2','color'=>'secondary','title'=>__('Communication Assistance'),'desc'=>__('Helping patients and healthcare providers communicate smoothly throughout the treatment process.')],
+                ['icon'=>'bi-clipboard2-check','color'=>'dark','title'=>__('Medical Case Review'),'desc'=>__('Every medical inquiry is reviewed carefully before recommending treatment options.')],
             ] as $f)
             <div class="col-md-4">
                 <div class="d-flex gap-3">
