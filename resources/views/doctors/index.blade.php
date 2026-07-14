@@ -9,8 +9,8 @@
                 <li class="breadcrumb-item active">{{ __('Doctors') }}</li>
             </ol>
         </nav>
-        <h1 class="h2 fw-bold">{{ __('Find a Specialist') }}</h1>
-        <p class="text-muted">{{ __('Connect with leading specialists across top accredited hospitals') }}</p>
+        <h1 class="h2 fw-bold">{{ __('How We Select the Right Doctor') }}</h1>
+        <p class="text-muted">{{ __('Every recommendation is tailored to your medical needs.') }}</p>
     </div>
 </section>
 
@@ -95,6 +95,49 @@
 
                 <div class="mt-4">{{ $doctors->appends(request()->query())->links() }}</div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-2">{{ __('How We Select the Right Doctor') }}</h2>
+            <p class="text-muted mb-3">{{ __('Every recommendation is tailored to your medical needs.') }}</p>
+            <p class="mx-auto" style="max-width:720px;">{{ __('Finding the right doctor is just as important as choosing the right hospital. At Wellaaro, we carefully review your medical reports before recommending specialists who best match your diagnosis, treatment requirements and personal preferences.') }}</p>
+            <p class="fw-semibold mb-0">{{ __('Our recommendations are based on a structured evaluation process — not a fixed list of doctors.') }}</p>
+        </div>
+
+        <h3 class="fw-bold text-center mb-4">{{ __('Our Doctor Selection Criteria') }}</h3>
+        <div class="row g-4 mb-5">
+            @foreach([
+                ['icon' => 'bi-heart-pulse', 'title' => 'Medical Specialisation', 'desc' => "The doctor's expertise matches your condition."],
+                ['icon' => 'bi-mortarboard-fill', 'title' => 'Years of Experience', 'desc' => 'Preference for experienced consultants with a strong clinical record.'],
+                ['icon' => 'bi-graph-up-arrow', 'title' => 'Procedure Volume', 'desc' => 'Doctors who regularly perform the required procedure.'],
+                ['icon' => 'bi-clipboard2-pulse', 'title' => 'Subspecialty Expertise', 'desc' => 'Specialists focused on your exact disease or surgery.'],
+                ['icon' => 'bi-hospital', 'title' => 'Hospital Quality', 'desc' => 'Associated with reputable, accredited hospitals.'],
+                ['icon' => 'bi-award', 'title' => 'Treatment Outcomes', 'desc' => 'Strong reputation for patient care and clinical results.'],
+                ['icon' => 'bi-chat-dots-fill', 'title' => 'Patient Communication', 'desc' => 'Clear explanation of diagnosis, treatment options and expected outcomes.'],
+                ['icon' => 'bi-shield-plus', 'title' => 'Complex Case Experience', 'desc' => 'Ability to manage challenging or high-risk medical conditions.'],
+                ['icon' => 'bi-people-fill', 'title' => 'Second Opinion Availability', 'desc' => 'Whenever appropriate, we can help arrange independent second opinions.'],
+            ] as $i => $criterion)
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi {{ $criterion['icon'] }} text-primary fs-4"></i>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill">{{ $i + 1 }}</span>
+                    </div>
+                    <h6 class="fw-bold mb-2">{{ __($criterion['title']) }}</h6>
+                    <p class="text-muted small mb-0">{{ __($criterion['desc']) }}</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold mb-2">{{ __('Our Promise') }}</h5>
+            <p class="mb-2">{{ __('Every patient is unique. The doctor we recommend depends on your diagnosis, medical history, age, budget and treatment goals.') }}</p>
+            <p class="mb-0">{{ __('There is no "one best doctor" for every patient. Our goal is to help you find the most appropriate specialist for your individual case.') }}</p>
         </div>
     </div>
 </section>

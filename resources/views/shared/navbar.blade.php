@@ -4,7 +4,7 @@
         <div class="container d-flex align-items-center gap-3">
 
             <a href="{{ route('home') }}" class="flex-shrink-0 d-flex align-items-center">
-                <img src="/images/image_with_context.jpeg" style="height:38px;width:auto;object-fit:contain;" alt="Logo">
+                <img src="/images/image_with_context.jpeg" style="height:52px;width:auto;object-fit:contain;" alt="Logo">
             </a>
 
             <form action="{{ route('search') }}" method="get" role="search"

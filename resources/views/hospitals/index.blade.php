@@ -14,8 +14,8 @@
             ['name' => __('Home'), 'url' => route('home')],
             ['name' => __('Hospitals')],
         ]" />
-        <h1 class="h2 fw-bold">{{ __('Top Hospitals') }}</h1>
-        <p class="text-muted">{{ __('Find JCI & NABH accredited hospitals with world-class facilities') }}</p>
+        <h1 class="h2 fw-bold">{{ __('Find the Right Hospital for You') }}</h1>
+        <p class="text-muted">{{ __("Independent recommendations based on your medical needs — not fixed partnerships.") }}</p>
     </div>
 </section>
 
@@ -114,6 +114,84 @@
                 <div class="mt-5">
                     {{ $hospitals->appends(request()->query())->links() }}
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-2">{{ __('How We Select Hospitals for You') }}</h2>
+            <p class="text-muted mb-3">{{ __('Independent. Transparent. Patient-First.') }}</p>
+            <p class="mx-auto" style="max-width:720px;">{{ __("Every recommendation is made in the patient's best interest. At Wellaaro, we do not recommend hospitals based on commissions or exclusive partnerships. Instead, every hospital recommendation is carefully evaluated according to the patient's medical condition, treatment goals, budget, travel preferences, and quality standards.") }}</p>
+            <p class="fw-semibold mb-0">{{ __('Our objective is simple: help every patient find the right hospital — not just a hospital.') }}</p>
+        </div>
+
+        <h3 class="fw-bold text-center mb-4">{{ __('Our Hospital Selection Criteria') }}</h3>
+        <div class="row g-4 mb-5">
+            @foreach([
+                ['icon' => 'bi-heart-pulse', 'title' => 'Medical Expertise', 'desc' => 'We assess whether the hospital has experienced specialists and dedicated departments for your specific condition — including Cardiac Surgery, Orthopaedics & Joint Replacement, Spine Surgery, Neurosurgery, Urology, Oncology, Organ Transplant, IVF and Dental Care. The hospital must demonstrate consistent experience in treating similar cases.'],
+                ['icon' => 'bi-patch-check-fill', 'title' => 'International Accreditation', 'desc' => 'Preference is given to hospitals holding recognised quality certifications such as JCI Accreditation, NABH Accreditation and NABL Certified Laboratories, indicating internationally recognised quality and safety standards.'],
+                ['icon' => 'bi-mortarboard-fill', 'title' => 'Doctor Experience', 'desc' => "We evaluate years of clinical experience, super-speciality expertise, surgical volume, complex case management, academic contributions and international training where applicable — to select doctors most suitable for the patient's medical needs."],
+                ['icon' => 'bi-graph-up-arrow', 'title' => 'Treatment Success & Clinical Outcomes', 'desc' => 'Whenever available, we review success rates, infection control measures, patient safety protocols, ICU facilities, post-operative care and rehabilitation services.'],
+                ['icon' => 'bi-cpu-fill', 'title' => 'Technology & Infrastructure', 'desc' => 'Hospitals equipped with modern medical technology are generally preferred — including Robotic Surgery, Hybrid Operating Theatres, Advanced Cath Labs, 3 Tesla MRI, PET CT, Image Guided Surgery and Digital ICU Monitoring.'],
+                ['icon' => 'bi-currency-dollar', 'title' => 'Transparent Treatment Cost', 'desc' => 'Cost recommendations are based on treatment complexity, expected hospital stay, implant requirements, ICU needs, medication and diagnostic investigations. Patients receive estimated treatment costs before making any decision whenever possible.'],
+                ['icon' => 'bi-wallet2', 'title' => 'Patient Budget', 'desc' => 'Not every patient requires the most expensive hospital. Recommendations are customised across budget-friendly, mid-range and premium hospitals, to provide the best possible care within the patient\'s financial comfort.'],
+                ['icon' => 'bi-airplane-fill', 'title' => 'International Patient Services', 'desc' => 'We also consider hospitals that offer visa assistance, airport pickup, language interpreters, international patient coordinators, accommodation support and currency assistance, to improve the overall treatment journey.'],
+                ['icon' => 'bi-geo-alt-fill', 'title' => 'Location Preference', 'desc' => 'Recommendations may consider city preference, climate, airport connectivity, family accommodation, local transportation and follow-up convenience.'],
+                ['icon' => 'bi-shield-check', 'title' => 'Ethical Medical Practice', 'desc' => 'We prioritise hospitals known for ethical treatment recommendations, evidence-based medical care, transparent communication, patient safety and respect for patient rights.'],
+            ] as $i => $criterion)
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi {{ $criterion['icon'] }} text-primary fs-4"></i>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill">{{ $i + 1 }}</span>
+                    </div>
+                    <h6 class="fw-bold mb-2">{{ __($criterion['title']) }}</h6>
+                    <p class="text-muted small mb-0">{{ __($criterion['desc']) }}</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <h5 class="fw-bold mb-2">{{ __('Our Promise') }}</h5>
+                    <p class="mb-2">{{ __('We believe every patient deserves unbiased guidance. Our recommendations are based on medical suitability — not financial incentives.') }}</p>
+                    <p class="mb-0">{{ __('If multiple hospitals are appropriate for your treatment, we will explain the differences so you can make an informed decision.') }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <h5 class="fw-bold mb-2">{{ __('Important Note') }}</h5>
+                    <p class="mb-2">{{ __('Hospital recommendations may change depending on your diagnosis, medical reports, doctor\'s opinion, treatment urgency, budget and availability of specialists.') }}</p>
+                    <p class="mb-0">{{ __('For this reason, every recommendation is personalised rather than generated from a fixed hospital list.') }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <h5 class="fw-bold mb-3">{{ __('Why Patients Trust Wellaaro') }}</h5>
+            <div class="row g-2 justify-content-center">
+                @foreach([
+                    'Independent hospital recommendations',
+                    'Patient-first approach',
+                    'Transparent selection process',
+                    'No exclusive hospital tie-ups',
+                    'Personalised treatment options',
+                    'Multiple hospital comparisons',
+                    'Focus on quality, safety and value',
+                    'Guidance from first enquiry until return home',
+                ] as $point)
+                <div class="col-md-6 col-lg-4 text-start">
+                    <div class="d-flex align-items-start gap-2 mb-2">
+                        <i class="bi bi-check-circle-fill text-success mt-1"></i>
+                        <span>{{ __($point) }}</span>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>

@@ -15,9 +15,9 @@
         <div class="container py-5">
             <div class="row align-items-center">
                 <div class="col-lg-6 text-white">
-                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 fs-6">{{ __('Led by medical professionals') }}</span>
-                    <h1 class="display-4 fw-bold mb-4">{{ __('World-Class Healthcare at') }} <span class="text-warning">{{ __('Affordable Prices') }}</span></h1>
-                    <p class="lead mb-4 text-white-75">{{ __('Access the best hospitals and doctors in India. Save up to 70% on medical treatments without compromising on quality.') }}</p>
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 fs-6">{{ __('Founded by Medical Professional') }}</span>
+                    <h1 class="display-4 fw-bold mb-4">{{ __('Your Trusted, Independent Guide to') }} <span class="text-warning">{{ __('Healthcare in India') }}</span></h1>
+                    <p class="lead mb-4 text-white-75">{{ __('Explore treatment options in India and get personalized cost guidance based on your medical needs — through a one-to-one consultation with our team') }}</p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="{{ route('get_quote') }}" class="btn btn-warning btn-lg fw-bold px-5">
                             <i class="bi bi-send me-2"></i>{{ __('Get Free Consultation') }}
@@ -37,19 +37,19 @@
                             <i class="bi bi-airplane" style="color:#fbbf24;"></i> {{ __('Travel & visa assistance') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-patch-check-fill" style="color:#a78bfa;"></i> {{ __('Verified, accredited hospitals') }}
+                            <i class="bi bi-patch-check-fill" style="color:#a78bfa;"></i> {{ __('Hospital recommendations based on your needs') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
                             <i class="bi bi-headset" style="color:#f9a8d4;"></i> {{ __('24/7 Patient assistance') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-file-medical" style="color:#fbbf24;"></i> {{ __('Free expert medical opinions') }}
+                            <i class="bi bi-file-medical" style="color:#fbbf24;"></i> {{ __('Personalized treatment guidance') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-lightning-charge-fill" style="color:#f472b6;"></i> {{ __('Fast inquiry response') }}
+                            <i class="bi bi-lightning-charge-fill" style="color:#f472b6;"></i> {{ __('Fast Response Within 24 Hours') }}
                         </span>
                         <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:600;color:#fff;">
-                            <i class="bi bi-bar-chart-line-fill" style="color:#34d399;"></i> {{ __('Price comparison') }}
+                            <i class="bi bi-currency-dollar" style="color:#34d399;"></i> {{ __('Transparent Treatment Costs') }}
                         </span>
                     </div>
                 </div>
@@ -185,10 +185,11 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">{{ __('Top Partner Hospitals') }}</h2>
-                <p class="text-muted mb-0">{{ __('JCI & NABH accredited hospitals across India') }}</p>
+                <h2 class="fw-bold mb-1">{{ __('How We Select Hospitals for You') }}</h2>
+                <p class="text-muted mb-1">{{ __('Independent. Transparent. Patient-First.') }}</p>
+                <p class="text-muted mb-0" style="max-width:640px;">{{ __("Our recommendations are based on the patient's medical needs, treatment goals, quality standards and budget — not on a fixed list of hospitals.") }}</p>
             </div>
-            <a href="{{ route('hospitals.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
+            <a href="{{ route('hospitals.index') }}" class="btn btn-outline-primary text-nowrap">{{ __('See Our Selection Process') }}</a>
         </div>
         <div class="row g-4">
             @foreach($hospitals as $hospital)
@@ -229,10 +230,11 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="fw-bold mb-1">{{ __('Expert Doctors') }}</h2>
-                <p class="text-muted mb-0">{{ __('Internationally trained specialists') }}</p>
+                <h2 class="fw-bold mb-1">{{ __('How We Select the Right Doctor') }}</h2>
+                <p class="text-muted mb-1">{{ __('Every recommendation is tailored to your medical needs.') }}</p>
+                <p class="text-muted mb-0" style="max-width:640px;">{{ __('Our recommendations are based on a structured evaluation of your diagnosis, specialist expertise and treatment goals — not on a fixed panel of doctors.') }}</p>
             </div>
-            <a href="{{ route('doctors.index') }}" class="btn btn-outline-primary">{{ __('View All') }}</a>
+            <a href="{{ route('doctors.index') }}" class="btn btn-outline-primary text-nowrap">{{ __('See Our Selection Process') }}</a>
         </div>
         <div class="row g-4">
             @foreach($doctors as $doctor)
