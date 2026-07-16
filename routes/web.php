@@ -13,7 +13,6 @@ use App\Http\Controllers\DestinationsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\InquiriesController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ChatController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\NewsletterController;
@@ -104,9 +103,6 @@ Route::get('/treatments/options',   [InquiriesController::class, 'treatmentsForS
 // Contact
 Route::get('/contact',  [ContactController::class, 'create'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-// Chat assistant
-Route::post('/chat', [ChatController::class, 'respond'])->name('chat.respond')->middleware('throttle:20,1');
 
 // Search
 Route::get('/search', [SearchController::class, 'index'])->name('search');

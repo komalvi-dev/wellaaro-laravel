@@ -19,11 +19,7 @@
             </div>
             @if($post->medically_reviewed_by)
             <div class="d-flex align-items-center gap-2 p-2 mb-4 bg-light rounded-3">
-                @if($post->medically_reviewed_by_photo_url)
-                    <img src="{{ $post->medically_reviewed_by_photo_url }}" alt="{{ $post->medically_reviewed_by }}" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
-                @else
-                    <i class="fas fa-user-md text-primary" style="font-size:1.5rem;width:40px;"></i>
-                @endif
+                <i class="fas fa-user-md text-primary" style="font-size:1.5rem;width:40px;"></i>
                 <span class="small text-muted">{{ __('Medically reviewed by') }} <strong class="text-dark">{{ $post->medically_reviewed_by }}</strong></span>
             </div>
             @endif

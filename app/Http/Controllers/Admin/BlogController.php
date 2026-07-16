@@ -51,12 +51,6 @@ class BlogController extends Controller
             );
         }
 
-        if ($request->hasFile('medically_reviewed_by_photo')) {
-            $data['medically_reviewed_by_photo_url'] = Storage::disk('public')->url(
-                $request->file('medically_reviewed_by_photo')->store('blog/reviewers', 'public')
-            );
-        }
-
         $post = BlogPost::create($data);
 
         if ($request->filled('tag_ids')) {
@@ -79,12 +73,6 @@ class BlogController extends Controller
         if ($request->hasFile('og_image')) {
             $data['og_image_url'] = Storage::disk('public')->url(
                 $request->file('og_image')->store('blog/og', 'public')
-            );
-        }
-
-        if ($request->hasFile('medically_reviewed_by_photo')) {
-            $data['medically_reviewed_by_photo_url'] = Storage::disk('public')->url(
-                $request->file('medically_reviewed_by_photo')->store('blog/reviewers', 'public')
             );
         }
 
@@ -132,8 +120,6 @@ class BlogController extends Controller
             'blog_category_id'   => 'nullable|exists:blog_categories,id',
             'author_name'        => 'nullable|string|max:255',
             'medically_reviewed_by' => 'nullable|string|max:255',
-            'medically_reviewed_by_photo' => 'nullable|file|image|max:2048',
-            'medically_reviewed_by_photo_url' => 'nullable|url|max:500',
             'featured_image_url' => 'nullable|url|max:500',
             'featured_image_alt' => 'nullable|string|max:255',
             'read_time_minutes'  => 'nullable|integer|min:1',
